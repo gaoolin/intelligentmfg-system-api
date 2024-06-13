@@ -1,5 +1,4 @@
-# FROM maven:3.6-jdk-8 AS builder
-FROM maven:3.6-jdk-8@sha256:808521df2ef9fc36369044914a54a88690d9d7257de081bad939b4dc2a8cbe31 AS builder
+FROM maven:3.6-jdk-8 AS builder
 
 WORKDIR /usr/src/app
 COPY ./pom.xml /usr/src/app/pom.xml
