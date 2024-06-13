@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtech.fixture.mapper.FixtureStatisticsInfoMapper">
+    <resultMap id="FixtureCategoryInfoResult" type="FixtureStatisticsInfo">
+        <result property="deptId" column="dept_id"/>
+        <result property="sharedFixtureCnt" column="shared_fixture_cnt"/>
+        <result property="unSharedFixtureCnt" column="unshared_fixture_cnt"/>
+        <result property="ttlProdTypeCnt" column="ttl_prod_type_cnt"/>
+        <result property="weekNum" column="week_num"/>
+        <result property="sharedRatio" column="shared_ratio"/>
+    </resultMap>
+
+    <sql id="FixturePanelDataVo">
+		select
+			tb.dept_id,
+			unshared_fixture as unshared_fixture_cnt,
+			shared_fixture as shared_fixture_cnt,
+			p_id_distinct as ttl_prod_type_cnt
+		from
+			(
+			select
+				dept_id,
+				sum(case when p_cnt = 1 then 1 else 0 end) as unshared_fixture,
+				sum(case when p_cnt > 1 then 1 else 0 end) as shared_fixture
+			from
+				(
+				select
+					dept_id,
+					m_id ,
+					count(p_id) as p_cnt
+				from
+					qtech_biz_2.fixture_material_category_prod_type
+				group by
+					dept_id,
+					m_id) ta
+			group by
+				dept_id) tb
+		left join (
+			select
+				dept_id,
+				count(distinct p_id) as p_id_distinct
+			from
+				qtech_biz_2.fixture_material_category_prod_type
+			group by
+				dept_id) tc
+			on
+			tb.dept_id = tc.dept_id
+		order by tb.dept_id asc
+    </sql>
+
+
+    <select id="selectFixturePanelData" resultMap="FixtureCategoryInfoResult">
+        <include refid="FixturePanelDataVo"/>
+    </select>
+    <select id="getFixtureTrendingData" parameterType="string" resultMap="FixtureCategoryInfoResult">
+		select
+			dept_id,
+			concat(year, '-', week_num) as week_num,
+			p_cnt,
+			m_cnt,
+			p_cnt / m_cnt - 1 as shared_ratio
+		from
+			(
+			select
+				dept_id,
+				year(create_time) as year,
+				weekofyear(create_time) as week_num,
+				count(distinct m_id) as m_cnt,
+				count(p_id) as p_cnt
+			from
+				qtech_biz_2.fixture_material_category_prod_type
+			where
+				create_time > date_sub(#{dt}, interval 6 month)
+			group by
+				dept_id,
+				year(create_time),
+				weekofyear(create_time)) ta
+		order by
+			dept_id asc,
+			week_num asc;
+	</select>
+	<select id="getFixtureTrendingDataCurrentWeek" resultMap="FixtureCategoryInfoResult">
+
+	</select>
+	<select id="getFixtureHistoryTrendingData" resultType="com.qtech.fixture.domain.FixtureStatisticsInfo">
+		select * from qtech_biz_2.fixture_statistics
+	</select>
+</mapper>

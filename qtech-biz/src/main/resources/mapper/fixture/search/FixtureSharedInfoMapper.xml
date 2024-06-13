@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtech.fixture.mapper.FixtureSharedInfoMapper">
+    <resultMap id="FixtureSharedInfoResult" type="FixtureSharedInfo">
+        <result property="id" column="id" />
+        <result property="mId" column="m_id"/>
+        <result property="cId" column="c_id"/>
+        <result property="pId" column="p_id"/>
+        <result property="prodType" column="prod_type"/>
+        <result property="fixtureCategory" column="fixture_category"/>
+        <result property="buckle" column="buckle"/>
+        <result property="fixtureName" column="fixture_name"/>
+        <result property="fixtureSpec" column="fixture_spec"/>
+        <result property="fixtureVersion" column="fixture_version"/>
+        <result property="materialId" column="material_id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectFixtureSharedInfoVo">
+        SELECT ta.id, tb.m_id, tc.c_id, td.p_id, tb.material_id, tb.fixture_name, tb.fixture_spec, td.prod_type, tb.fixture_version, tb.buckle, tc.fixture_category, ta.create_by, ta.create_time, ta.update_by, ta.update_time, ta.remark, ta.dept_id
+        FROM qtech_biz_2.fixture_material_category_prod_type ta
+        left join qtech_biz_2.fixture_material_info tb on ta.m_id = tb.m_id and ta.dept_id = tb.dept_id
+        left join qtech_biz_2.fixture_category_info tc on ta.c_id = tc.c_id and ta.dept_id = tc.dept_id
+        left join qtech_biz_2.fixture_prod_type_info td on ta.p_id = td.p_id and ta.dept_id = td.dept_id
+    </sql>
+
+    <select id="selectFixtureSharedInfoList" parameterType="FixtureSharedInfo" resultMap="FixtureSharedInfoResult">
+        <include refid="selectFixtureSharedInfoVo" />
+        <where>
+            <if test="prodType != null  and prodType != ''">and prod_type like concat('%', #{prodType}, '%')</if>
+            <if test="fixtureCategory != null">and fixture_category = #{fixtureCategory}</if>
+            <if test="materialId != null  and materialId != ''">and material_id = #{materialId}</if>
+            <if test="deptId != null and deptId != ''">and ta.dept_id = #{deptId}</if>
+            <if test="userId != null and userId != ''">and ta.user_id = #{userId}</if>
+            ${params.dataScope}
+        </where>
+        order by material_id asc, fixture_name, fixture_category, fixture_version, buckle, prod_type
+    </select>
+
+    <select id="selectFixtureSharedInfoOne" parameterType="FixtureSharedInfo" resultMap="FixtureSharedInfoResult">
+        <include refid="selectFixtureSharedInfoVo" />
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="mId != null and mId != ''">and m_id = #{mId}</if>
+            <if test="cId != null and cId != ''">and c_id = #{cId}</if>
+            <if test="pId != null and pId != ''">and p_id = #{pId}</if>
+            <if test="prodType != null and prodType != ''">and prod_type = #{prodType}</if>
+            <if test="fixtureCategory != null and fixtureCategory != ''">and fixture_category = #{fixtureCategory}</if>
+            <if test="buckle != null">and buckle = #{buckle}</if>
+            <if test="fixtureName != null and fixtureName != ''">and fixture_name = #{fixtureName}</if>
+            <if test="fixtureVersion != null and fixtureVersion != ''">and fixture_version = #{fixtureVersion}</if>
+            <if test="materialId != null and materialId != ''">and material_id = #{materialId}</if>
+            <if test="createBy != null and createBy != ''">and create_by = #{createBy}</if>
+            <if test="updateBy != null and updateBy != ''">and update_by = #{updateBy}</if>
+            <if test="deptId != null and deptId != ''">and ta.dept_id = #{deptId}</if>
+            <if test="userId != null and userId != ''">and ta.user_id = #{userId}</if>
+            ${params.dataScope}
+        </where>
+    </select>
+    <select id="selectFixtureSharedInfoById" resultMap="FixtureSharedInfoResult">
+        <include refid="selectFixtureSharedInfoVo" />
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+        </where>
+    </select>
+
+    <delete id="deleteFixtureSharedInfoById" parameterType="Long">
+        delete from qtech_biz_2.fixture_shared_info ta
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="deptId != null and deptId != ''">and ta.dept_id = #{deptId}</if>
+            <if test="userId != null and userId != ''">and ta.user_id = #{userId}</if>
+            ${params.dataScope}
+        </where>
+    </delete>
+
+    <delete id="deleteFixtureSharedInfoByIds" parameterType="String">
+        delete from qtech_biz_2.fixture_shared_info ta where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectFixtureSharedInfoDeptIds" resultMap="FixtureSharedInfoResult">
+        SELECT dept_id FROM sys_dept ta
+        <where>
+            <if test="deptId != null and deptId != ''">and dept_id = #{deptId}</if>
+            <if test="deptId != null and deptId != ''">or find_in_set( #{deptId} , ancestors )</if>
+        </where>
+    </select>
+</mapper>

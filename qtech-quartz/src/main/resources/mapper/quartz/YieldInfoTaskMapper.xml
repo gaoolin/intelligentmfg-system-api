@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtech.quartz.mapper.YieldInfoTaskMapper">
+
+    <resultMap id="YieldInfoResult" type="YieldInfo">
+        <result property="day" column="day"/>
+        <result property="rq" column="rq"/>
+        <result property="factoryName" column="factory_name"/>
+        <result property="workshopCode" column="workshop_code"/>
+        <result property="partSpec" column="part_spec"/>
+        <result property="lineWorkshop" column="line_workshop"/>
+        <result property="testStation" column="test_station"/>
+        <result property="output" column="output"/>
+        <result property="planQty" column="plan_qty"/>
+        <result property="deviceQty" column="device_qty"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <insert id="save2KuduBatch">
+        -- 根据主键判定，若已经存在则更新，若不存在则插入
+        insert into DATA_CLEAN_DB.ADS_YIELD_INFO_DETAIL(`day`,rq,factory_name,workshop_code,part_spec,line_workshop,test_station,`output`,plan_qty,device_qty,update_time) values
+        <foreach collection="list" separator="," item="item">
+            (#{item.day},#{item.rq},#{item.factoryName},#{item.workshopCode},#{item.partSpec},#{item.lineWorkshop},#{item.testStation},#{item.output},#{item.planQty},#{item.deviceQty},#{item.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="save2Kudu" parameterType="YieldInfo">
+		insert into DATA_CLEAN_DB.ADS_YIELD_INFO_DETAIL (`day`,rq,factory_name,workshop_code,part_spec,line_workshop,test_station,`output`,plan_qty,device_qty,update_time) values
+		(#{day},#{rq},#{factoryName},#{workshopCode},#{partSpec},#{lineWorkshop},#{testStation},#{output},#{planQty},#{deviceQty},#{updateTime})
+	</insert>
+
+    <select id="doYieldInfoTask" resultMap="YieldInfoResult">
+		WITH TA AS (select rq,
+		workshop_code,
+		station,
+		part_spec,
+		factory_name as factory_name,
+		line_workshop,
+		sum(output)  as output
+		from ((select a.riqi                                                                            as rq,
+		a.workshop                                                                        as workshop_code,
+		a.station,
+		a.part_spec,
+		B.EATTRIBUTE1                                                                     as factory_name,
+		NVL(regexp_substr(a.qty, '\d*(\d*\.\d*)?'), 0)                                    as output,
+		(case when line_Code = '十级' then 'COB' when line_Code = '千级' then '测试' end) as line_workshop
+		from ckmes.b_dayentry_output@MES a
+		left join ckmes.B_WORKSHOP@MES b on a.WORKSHOP = b.WORKSHOP_CODE
+		where to_number(a.riqi) between to_number(to_char(sysdate - 7, 'YYYYMMDD')) and to_number(to_char(sysdate + 1, 'YYYYMMDD')))
+		union all
+		(select to_char(a.day, 'YYYYMMDD') as rq,
+		a.workshop_code,
+		a.line_code                as station,
+		a.part_spec,
+		B.EATTRIBUTE1              as factory_name,
+		a.output,
+		'COB'                      as line_workshop
+		from ckmes.T_AA_SFOUTPUT@MES a
+		left join ckmes.B_WORKSHOP@MES b on a.WORKSHOP_CODE = b.WORKSHOP_CODE
+		-- where  a.day between to_date('2019-10-01','YYYY-MM-DD') and to_date('2019-10-10','YYYY-MM-DD')
+		where a.day between trunc(sysdate - 7) and trunc(sysdate) + 1)) P
+		where output > 0
+		group by rq, workshop_code, station, part_spec, factory_name, line_workshop, station),
+		TB AS (select rq, part_spec, line_workshop, factory_name, workshop_code, sum(plan_qty) as plan_qty
+		from (select m.rq, m.part_spec, m.line_workshop, n.factory as factory_name, n.workshop_code, plan_qty
+		from (
+		--20200701 修正线体排程数据源
+		select DISTINCT WORCKSCH_FRONT001 PART_SPEC,
+		WORCKSCH_FRONT002 coding,
+		WORCKSCH_FRONT003 RQ,
+		WORCKSCH_FRONT004 plan_qty,
+		'COB'             LINE_WORKSHOP
+		from dsaws.worksch_front_t@ERP
+		WHERE to_number(WORCKSCH_FRONT003) between to_number(to_char(sysdate - 7, 'YYYYMMDD')) and to_number(to_char(sysdate + 1, 'YYYYMMDD'))
+		UNION ALL
+		select DISTINCT WORCKSCH_BACK001 PART_SPEC,
+		WORCKSCH_BACK002 coding,
+		WORCKSCH_BACK003 RQ,
+		WORCKSCH_BACK004 plan_qty,
+		'测试'           LINE_WORKSHOP
+		from dsaws.worksch_back_t@ERP
+		WHERE to_number(WORCKSCH_BACK003) between to_number(to_char(sysdate - 7, 'YYYYMMDD')) and to_number(to_char(sysdate + 1, 'YYYYMMDD'))) M
+		LEFT JOIN (SELECT DISTINCT coding, factory, workshop_code
+		FROM ckmes.t_line_name@MES
+		WHERE IS_VALID = '1' AND coding IS NOT NULL) N ON m.coding = n.coding)
+		group by rq, part_spec, line_workshop, factory_name, workshop_code),
+		TC AS (select eattribute1 as  factory_name,
+		workshop_code,
+		line_workshop,
+		sum(device_qty) device_qty
+		from (select eattribute1,
+		workshop_code,
+		op_code,
+		line_workshop,
+		EATTRIBUTE3,
+		DEVICE_NAME,
+		NVL(regexp_substr(DEVICE_QTY, '\d*(\d*\.\d*)?'), 0) as DEVICE_QTY
+		from ckmes.T_LINE_EQUIPMENT@MES
+		group by eattribute1, workshop_code, op_code, line_workshop, EATTRIBUTE3, DEVICE_NAME,
+		NVL(regexp_substr(DEVICE_QTY, '\d*(\d*\.\d*)?'), 0))
+		group by eattribute1, workshop_code, line_workshop)
+
+		select m.day,
+		m.rq,
+		m.factory_name,
+		m.workshop_code,
+		m.part_spec,
+		m.line_workshop,
+		m.test_station,
+		sum(m.output)     as output,
+		sum(m.plan_qty)   as plan_qty,
+		sum(n.device_qty) as device_qty,
+		sysdate           as update_time
+		from (select x.rq,
+		x.factory_name,
+		x.workshop_code,
+		x.part_spec,
+		x.station                                                                                           as test_station,
+		x.output / 1000                                                                                     as output,
+		y.plan_qty / 1000                                                                                   as plan_qty,
+		x.line_workshop,
+		to_date(substr(x.rq, 1, 4) || '-' || substr(x.rq, 5, 2) || '-' || substr(x.rq, 7, 2), 'YYYY-MM-DD') as day,
+		(case
+		when x.workshop_code = '生产一区' then 1
+		when x.workshop_code = '生产二区' then 2
+		when x.workshop_code = '生产三区' then 3
+		when x.workshop_code = '生产四区' then 4
+		when x.workshop_code = '生产五区' then 5
+		when x.workshop_code = '生产六区' then 6
+		when x.workshop_code = '生产七区' then 7
+		when x.workshop_code = '生产八区' then 8
+		when x.workshop_code = '生产九区' then 9
+		when x.workshop_code = '生产十区' then 10
+		else 11 end)                                                                                   as workshop_code_order,
+		(case
+		when x.line_workshop = 'COB' then 1
+		when x.line_workshop = '测试'
+		then 2 end)                                                                                as line_workshop_order
+
+		from TA X,
+		TB Y
+		where x.part_spec = y.part_spec
+		and x.rq = y.rq
+		and x.line_workshop = y.line_workshop
+		and x.workshop_code = y.workshop_code
+		and x.factory_name = y.factory_name) M,
+		TC N
+		where m.factory_name = n.factory_name(+)
+		and m.workshop_code = n.workshop_code(+)
+		and m.line_workshop = n.line_workshop(+)
+		and m.plan_qty is not null
+		and m.plan_qty != 0
+		and m.output is not null
+		and m.factory_name is not null
+		and m.test_station is not null
+		group by m.day, m.rq, m.factory_name, m.workshop_code, m.part_spec, m.line_workshop, m.test_station
+    </select>
+
+</mapper>

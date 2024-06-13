@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtech.fixture.mapper.FixtureCategoryInfoMapper">
+    <resultMap id="FixtureCategoryInfoResult" type="FixtureCategoryInfo">
+        <result property="cId" column="c_id" />
+        <result property="fixtureCategory" column="fixture_category" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="deptId" column="dept_id" />
+        <result property="userId" column="user_id" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="FixtureCategoryInfoVo">
+        SELECT c_id, fixture_category, create_by, create_time, update_by, update_time, dept_id, remark FROM qtech_biz_2.fixture_category_info ta
+    </sql>
+
+    <insert id="addFixtureCategoryInfo" useGeneratedKeys="true" keyProperty="cId" keyColumn="c_id">
+        insert into qtech_biz_2.fixture_category_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fixtureCategory != null and fixtureCategory != ''">fixture_category,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fixtureCategory != null and fixtureCategory != ''">#{fixtureCategory},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="editFixtureCategoryInfo" parameterType="FixtureCategoryInfo">
+        update qtech_biz_2.fixture_category_info ta
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fixtureCategory != null and fixtureCategory != ''">fixture_category = #{fixtureCategory},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        <where>
+            <if test="cId !=null">and c_id = #{cId}</if>
+            <if test="deptId != null">and dept_id = #{deptId}</if>
+            <if test="userId != null">and user_id = #{userId}</if>
+            ${params.dataScope}
+        </where>
+    </update>
+
+    <delete id="removeFixtureCategoryInfo" parameterType="java.lang.Long">
+        delete from qtech_biz_2.fixture_category_info
+        <where>
+            <if test="cId != null">and c_id = #{cId}</if>
+        </where>
+    </delete>
+
+    <select id="selectFixtureCategoryInfoOne" resultMap="FixtureCategoryInfoResult">
+        <include refid="FixtureCategoryInfoVo" />
+        <where>
+            <if test="cId != null">and c_id = #{cId}</if>
+            <if test="fixtureCategory != null and fixtureCategory != ''">and fixture_category = #{fixtureCategory}</if>
+            <if test="createBy != null">and create_by = #{createBy}</if>
+            <if test="updateBy != null">and update_by = #{updateBy}</if>
+            <if test="deptId != null">and dept_id = #{deptId}</if>
+            <if test="userId != null">and user_id = #{userId}</if>
+            ${params.dataScope}
+        </where>
+    </select>
+
+    <select id="selectFixtureCategoryInfoList" resultMap="FixtureCategoryInfoResult">
+        <include refid="FixtureCategoryInfoVo" />
+        <where>
+            <if test="fixtureCategory != null and fixtureCategory != ''">and fixture_category = #{fixtureCategory}</if>
+            <if test="deptId != null">and dept_id = #{deptId}</if>
+            <if test="userId != null">and user_id = #{userId}</if>
+            ${params.dataScope}
+        </where>
+    </select>
+</mapper>

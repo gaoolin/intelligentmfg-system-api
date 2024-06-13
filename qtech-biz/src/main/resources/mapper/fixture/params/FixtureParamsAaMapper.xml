@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtech.fixture.mapper.FixtureParamsAaMapper">
+    <resultMap id="fixtureParamsAaResult" type="FixtureParamsAa">
+        <result property="id" column="id"/>
+        <result property="materialId" column="material_id"/>
+        <result property="fixtureName" column="fixture_name"/>
+        <result property="fixtureSpec" column="fixture_spec"/>
+        <result property="buckle" column="buckle"/>
+        <result property="fixtureVersion" column="fixture_version"/>
+        <result property="prodType" column="prod_type"/>
+        <result property="connectorModel" column="connector_model"/>
+        <result property="cId" column="c_id"/>
+        <result property="fixtureCategory" column="fixture_category"/>
+        <result property="processRequirements" column="process_requirements"/>
+        <result property="motorModel" column="motor_model"/>
+        <result property="motorPinDirection" column="motor_pin_direction"/>
+        <result property="aaClampingDirection" column="aa_clamping_direction"/>
+        <result property="motorPowerPinDirection" column="motor_power_pin_direction"/>
+        <result property="lensModel" column="lens_model"/>
+        <result property="dFovAngle" column="d_fov_angle"/>
+        <result property="aaDistance" column="aa_distance"/>
+        <result property="sensorModel" column="sensor_model"/>
+        <result property="effectivePixels" column="effective_pixels"/>
+        <result property="moduleHeadWidth" column="module_head_width"/>
+        <result property="moduleHeadLength" column="module_head_length"/>
+        <result property="reinforcementBoardWidth" column="reinforcement_board_width"/>
+        <result property="reinforcementPlateLength" column="reinforcement_plate_length"/>
+        <result property="fpcWidth" column="fpc_width"/>
+        <result property="fpcLength" column="fpc_length"/>
+        <result property="protectiveFilmThickness" column="protective_film_thickness"/>
+        <result property="modulePlacement" column="module_placement"/>
+        <result property="mcId" column="mc_id"/>
+        <result property="prodLevel" column="prod_level"/>
+        <result property="fixtureSharedStatus" column="fixture_shared_status"/>
+        <result property="remark" column="remark"/>
+        <result property="deptId" column="dept_id"/>
+    </resultMap>
+
+    <sql id="fixtureParamsAaVo">
+        select *
+        from (select ta.id,
+                     ta.material_id,
+                     ta.fixture_name,
+                     ta.fixture_spec,
+                     ta.buckle,
+                     ta.fixture_version,
+                     ta.connector_model,
+                     tb.fixture_category,
+                     mc_id,
+                     prod_level,
+                     process_requirements,
+                     motor_model,
+                     motor_pin_direction,
+                     aa_clamping_direction,
+                     motor_power_pin_direction,
+                     lens_model,
+                     d_fov_angle,
+                     aa_distance,
+                     sensor_model,
+                     effective_pixels,
+                     module_placement,
+                     module_head_width,
+                     module_head_length,
+                     reinforcement_board_width,
+                     reinforcement_plate_length,
+                     fpc_width,
+                     fpc_length,
+                     protective_film_thickness,
+                     ta.dept_id,
+                     case
+                         when td.m_id is not null then 1
+                         else 0
+                         end as fixture_shared_status,
+                     ta.remark
+              from qtech_biz_2.fixture_params_aa ta
+                       left join
+                   qtech_biz_2.fixture_category_info tb
+                   on
+                       ta.c_id = tb.c_id
+                       left join
+                   qtech_biz_2.fixture_material_info tc
+                   on
+                               ta.material_id = tc.material_id
+                           and tc.dept_id = 210
+                       left join
+                   (select distinct m_id
+                    from qtech_biz_2.fixture_material_category_prod_type) td
+                   on
+                               tc.m_id = td.m_id
+                           and tc.dept_id = 210) te
+    </sql>
+
+    <insert id="addFixtureParamsAa">
+        insert into qtech_biz_2.fixture_params_aa
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="materialId != null and materialId != ''">material_id,</if>
+            <if test="fixtureName != null and fixtureName != ''">fixture_name,</if>
+            <if test="fixtureSpec != null and fixtureSpec != ''">fixture_spec,</if>
+            <if test="buckle != null">buckle,</if>
+            <if test="fixtureVersion != null and fixtureVersion != ''">fixture_version,</if>
+            <if test="connectorModel != null and connectorModel != ''">connector_model,</if>
+            <if test="cId != null">c_id,</if>
+            <if test="processRequirements != null">process_requirements,</if>
+            <if test="motorModel != null and motorModel != ''">motor_model,</if>
+            <if test="motorPinDirection != null">motor_pin_direction,</if>
+            <if test="aaClampingDirection != null">aa_clamping_direction,</if>
+            <if test="motorPowerPinDirection != null">motor_power_pin_direction,</if>
+            <if test="lensModel != null and lensModel != ''">lens_model,</if>
+            <if test="dFovAngle != null">d_fov_angle,</if>
+            <if test="aaDistance != null">aa_distance,</if>
+            <if test="sensorModel != null and sensorModel != ''">sensor_model,</if>
+            <if test="effectivePixels != null and effectivePixels != ''">effective_pixels,</if>
+            <if test="moduleHeadWidth != null">module_head_width,</if>
+            <if test="moduleHeadLength != null">module_head_length,</if>
+            <if test="reinforcementBoardWidth != null">reinforcement_board_width,</if>
+            <if test="reinforcementPlateLength != null">reinforcement_plate_length,</if>
+            <if test="fpcWidth != null">fpc_width,</if>
+            <if test="fpcLength != null">fpc_length,</if>
+            <if test="protectiveFilmThickness != null">protective_film_thickness,</if>
+            <if test="modulePlacement != null">module_placement,</if>
+            <if test="mcId != null">mc_id,</if>
+            <if test="prodLevel != null">prod_level,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="deptId != null">dept_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="materialId != null and materialId != ''">#{materialId},</if>
+            <if test="fixtureName != null and fixtureName != ''">#{fixtureName},</if>
+            <if test="fixtureSpec != null and fixtureSpec != ''">#{fixtureSpec},</if>
+            <if test="buckle != null">#{buckle},</if>
+            <if test="fixtureVersion != null and fixtureVersion != ''">#{fixtureVersion},</if>
+            <if test="connectorModel != null and connectorModel != ''">#{connectorModel},</if>
+            <if test="cId != null">#{cId},</if>
+            <if test="processRequirements != null">#{processRequirements},</if>
+            <if test="motorModel != null and motorModel != ''">#{motorModel},</if>
+            <if test="motorPinDirection != null">#{motorPinDirection},</if>
+            <if test="aaClampingDirection != null">#{aaClampingDirection},</if>
+            <if test="motorPowerPinDirection != null">#{motorPowerPinDirection},</if>
+            <if test="lensModel != null and lensModel != ''">#{lensModel},</if>
+            <if test="dFovAngle != null">#{dFovAngle},</if>
+            <if test="aaDistance != null">#{aaDistance},</if>
+            <if test="sensorModel != null and sensorModel != ''">#{sensorModel},</if>
+            <if test="effectivePixels != null and effectivePixels != ''">#{effectivePixels},</if>
+            <if test="moduleHeadWidth != null">#{moduleHeadWidth},</if>
+            <if test="moduleHeadLength != null">#{moduleHeadLength},</if>
+            <if test="reinforcementBoardWidth != null">#{reinforcementBoardWidth},</if>
+            <if test="reinforcementPlateLength != null">#{reinforcementPlateLength},</if>
+            <if test="fpcWidth != null">#{fpcWidth},</if>
+            <if test="fpcLength != null">#{fpcLength},</if>
+            <if test="protectiveFilmThickness != null">#{protectiveFilmThickness},</if>
+            <if test="modulePlacement != null">#{modulePlacement},</if>
+            <if test="mcId != null">#{mcId},</if>
+            <if test="prodLevel != null">#{prodLevel},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="deptId != null">#{deptId},</if>
+        </trim>
+    </insert>
+
+    <update id="editFixtureParamsAa">
+        update qtech_biz_2.fixture_params_aa
+        <set>
+            <if test="materialId != null and materialId != ''">material_id = #{materialId},</if>
+            <if test="fixtureName != null and fixtureName != ''">fixture_name = #{fixtureName},</if>
+            <if test="fixtureSpec != null and fixtureSpec != ''">fixture_spec = #{fixtureSpec},</if>
+            <if test="buckle != null">buckle = #{buckle},</if>
+            <if test="fixtureVersion != null and fixtureVersion !=''">fixture_version = #{fixtureVersion},</if>
+            <if test="connectorModel != null and connectorModel != ''">connector_model = #{connectorModel},</if>
+            <if test="cId != null">c_id = #{cId},</if>
+            <if test="processRequirements != null">process_requirements = #{processRequirements},</if>
+            <if test="motorModel != null and motorModel != ''">motor_model = #{motorModel},</if>
+            <if test="motorPinDirection != null">motor_pin_direction = #{motorPinDirection},</if>
+            <if test="aaClampingDirection != null">aa_clamping_direction = #{aaClampingDirection},</if>
+            <if test="motorPowerPinDirection != null">motor_power_pin_direction = #{motorPowerPinDirection},</if>
+            <if test="lensModel != null and lensModel != ''">lens_model = #{lensModel},</if>
+            <if test="dFovAngle != null">d_fov_angle = #{dFovAngle},</if>
+            <if test="aaDistance != null">aa_distance = #{aaDistance},</if>
+            <if test="sensorModel != null and sensorModel != ''">sensor_model = #{sensorModel},</if>
+            <if test="effectivePixels != null and effectivePixels != ''">effective_pixels = #{effectivePixels},</if>
+            <if test="moduleHeadWidth != null">module_head_width = #{moduleHeadWidth},</if>
+            <if test="moduleHeadLength != null">module_head_length = #{moduleHeadLength},</if>
+            <if test="reinforcementBoardWidth != null">reinforcement_board_width = #{reinforcementBoardWidth},</if>
+            <if test="reinforcementPlateLength != null">reinforcement_plate_length = #{reinforcementPlateLength},</if>
+            <if test="fpcWidth != null">fpc_width = #{fpcWidth},</if>
+            <if test="fpcLength != null">fpc_length = #{fpcLength},</if>
+            <if test="protectiveFilmThickness != null">protective_film_thickness = #{protectiveFilmThickness},</if>
+            <if test="modulePlacement != null">module_placement = #{modulePlacement},</if>
+            <if test="mcId != null">mc_id = #{mcId},</if>
+            <if test="prodLevel != null">prod_level = #{prodLevel},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <delete id="removeFixtureParamsAa">
+        delete from qtech_biz_2.fixture_params_aa
+        <where>
+            <trim prefixOverrides="and |or ">
+                <if test="id != null">and id = #{id}</if>
+                <if test="materialId != null and materialId != ''">and material_id = #{materialId}</if>
+                <if test="deptId != null">and dept_id = #{deptId}</if>
+            </trim>
+        </where>
+    </delete>
+
+    <select id="selectFixtureParamsAaList" resultMap="fixtureParamsAaResult">
+        <include refid="fixtureParamsAaVo"/>
+        <where>
+            <trim prefixOverrides="and |or ">
+                <if test="materialId != null and materialId != ''">and material_id = #{materialId}</if>
+                <if test="fixtureName != null and fixtureName != ''">and fixture_name = #{fixtureName}</if>
+                <if test="fixtureSpec != null and fixtureSpec != ''">and fixture_spec = #{fixtureSpec}</if>
+                <if test="buckle != null">and buckle = #{buckle}</if>
+                <if test="fixtureVersion != null and fixtureVersion != ''">and fixture_version = #{fixtureVersion}</if>
+                <if test="connectorModel != null and connectorModel != ''">and connector_model like concat('%',
+                    #{connectorModel}, '%')
+                </if>
+                <if test="fixtureCategory != null and fixtureCategory != ''">and fixture_category = #{fixtureCategory}
+                </if>
+                <if test="processRequirements != null">and process_requirements = #{processRequirements}</if>
+                <if test="motorModel != null and motorModel != ''">and motor_model like concat('%', #{motorModel},
+                    '%')
+                </if>
+                <if test="motorPinDirection != null">and motor_pin_direction = #{motorPinDirection}</if>
+                <if test="aaClampingDirection != null">and aa_clamping_direction = #{aaClampingDirection}</if>
+                <if test="motorPowerPinDirection != null">and motor_power_pin_direction = #{motorPowerPinDirection}</if>
+                <if test="lensModel != null and lensModel != ''">and lens_model like concat('%', #{lensModel}, '%')</if>
+                <if test="dFovAngle != null and dFovAngle != ''">and d_fov_angle between #{dFovAngle} * (1 -
+                    #{deviation} / 100) and #{dFovAngle} * (1 + #{deviation} / 100)
+                </if>
+                <if test="aaDistance != null">and aa_distance between #{aaDistance} * (1 - #{deviation} / 100) and
+                    #{aaDistance} * (1 + #{deviation} / 100)
+                </if>
+                <if test="sensorModel != null and sensorModel != ''">and sensor_model like concat('%', #{sensorModel},
+                    '%')
+                </if>
+                <if test="effectivePixels != null and effectivePixels != ''">and effective_pixels = #{effectivePixels}
+                </if>
+                <if test="moduleHeadWidth != null and moduleHeadWidth != ''">and module_head_width between
+                    #{moduleHeadWidth} * (1 - #{deviation} / 100) and #{moduleHeadWidth} * (1 + #{deviation} / 100)
+                </if>
+                <if test="moduleHeadLength != null and moduleHeadLength != ''">and module_head_length between
+                    #{moduleHeadLength} * (1 - #{deviation} / 100) and #{moduleHeadLength} * (1 + #{deviation} / 100)
+                </if>
+                <if test="reinforcementBoardWidth != null and reinforcementBoardWidth != ''">and
+                    reinforcement_board_width between #{reinforcementBoardWidth} * (1 - #{deviation} / 100) and
+                    #{reinforcementBoardWidth} * (1 + #{deviation} / 100)
+                </if>
+                <if test="reinforcementPlateLength != null and reinforcementPlateLength != ''">and
+                    reinforcement_plate_length between #{reinforcementPlateLength} * (1 - #{deviation} / 100) and
+                    #{reinforcementPlateLength} * (1 + #{deviation} / 100)
+                </if>
+                <if test="fpcWidth != null and fpcWidth != ''">and fpc_width between #{fpcWidth} * (1 - #{deviation} /
+                    100) and #{fpcWidth} * (1 + #{deviation} / 100)
+                </if>
+                <if test="fpcLength != null and fpcLength != ''">and fpc_length between #{fpcLength} * (1 - #{deviation}
+                    / 100) and #{fpcLength} * (1 + #{deviation} / 100)
+                </if>
+                <if test="protectiveFilmThickness != null and protectiveFilmThickness != ''">and
+                    protective_film_thickness between #{protectiveFilmThickness} and #{protectiveFilmThickness} * (1 +
+                    #{deviation} / 100)
+                </if>
+                <if test="modulePlacement != null">and module_placement = #{modulePlacement}</if>
+                <if test="mcId != null">and mc_id = #{mcId}</if>
+                <if test="prodLevel != null">and prod_level = #{prodLevel}</if>
+                <if test="remark != null and remark != ''">and remark = #{remark}</if>
+                <if test="deptId != null">and dept_id = #{deptId}</if>
+                ${params.dataScope}
+            </trim>
+        </where>
+    </select>
+
+    <select id="selectOneFixtureParamsAa" resultMap="fixtureParamsAaResult">
+        <include refid="fixtureParamsAaVo"/>
+        <where>
+            <trim prefixOverrides="and |or ">
+                <if test="id != null and id != ''">id = #{id}</if>
+                <if test="materialId != null and materialId != ''">and material_id = #{materialId}</if>
+                <if test="fixtureName != null and fixtureName != ''">and fixture_name = #{fixtureName}</if>
+                <if test="fixtureSpec != null and fixtureSpec != ''">and fixture_spec = #{fixtureSpec}</if>
+                <if test="buckle != null">and buckle = #{buckle}</if>
+                <if test="fixtureVersion != null and fixtureVersion != ''">and fixture_version = #{fixtureVersion}</if>
+                <if test="connectorModel != null and connectorModel != ''">and connector_model = #{connectorModel}</if>
+                <if test="fixtureCategory != null and fixtureCategory != ''">and fixture_category = #{fixtureCategory}
+                </if>
+                <if test="processRequirements != null">and process_requirements = #{processRequirements}</if>
+                <if test="motorModel != null and motorModel != ''">and motor_model = #{motorModel}</if>
+                <if test="motorPinDirection != null">and motor_pin_direction = #{motorPinDirection}</if>
+                <if test="aaClampingDirection != null">and aa_clamping_direction = #{aaClampingDirection}</if>
+                <if test="motorPowerPinDirection != null">and motor_power_pin_direction = #{motorPowerPinDirection}</if>
+                <if test="lensModel != null and lensModel != ''">and lens_model = #{lensModel}</if>
+                <if test="dFovAngle != null and dFovAngle != ''">and d_fov_angle = #{dFovAngle}</if>
+                <if test="aaDistance != null">and aa_distance = #{aaDistance}</if>
+                <if test="sensorModel != null and sensorModel != ''">and sensor_model = #{sensorModel}</if>
+                <if test="effectivePixels != null and effectivePixels != ''">and effective_pixels = #{effectivePixels}
+                </if>
+                <if test="moduleHeadWidth != null and moduleHeadWidth != ''">and module_head_width =
+                    #{moduleHeadWidth}
+                </if>
+                <if test="moduleHeadLength != null and moduleHeadLength != ''">and module_head_length =
+                    #{moduleHeadLength}
+                </if>
+                <if test="reinforcementBoardWidth != null and reinforcementBoardWidth != ''">and
+                    reinforcement_board_width = #{reinforcementBoardWidth}
+                </if>
+                <if test="reinforcementPlateLength != null and reinforcementPlateLength != ''">and
+                    reinforcement_plate_length = #{reinforcementPlateLength}
+                </if>
+                <if test="fpcWidth != null and fpcWidth != ''">and fpc_width = #{fpcWidth}</if>
+                <if test="fpcLength != null and fpcLength != ''">and fpc_length = #{fpcLength}</if>
+                <if test="protectiveFilmThickness != null and protectiveFilmThickness != ''">and
+                    protective_film_thickness = #{protectiveFilmThickness}
+                </if>
+                <if test="modulePlacement != null">and module_placement = #{modulePlacement}</if>
+                <if test="mcId != null">and mc_id = #{mcId}</if>
+                <if test="prodLevel != null">and prod_level = #{prodLevel}</if>
+                <if test="remark != null and remark != ''">and remark = #{remark}</if>
+                <if test="deptId != null">and dept_id = #{deptId}</if>
+                ${params.dataScope}
+            </trim>
+        </where>
+    </select>
+</mapper>

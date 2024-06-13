@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtech.quartz.mapper.BomSensorWireUsageTaskMapper">
+    <resultMap id="BomSensorWireUsageTaskResult" type="BomSensorWireUsage">
+        <result property="finishedId" column="finished_id"/>
+        <result property="partSpec" column="part_spec"/>
+        <result property="mDate" column="mdate"/>
+        <result property="WbWirePartNo" column="wb_wire_part_no"/>
+        <result property="WbWireProdName" column="wb_wire_prod_name"/>
+        <result property="WbWireSpec" column="wb_wire_spec"/>
+        <result property="WbBallUnit" column="wb_ball_unit"/>
+        <result property="WbBallAmount" column="wb_ball_amount"/>
+        <result property="SensorType" column="sensor_type"/>
+        <result property="SensorPartNo" column="sensor_part_no"/>
+        <result property="SensorProdName" column="sensor_prod_name"/>
+        <result property="SensorSpec" column="sensor_spec"/>
+        <result property="SensorTypeNew" column="sensor_type_NEW"/>
+        <result property="UpdateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="doBomSensorWireUsageTask" resultMap="BomSensorWireUsageTaskResult">
+        with ta as (select finished_id, part_spec, mdate
+        from (select finished_id,
+        part_name,
+        mdate,
+        rank() over (partition by finished_id order by mdate desc) daterank,
+        part_len,
+        (case when part_len > 10 then part_name else part_spec end) as part_spec,
+        length(case when part_len > 10 then part_name else part_spec end) as part_len_new
+        from (select id as finished_id, b.part_spec, b.part_name, a.mdate, length(trim(b.part_spec)) part_len
+        from aa_bom a
+        inner join i_material b on a.id = b.part_code
+        where upn like 'ECM%'
+        and is_do = 1))
+        where part_len_new &lt; 10
+        and daterank = 1
+        group by finished_id, part_spec, mdate),
+
+        tb as (select *
+        from (select id as finished_id,
+        upn as wb_wire_part_no,
+        name as wb_wire_prod_name,
+        spec as wb_wire_spec,
+        unit as wb_ball_unit,
+        qty as wb_ball_amount,
+        id1,
+        rank() over (partition by id order by to_number(id1) desc) id_rank
+
+        from aa_bom
+        where is_do = 1
+        and name like '%金线%'
+        and qty != '1')
+        where id_rank = 1),
+
+        tc as (select z.finished_id,
+        z.sensor_type,
+        z.sensor_part_no,
+        z.sensor_prod_name,
+        z.sensor_spec,
+        Upper(case
+        when (sensor_type_new like 'AR%' or sensor_type_new like 'IMX%' or
+        sensor_type_new like 'S5K%' or sensor_type_new like 'GC%')
+        then substr(sensor_type_new, 1, 6)
+        when (sensor_type_new like 'MT9%' or sensor_type_new like 'MN3%')
+        then substr(sensor_type_new, 1, 7)
+        else sensor_type_new end) sensor_type_NEW
+        from (select y.finished_id,
+        y.sensor_type,
+        y.sensor_part_no,
+        y.sensor_prod_name,
+        y.sensor_spec,
+        trim(replace(sensor_type_new, ']', '')) as sensor_type_new
+        from (select distinct x.finished_id,
+        x.sensor_type,
+        x.sensor_part_no,
+        x.sensor_prod_name,
+        x.sensor_spec,
+        (case
+        when sensor_type like '%[%'
+        then substr(sensor_type, instr(sensor_type, '[', 1, 1) + 1,
+        instr(sensor_type, ']', 1, 1) - 2)
+        when (lower(sensor_type) like '%(hi%-%' or
+        lower(sensor_type) like '%（hi%-%' or
+        lower(sensor_type) like '%hi%-%(%' or
+        lower(sensor_type) like '%hi%-%（%')
+        then substr(
+        substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9), 1,
+        (case
+        when substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9) like '%(%'
+        then instr(
+        substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9),
+        '(', 1, 1)
+        when substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9) like '%)%'
+        then instr(
+        substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9),
+        ')', 1, 1)
+        when substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9) like '%（%'
+        then instr(
+        substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9),
+        '（', 1, 1)
+        when substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9) like '%）%'
+        then instr(
+        substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9),
+        '）', 1, 1)
+        when substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9) like '%]%'
+        then instr(
+        substr(sensor_type, instr(lower(sensor_type), 'hi-', 1, 1), 9),
+        ']', 1, 1)
+        end) - 1)
+        when lower(sensor_type) like '%-hi%-%'
+        then substr(sensor_type, instr(sensor_type, '-', 1, 2) - 2, 6)
+        else (case
+        when upper(sensor_type) like '%HI-%' then substr(sensor_type, 1, 6)
+        when (instr(sensor_type, '-', 1, 1) > 0 or
+        instr(sensor_type, '(', 1, 1) > 0 or
+        instr(sensor_type, '（', 1, 1) > 0 or
+        instr(sensor_type, ' ', 1, 1) > 0)
+        then substr(sensor_type, 1,
+        (case
+        when sensor_type like '%-%'
+        then instr(sensor_type, '-', 1, 1)
+        when sensor_type like '%(%'
+        then instr(sensor_type, '(', 1, 1)
+        when sensor_type like '%（%'
+        then instr(sensor_type, '（', 1, 1)
+        when sensor_type like '% %'
+        then instr(sensor_type, ' ', 1, 1)
+        end) - 1
+        )
+        else sensor_type end)
+        end) as sensor_type_new
+
+
+        from (select v.*
+        from (select a.id as finished_id,
+        a.upn as sensor_part_no,
+        a.name as sensor_prod_name,
+        a.spec as sensor_spec,
+        (case
+        when a.name not like '%/%' then a.name
+        when a.spec not like '%/%' then a.spec end) as sensor_type,
+        rank() over (partition by a.id order by to_number(a.id1) desc) id_rank
+        from aa_bom a
+        where (lower(name) like '%sensor%' or lower(spec) like '%sensor%' or
+        upper(spec) like '%IC %' or upper(name) like '%IC %')
+        and (lower(name) like '%/%' or lower(spec) like '%/%')
+        and id like 'ECM%'
+        and a.is_do = 1) v
+        where id_rank = 1) x) y
+        where (y.sensor_type_new not like '%VGA%' and y.sensor_type_new not like '%图像%')) z
+        where (z.sensor_type_new not like '%VGA%' and z.sensor_type_new not like '%图像%'))
+
+        select ta.finished_id,
+        ta.part_spec,
+        ta.mdate,
+        tb.wb_wire_part_no,
+        tb.wb_wire_prod_name,
+        tb.wb_wire_spec,
+        tb.wb_ball_unit,
+        to_number(tb.wb_ball_amount) as wb_ball_amount,
+        tc.sensor_type,
+        tc.sensor_part_no,
+        tc.sensor_prod_name,
+        tc.sensor_spec,
+        tc.sensor_type_NEW,
+        sysdate as update_time
+        from ta,
+        tb,
+        tc
+        where ta.finished_id = tb.finished_id(+)
+        and ta.finished_id = tc.finished_id(+)
+    </select>
+</mapper>

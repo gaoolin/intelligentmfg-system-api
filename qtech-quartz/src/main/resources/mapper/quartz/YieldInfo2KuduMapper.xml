@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtech.quartz.mapper.YieldInfo2KuduMapper">
+    <resultMap id="YieldInfoResult" type="YieldInfo">
+        <result property="day" column="day"/>
+        <result property="rq" column="rq"/>
+        <result property="factoryName" column="factory_name"/>
+        <result property="workshopCode" column="workshop_code"/>
+        <result property="partSpec" column="part_spec"/>
+        <result property="lineWorkshop" column="line_workshop"/>
+        <result property="testStation" column="test_station"/>
+        <result property="output" column="output"/>
+        <result property="planQty" column="plan_qty"/>
+        <result property="deviceQty" column="device_qty"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <insert id="save2Kudu" parameterType="YieldInfo">
+		insert into DATA_CLEAN_DB.ADS_YIELD_INFO_DETAIL (`day`,rq,factory_name,workshop_code,part_spec,line_workshop,test_station,`output`,plan_qty,device_qty,update_time) values
+		(#{day},#{rq},#{factoryName},#{workshopCode},#{partSpec},#{lineWorkshop},#{testStation},#{output},#{planQty},#{deviceQty},#{updateTime})
+	</insert>
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtech.fixture.mapper.FixtureMaterialCategoryProdTypeMapper">
+    <resultMap id="FixtureMaterialCategoryResult" type="FixtureMaterialCategoryProdType">
+        <result property="mId" column="m_id" />
+        <result property="cId" column="c_id" />
+        <result property="pId" column="p_id" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="deptId" column="dept_id" />
+        <result property="userId" column="user_id" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <insert id="addFixtureMaterialCategoryProdType" useGeneratedKeys="true" keyProperty="id">
+        insert into qtech_biz_2.fixture_material_category_prod_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mId != null">m_id,</if>
+            <if test="cId != null">c_id,</if>
+            <if test="pId != null">p_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mId != null">#{mId},</if>
+            <if test="cId != null">#{cId},</if>
+            <if test="pId != null">#{pId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <sql id="fixtureMaterialCategoryProdTypeVo">
+        SELECT
+            id,
+            m_id,
+            c_id,
+            p_id,
+            dept_id,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            remark,
+            user_id
+        FROM
+            qtech_biz_2.fixture_material_category_prod_type
+    </sql>
+
+    <update id="editFixtureMaterialCategoryProdType" parameterType="FixtureMaterialCategoryProdType">
+        update qtech_biz_2.fixture_material_category_prod_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="mId != null">m_id = #{mId},</if>
+            <if test="cId != null">c_id = #{cId},</if>
+            <if test="pId != null">p_id = #{pId},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="removeFixtureMaterialCategoryProdType" parameterType="FixtureMaterialCategoryProdType">
+        delete from qtech_biz_2.fixture_material_category_prod_type ta
+        <where>
+            <if test="mId != null">and m_id = #{mId}</if>
+            <if test="pId != null">and p_id = #{pId}</if>
+            <if test="deptId != null">and dept_id = #{deptId}</if>
+            <if test="userId != null">and user_id = #{userId}</if>
+            ${params.dataScope}
+        </where>
+    </delete>
+
+    <delete id="removeFixtureMaterialCategoryProdTypeById">
+        delete from qtech_biz_2.fixture_material_category_prod_type
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            ${params.dataScope}
+        </where>
+    </delete>
+
+    <select id="selectFixtureMaterialCategoryProdTypeList" resultMap="FixtureMaterialCategoryResult">
+        <include refid="fixtureMaterialCategoryProdTypeVo" />
+        <where>
+            <if test="mId != null">and m_id = #{mId}</if>
+            <if test="pId != null">and p_id = #{pId}</if>
+            <if test="cId != null">and c_id = #{cId}</if>
+            <if test="deptId != null">and dept_id = #{deptId}</if>
+            ${params.dataScope}
+        </where>
+    </select>
+</mapper>
