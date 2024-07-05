@@ -8,8 +8,8 @@ spring:
       master:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://10.170.6.40:32125/qtech_biz_2?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
-        username: qtech_web
-        password: Ee786549
+        username: root
+        password: root
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭

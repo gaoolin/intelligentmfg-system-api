@@ -10,8 +10,8 @@
         <result property="mcId" column="mc_id"/>
         <result property="prodType" column="prod_type"/>
         <result property="simId" column="sim_id"/>
-        <result property="checkDt" column="check_dt"/>
-        <result property="statusCode" column="status_code"/>
+        <result property="checkDt" column="chk_dt"/>
+        <result property="statusCode" column="code"/>
         <result property="description" column="description"/>
     </resultMap>
 
@@ -23,8 +23,8 @@
             mc_id,
             prod_type,
             sim_id,
-            check_dt,
-            status_code,
+            chk_dt,
+            code,
             description
         from
             (
@@ -35,8 +35,8 @@
                     machine_no as mc_id,
                     prod_type,
                     pbox_id as sim_id,
-                    check_dt,
-                    status_code,
+                    chk_dt,
+                    code,
                     description
                 from
                     (
@@ -60,13 +60,10 @@
                         left join qtech_eq_ods.ems_t_collector_program d on
                             c.collector_program_id = d.id
                     ) ta,
-        ( select * from qtech_eq_ods.aa_list_params_check_result_latest
+        ( select * from qtech_eq_ods.equipment_reverse_control_info
         <where>
-            <if test="params.beginDate != null and params.beginDate != '' and params.endDate != null and params.endDate != ''">
-                and check_dt between #{params.beginDate} and #{params.endDate}
-            </if>
             <if test="simId != null">and sim_id = #{simId}</if>
-            <if test="statusCode != null">and status_code = #{statusCode}</if>
+            <if test="statusCode != null">and code = #{code}</if>
         </where>
         ) tb
         <where>
@@ -80,14 +77,14 @@
             resultMap="aaListParamsLatestCheckResultListResult">
         <include refid="aaListParamsLatestCheckResultSql"/>
         <where>
-            <if test="factoryName != null">and company_name = #{factoryName}</if>
             <if test="groupName != null">and group_name = #{groupName}</if>
             <if test="eqCode != null">and eq_code = #{eqCode}</if>
             <if test="mcId != null">and mc_id = #{mcId}</if>
             <if test="prodType != null">and prod_type = #{prodType}</if>
         </where>
-        order by check_dt desc
+        order by chk_dt desc
     </select>
+
     <select id="selectGroupNameList" resultMap="aaListParamsLatestCheckResultListResult">
         select
             distinct
@@ -108,7 +105,7 @@
                 select
                     distinct sim_id as sim_id
                 from
-                    qtech_eq_ods.aa_list_params_check_result_latest) d on
+                    qtech_eq_ods.equipment_reverse_control_info) d on
                 c.pbox_id = d.sim_id) ta
         <where>
             <if test="factoryName != null and factoryName != ''">
@@ -133,6 +130,7 @@
                 else 14
             end
     </select>
+
     <select id="selectFactoryNames" resultMap="aaListParamsLatestCheckResultListResult">
         select
             distinct
@@ -147,7 +145,7 @@
             select
                 distinct sim_id as sim_id
             from
-                qtech_eq_ods.aa_list_params_check_result_latest) d on
+                qtech_eq_ods.equipment_reverse_control_info) d on
             c.pbox_id = d.sim_id
     </select>
 </mapper>

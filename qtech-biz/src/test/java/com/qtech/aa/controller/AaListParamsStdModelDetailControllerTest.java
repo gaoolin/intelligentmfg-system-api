@@ -1,6 +1,6 @@
 package com.qtech.aa.controller;
 
-import com.qtech.aa.domain.AaListParamsStdModel;
+import com.qtech.aa.domain.AaListParamsStdModelDetail;
 import com.qtech.common.utils.poi.ExcelUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -21,12 +21,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 
 
-class AaListParamsStdModelControllerTest {
+class AaListParamsStdModelDetailControllerTest {
 
     @Test
     public void testExportTemplate() throws IOException {
         MockHttpServletResponse response = new MockHttpServletResponse();
-        ExcelUtil<AaListParamsStdModel> util = new ExcelUtil<>(AaListParamsStdModel.class);
+        ExcelUtil<AaListParamsStdModelDetail> util = new ExcelUtil<>(AaListParamsStdModelDetail.class);
         util.importTemplateExcel(response, "AA-List参数导入模版");
 
         // 检查响应内容

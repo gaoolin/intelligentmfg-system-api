@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qtech.aa.mapper.AaListParamsStdModelMapper">
-    <resultMap id="aaListParamsStdModelResult" type="AaListParamsStdModel">
+<mapper namespace="com.qtech.aa.mapper.AaListParamsStdModelDetailMapper">
+    <resultMap id="aaListParamsStdModelResult" type="AaListParamsStdModelDetail">
         <result property="id" column="id" jdbcType="BIGINT"/>
         <result property="prodType" column="prod_type" jdbcType="VARCHAR"/>
         <result property="destroyStart" column="destroy_start" jdbcType="VARCHAR"/>
@@ -11,6 +11,7 @@
         <result property="grab" column="grab" jdbcType="VARCHAR"/>
         <result property="reInit" column="re_init" jdbcType="VARCHAR"/>
         <result property="senserReset" column="senser_reset" jdbcType="VARCHAR"/>
+        <result property="clampOnOff" column="clamp_on_off" jdbcType="VARCHAR"/>
         <result property="sid" column="sid" jdbcType="VARCHAR"/>
         <result property="vcmHall" column="vcm_hall" jdbcType="VARCHAR"/>
         <result property="vcmInit" column="vcm_init" jdbcType="VARCHAR"/>
@@ -124,17 +125,23 @@
         <result property="epoxyInspectionInterval" column="epoxy_inspection_interval" jdbcType="VARCHAR"/>
         <result property="resultCheckMin" column="result_check_min" jdbcType="VARCHAR"/>
         <result property="resultCheckMax" column="result_check_max" jdbcType="VARCHAR"/>
+
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="AaListParamsStdModelSql">
-        SELECT sim_id,
+        SELECT id,
                prod_type,
-               received_time,
                destroy_start,
                init,
                grab,
                re_init,
                senser_reset,
+               clamp_on_off,
                sid,
                vcm_hall,
                vcm_init,
@@ -247,21 +254,25 @@
                y_res_max,
                epoxy_inspection_interval,
                result_check_min,
-               result_check_max
-        FROM qtech_eq_dwd.aa_list_params_parsed_detail
+               result_check_max,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark
+        FROM qtech_im_chk.aa_list_params_std_model
     </sql>
 
-    <insert id="insertAaListParamsStdModel">
-        insert into qtech_eq_dwd.aa_list_params_parsed_detail
+    <insert id="insertAaListParamsStdModel" useGeneratedKeys="true" parameterType="AaListParamsStdModelDetail">
+        insert into qtech_im_chk.aa_list_params_std_model
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="simId != null">sim_id,</if>
             <if test="prodType != null">prod_type,</if>
-            <if test="receivedTime != null">received_time,</if>
             <if test="destroyStart != null">destroy_start,</if>
             <if test="init != null">init,</if>
             <if test="grab != null">grab,</if>
             <if test="reInit != null">re_init,</if>
             <if test="senserReset != null">senser_reset,</if>
+            <if test="clampOnOff != null">clamp_on_off,</if>
             <if test="sid != null">sid,</if>
             <if test="vcmHall != null">vcm_hall,</if>
             <if test="vcmInit != null">vcm_init,</if>
@@ -374,16 +385,21 @@
             <if test="yResMax != null">y_res_max,</if>
             <if test="epoxyInspectionInterval != null">epoxy_inspection_interval,</if>
             <if test="resultCheckMin">result_check_min,</if>
+            <if test="resultCheckMax">result_check_max,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="simId != null">#{simId,jdbcType=VARCHAR},</if>
             <if test="prodType != null">#{prodType,jdbcType=VARCHAR},</if>
-            <if test="receivedTime != null">#{receivedTime,jdbcType=TIMESTAMP},</if>
             <if test="destroyStart != null">#{destroyStart,jdbcType=VARCHAR},</if>
             <if test="init != null">#{init,jdbcType=VARCHAR},</if>
             <if test="grab != null">#{grab,jdbcType=VARCHAR},</if>
             <if test="reInit != null">#{reInit,jdbcType=VARCHAR},</if>
             <if test="senserReset != null">#{senserReset,jdbcType=VARCHAR},</if>
+            <if test="clampOnOff != null">#{clampOnOff,jdbcType=VARCHAR},</if>
             <if test="sid != null">#{sid,jdbcType=VARCHAR},</if>
             <if test="vcmHall != null">#{vcmHall,jdbcType=VARCHAR},</if>
             <if test="vcmInit != null">#{vcmInit,jdbcType=VARCHAR},</if>
@@ -494,19 +510,194 @@
             <if test="xResMax != null">#{xResMax,jdbcType=VARCHAR},</if>
             <if test="yResMin != null">#{yResMin,jdbcType=VARCHAR},</if>
             <if test="yResMax != null">#{yResMax,jdbcType=VARCHAR},</if>
+            <if test="epoxyInspectionInterval != null">#{epoxyInspectionInterval,jdbcType=VARCHAR},</if>
+            <if test="resultCheckMin != null">#{resultCheckMin,jdbcType=VARCHAR},</if>
+            <if test="resultCheckMax != null">#{resultCheckMax,jdbcType=VARCHAR},</if>
+            <if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateBy != null">#{updateBy,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="remark != null">#{remark,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
-    <update id="updateAaListParamsStdModel">
 
+    <insert id="batchInsert">
+        INSERT INTO equipment_reverse_control_info (sim_id, prod_type, chk_dt, code, description)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.simId}, #{item.prodType}, #{item.checkDt}, #{item.statusCode}, #{item.description})
+        </foreach>
+    </insert>
+
+    <update id="updateAaListParamsStdModel">
+        update qtech_im_chk.aa_list_params_std_model
+            set destroy_start = #{destroyStart},
+                init = #{init},
+                grab = #{grab},
+                re_init = #{reInit},
+                senser_reset = #{senserReset},
+                clamp_on_off = #{clampOnOff},
+                sid = #{sid},
+                vcm_hall = #{vcmHall},
+                vcm_init = #{vcmInit},
+                vcm_hall2 = #{vcmHall2},
+                vcm_power_off = #{vcmPowerOff},
+                vcm_power_on = #{vcmPowerOn},
+                vcm_top = #{vcmTop},
+                vcm_top_hall = #{vcmTopHall},
+                vcm_z = #{vcmZ},
+                vcm_z_hall = #{vcmZHall},
+                vcm_ois_init = #{vcmOisInit},
+                chart_alignment1 = #{chartAlignment1},
+                aa1 = #{AA1},
+                aa2 = #{AA2},
+                mtf_check = #{mtfCheck},
+                aa3 = #{AA3},
+                mtf_check2 = #{mtfCheck2},
+                lp_on = #{lpOn},
+                lp_oc_check = #{lpOcCheck},
+                lp_oc = #{lpOc},
+                lp_on_blemish = #{lpOnBlemish},
+                blemish = #{blemish},
+                lp_off = #{lpOff},
+                chart_alignment = #{chartAlignment},
+                vcm_move_to_z = #{vcmMoveToZ},
+                delay = #{delay},
+                vcm_power_off_check = #{vcmPowerOffCheck},
+                record_position = #{recordPosition},
+                dispense = #{dispense},
+                epoxy_inspection_auto = #{epoxyInspectionAuto},
+                epoxy_inspection = #{epoxyInspection},
+                back_to_position = #{backToPosition},
+                uvon = #{uvon},
+                y_level = #{yLevel},
+                uvoff = #{uvoff},
+                gripper_open = #{gripperOpen},
+                save_oc = #{saveOc},
+                save_mtf = #{saveMtf},
+                destroy = #{destroy},
+                move_to_blemish_pos = #{moveToBlemishPos},
+                mtf_check3 = #{mtfCheck3},
+                mtf_off_axis_check1 = #{mtfOffAxisCheck1},
+                mtf_off_axis_check2 = #{mtfOffAxisCheck2},
+                mtf_off_axis_check3 = #{mtfOffAxisCheck3},
+                lp_blemish = #{lpBlemish},
+                chart_alignment2 = #{chartAlignment2},
+                vcm_move_to_z_pos = #{vcmMoveToZPos},
+                z_offset = #{zOffset},
+                open_check = #{openCheck},
+                roi_cc = #{roiCc},
+                roi_ul = #{roiUl},
+                roi_ur = #{roiUr},
+                roi_ll = #{roiLl},
+                roi_lr = #{roiLr},
+                result1 = #{result1},
+                result2 = #{result2},
+                result3 = #{result3},
+                result4 = #{result4},
+                result5 = #{result5},
+                result6 = #{result6},
+                result7 = #{result7},
+                result8 = #{result8},
+                result9 = #{result9},
+                result10 = #{result10},
+                result11 = #{result11},
+                result12 = #{result12},
+                result13 = #{result13},
+                result14 = #{result14},
+                result15 = #{result15},
+                result16 = #{result16},
+                result17 = #{result17},
+                result18 = #{result18},
+                result19 = #{result19},
+                result20 = #{result20},
+                result21 = #{result21},
+                result22 = #{result22},
+                result23 = #{result23},
+                result24 = #{result24},
+                result25 = #{result25},
+                result26 = #{result26},
+                result27 = #{result27},
+                result28 = #{result28},
+                result29 = #{result29},
+                result30 = #{result30},
+                result31 = #{result31},
+                result32 = #{result32},
+                result33 = #{result33},
+                result34 = #{result34},
+                result35 = #{result35},
+                result36 = #{result36},
+                result37 = #{result37},
+                result38 = #{result38},
+                result39 = #{result39},
+                result40 = #{result40},
+                result41 = #{result41},
+                result42 = #{result42},
+                result43 = #{result43},
+                result44 = #{result44},
+                result45 = #{result45},
+                result46 = #{result46},
+                result47 = #{result47},
+                result48 = #{result48},
+                result49 = #{result49},
+                result50 = #{result50},
+                result51 = #{result51},
+                result52 = #{result52},
+                x_res_min = #{xResMin},
+                x_res_max = #{xResMax},
+                y_res_min = #{yResMin},
+                y_res_max = #{yResMax},
+                epoxy_inspection_interval = #{epoxyInspectionInterval},
+                result_check_min = #{resultCheckMin},
+                result_check_max = #{resultCheckMax},
+                create_by = #{createBy},
+                create_time = #{createTime},
+                update_by = #{updateBy},
+                update_time = #{updateTime},
+                remark = #{remark}
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="prodType != null">
+                and prod_type = #{prodType}
+            </if>
+        </where>
     </update>
+
     <delete id="deleteAaListParamsStdModelByIds">
-        delete from aa_list_params_std_model where id in
+        delete from qtech_im_chk.aa_list_params_std_model where id in
         <foreach collection="array" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+    <delete id="deleteAaListParamsStdModel">
+        delete from qtech_im_chk.aa_list_params_std_model
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="prodType != null">
+                and prod_type = #{prodType}
+            </if>
+        </where>
+    </delete>
 
-    <select id="selectAaListParamsStdModelList" resultType="com.qtech.aa.domain.AaListParamsStdModel">
+    <select id="selectAaListParamsStdModelList" resultType="AaListParamsStdModelDetail">
+        <include refid="AaListParamsStdModelSql"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="prodType != null">
+                and prod_type = #{prodType}
+            </if>
+        </where>
+    </select>
 
+    <select id="checkIfExists" resultType="int">
+        select COUNT(1)
+        from qtech_im_chk.aa_list_params_std_model
+        where prod_type = #{prodType}
     </select>
 </mapper>

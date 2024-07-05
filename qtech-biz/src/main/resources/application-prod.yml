@@ -143,5 +143,6 @@ spring:
 # 日志配置
 logging:
   level:
+    
     com.qtech: info
     org.springframework: warn

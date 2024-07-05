@@ -1,9 +1,11 @@
 package com.qtech.aa.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qtech.common.annotation.Excel;
 import com.qtech.common.core.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * author :  gaozhilin
@@ -12,8 +14,9 @@ import lombok.EqualsAndHashCode;
  * desc   :
  */
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 public class AaListParams extends BaseEntity {
     @Excel(name = "clampOnOff", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String clampOnOff;
@@ -69,17 +72,20 @@ public class AaListParams extends BaseEntity {
     @Excel(name = "chartAlignment1", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String chartAlignment1;
 
+    @JsonProperty("AA1")
     @Excel(name = "AA1", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String AA1;
 
+    @JsonProperty("AA2")
     @Excel(name = "AA2", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String AA2;
 
-    @Excel(name = "mtfCheck", cellType = Excel.ColumnType.STRING, prompt = "list")
-    private String mtfCheck;
-
+    @JsonProperty("AA3")
     @Excel(name = "AA3", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String AA3;
+
+    @Excel(name = "mtfCheck", cellType = Excel.ColumnType.STRING, prompt = "list")
+    private String mtfCheck;
 
     @Excel(name = "mtfCheck2", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String mtfCheck2;
@@ -132,6 +138,7 @@ public class AaListParams extends BaseEntity {
     @Excel(name = "uvon", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String uvon;
 
+    @JsonProperty("yLevel")
     @Excel(name = "yLevel", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String yLevel;
 
@@ -174,6 +181,7 @@ public class AaListParams extends BaseEntity {
     @Excel(name = "vcmMoveToZPos", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String vcmMoveToZPos;
 
+    @JsonProperty("zOffset")
     @Excel(name = "zOffset", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String zOffset;
 
@@ -354,15 +362,19 @@ public class AaListParams extends BaseEntity {
     private String result52;
 
     // chartAlignment Item 指标
+    @JsonProperty("xResMin")
     @Excel(name = "xResMin", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String xResMin;
 
+    @JsonProperty("xResMax")
     @Excel(name = "xResMax", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String xResMax;
 
+    @JsonProperty("yResMin")
     @Excel(name = "yResMin", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String yResMin;
 
+    @JsonProperty("yResMax")
     @Excel(name = "yResMax", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String yResMax;
 
