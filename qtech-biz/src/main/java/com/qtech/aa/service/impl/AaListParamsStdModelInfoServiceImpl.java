@@ -5,11 +5,10 @@ import com.qtech.aa.domain.AaListParamsStdModelInfo;
 import com.qtech.aa.mapper.AaListParamsStdModelDetailMapper;
 import com.qtech.aa.mapper.AaListParamsStdModelInfoMapper;
 import com.qtech.aa.service.IAaListParamsStdModelInfoService;
-import com.qtech.aa.utils.ReflectionUtils;
+import com.qtech.aa.utils.ModelDetailConvertToModelInfo;
 import com.qtech.common.exception.biz.TooManyResultsException;
 import com.qtech.common.utils.DateUtils;
 import com.qtech.common.utils.SecurityUtils;
-import com.qtech.common.utils.StringUtils;
 import com.qtech.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -18,12 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static com.qtech.aa.utils.Constants.PROPERTIES_TO_COMPARE;
-import static com.qtech.aa.utils.Constants.PROPERTIES_TO_COMPUTE;
 
 /**
  * author :  gaozhilin
@@ -69,70 +63,30 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
     }
 
     @Override
-    public int insertAaListParamsStdModelInfo(AaListParamsStdModelInfo aaListParamsStdModelInfo) {
+    public int insertAaListParamsStdModelInfo(Object entity) {
         try {
-            return aaListParamsStdModelInfoMapper.insertAaListParamsStdModelInfo(aaListParamsStdModelInfo);
+            int result = 0;
+            if (entity.getClass().equals(AaListParamsStdModelInfo.class)) {
+                AaListParamsStdModelInfo modelInfo = (AaListParamsStdModelInfo) entity;
+                result = aaListParamsStdModelInfoMapper.insertAaListParamsStdModelInfo(modelInfo);
+            } else if (entity.getClass().equals(AaListParamsStdModelDetail.class)) {
+                AaListParamsStdModelDetail modelDetail = (AaListParamsStdModelDetail) entity;
+                AaListParamsStdModelInfo param = ModelDetailConvertToModelInfo.doConvert(modelDetail);
+                param.setCreateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
+                param.setCreateTime(DateUtils.getNowDate());
+                try {
+                    result = aaListParamsStdModelInfoMapper.insertAaListParamsStdModelInfo(param);
+                } catch (Exception e) {
+                    log.error("insertAaListParamsStdModelInfoByUpload:", e);
+                    throw new RuntimeException("保存到数据库发生异常，请连线管理员！");
+                }
+            } else {
+                throw new IllegalArgumentException("Unsupported entity type: " + entity.getClass().getName());
+            }
+            return result;
         } catch (Exception e) {
             log.error("insertAaListParamsStdModelInfo:", e);
             throw new RuntimeException("保存到数据库发生异常，请连线管理员！");
-        }
-    }
-
-    @Override
-    public int insertAaListParamsStdModelInfoByUpload(AaListParamsStdModelDetail aaListParamsStdModelDetail) {
-        AtomicInteger listParamsCnt = new AtomicInteger();
-        AtomicInteger itemParamsCnt = new AtomicInteger();
-        if (aaListParamsStdModelDetail == null) {
-            return 0;
-        }
-
-        PROPERTIES_TO_COMPARE.forEach(fieldName -> {
-            try {
-                // 首先，需要找到Field对象
-                listItemParamsCnt(aaListParamsStdModelDetail, listParamsCnt, fieldName);
-
-            } catch (Exception e) {
-                log.error("计算list参数个数时出错:", e);
-            }
-        });
-
-        PROPERTIES_TO_COMPUTE.forEach(fieldName -> {
-            try {
-                // 首先，需要找到Field对象
-                listItemParamsCnt(aaListParamsStdModelDetail, itemParamsCnt, fieldName);
-            } catch (Exception e) {
-                log.error("计算item参数个数时出错:", e);
-            }
-        });
-
-        AaListParamsStdModelInfo param = new AaListParamsStdModelInfo();
-        param.setListParams(listParamsCnt.get());
-        param.setItemParams(itemParamsCnt.get());
-        param.setProdType(aaListParamsStdModelDetail.getProdType());
-        param.setStatus(1);
-        param.setCreateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
-        param.setCreateTime(DateUtils.getNowDate());
-
-        try {
-            return aaListParamsStdModelInfoMapper.insertAaListParamsStdModelInfo(param);
-        } catch (Exception e) {
-            log.error("insertAaListParamsStdModelInfoByUpload:", e);
-            throw new RuntimeException("保存到数据库发生异常，请连线管理员！");
-        }
-    }
-
-    private void listItemParamsCnt(AaListParamsStdModelDetail aaListParamsStdModelDetail, AtomicInteger paramsCnt, String fieldName) throws NoSuchFieldException, IllegalAccessException {
-
-        Field baseField = ReflectionUtils.getAllDeclaredFields(AaListParamsStdModelDetail.class).stream().filter(f -> f.getName().equals(fieldName)).findFirst().orElseThrow(() -> new NoSuchFieldException("Field 'baseField' not found"));
-
-        if (baseField.getType().equals(String.class)) {
-            baseField.setAccessible(true);
-            String value = (String) baseField.get(aaListParamsStdModelDetail);
-            if (StringUtils.isNotBlank(value)) {
-                paramsCnt.getAndIncrement();
-            }
-        } else {
-            paramsCnt.getAndIncrement();
         }
     }
 

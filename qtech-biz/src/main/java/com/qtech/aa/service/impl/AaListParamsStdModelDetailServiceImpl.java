@@ -72,19 +72,40 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
         return null;
     }
 
-    @Transactional(rollbackFor = {Exception.class, RuntimeException.class}, propagation = Propagation.REQUIRES_NEW)
+    @Transactional(rollbackFor = {Exception.class, RuntimeException.class}, propagation = Propagation.REQUIRED)
     @Override
     public int insertAaListParamsStdModel(AaListParamsStdModelDetail aaListParamsStdModelDetail) {
+        // 检查数据是否存在
+        AaListParamsStdModelDetail existingModelDetail = selectOneAaListParamsStdModel(aaListParamsStdModelDetail);
 
-        String nickName = sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName();
-        aaListParamsStdModelDetail.setCreateBy(nickName);
-        aaListParamsStdModelDetail.setCreateTime(DateUtils.getNowDate());
-        try {
-            return aaListParamsStdModelDetailMapper.insertAaListParamsStdModel(aaListParamsStdModelDetail);
-        } catch (Exception e) {
-            log.error("存储数据发生异常，请联系管理员！\n{}", e.getMessage());
-            throw new RuntimeException("存储数据发生异常，请联系管理员！");
+        int rowsAffected = 0;
+        if (existingModelDetail == null) {
+            // 数据不存在，执行插入操作
+            String nickName = sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName();
+            aaListParamsStdModelDetail.setCreateBy(nickName);
+            aaListParamsStdModelDetail.setCreateTime(DateUtils.getNowDate());
+            try {
+                rowsAffected = aaListParamsStdModelDetailMapper.insertAaListParamsStdModel(aaListParamsStdModelDetail);
+                aaListParamsStdModelInfoService.insertAaListParamsStdModelInfo(aaListParamsStdModelDetail);
+            } catch (Exception e) {
+                log.error("存储数据发生异常，请联系管理员！\n{}", e.getMessage());
+                throw new RuntimeException("存储数据发生异常，请联系管理员！");
+            }
+        } else {
+            // 数据存在，执行更新操作
+            // 更新前先设置更新人和更新时间
+            aaListParamsStdModelDetail.setId(existingModelDetail.getId()); // 确保ID正确
+            aaListParamsStdModelDetail.setUpdateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
+            aaListParamsStdModelDetail.setUpdateTime(DateUtils.getNowDate());
+
+            try {
+                rowsAffected = updateAaListParamsStdModel(aaListParamsStdModelDetail);
+            } catch (Exception e) {
+                log.error("修改数据发生异常，请联系管理员！\n{}", e.getMessage());
+                throw new RuntimeException("修改数据发生异常，请联系管理员！");
+            }
         }
+        return rowsAffected;
     }
 
     @Override
@@ -182,7 +203,7 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
                         });
 
                 int insertCount = aaListParamsStdModelDetailMapper.insertAaListParamsStdModel(detail);
-                aaListParamsStdModelInfoService.insertAaListParamsStdModelInfoByUpload(detail);
+                aaListParamsStdModelInfoService.insertAaListParamsStdModelInfo(detail);
                 if (insertCount > 0) {
                     successCount++;
                 } else {

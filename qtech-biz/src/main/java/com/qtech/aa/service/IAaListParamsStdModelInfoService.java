@@ -1,6 +1,5 @@
 package com.qtech.aa.service;
 
-import com.qtech.aa.domain.AaListParamsStdModelDetail;
 import com.qtech.aa.domain.AaListParamsStdModelInfo;
 
 import java.util.List;
@@ -18,11 +17,9 @@ public interface IAaListParamsStdModelInfoService {
 
     public AaListParamsStdModelInfo selectOneAaListParamsStdModelInfo(AaListParamsStdModelInfo aaListParamsStdModelInfo);
 
-    public int insertAaListParamsStdModelInfo(AaListParamsStdModelInfo aaListParamsStdModelInfo);
+    public int insertAaListParamsStdModelInfo(Object entity);
 
     public int updateAaListParamsStdModelInfo(AaListParamsStdModelInfo aaListParamsStdModelInfo);
 
     public int deleteAaListParamsStdModelInfoByIds(Long[] list);
-
-    public int insertAaListParamsStdModelInfoByUpload(AaListParamsStdModelDetail aaListParamsStdModelDetail);
 }

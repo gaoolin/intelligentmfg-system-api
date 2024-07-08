@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qtech.aa.mapper.AaListParamsParsedDetailMapper">
     <resultMap id="BaseResultMap" type="AaListParamsParsed">
-        <result property="simId" column="sid_id" jdbcType="VARCHAR"/>
+        <result property="simId" column="sim_id" jdbcType="VARCHAR"/>
         <result property="prodType" column="prod_type" jdbcType="VARCHAR"/>
         <result property="receivedTime" column="received_time" jdbcType="TIMESTAMP"/>
         <result property="destroyStart" column="destroy_start" jdbcType="VARCHAR"/>
@@ -273,6 +273,7 @@
                 and received_time between #{params.beginDate} and #{params.endDate}
             </if>
         </where>
+        order by received_time desc
     </select>
 
 </mapper>
