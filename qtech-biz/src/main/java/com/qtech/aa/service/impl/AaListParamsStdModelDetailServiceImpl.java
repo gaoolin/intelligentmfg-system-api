@@ -14,6 +14,7 @@ import com.qtech.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +43,7 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
     private ISysUserService sysUserService;
 
     @Autowired
-    private RedisCache redisCache;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private IAaListParamsStdModelInfoService aaListParamsStdModelInfoService;
@@ -123,7 +124,7 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
 
         List<AaListParamsStdModelDetail> list = aaListParamsStdModelDetailMapper.selectAaListParamsStdModelList(aaListParamsStdModelDetail);
         if (CollectionUtils.isNotEmpty(list)) {
-            redisCache.deleteObject(REDIS_COMPARISON_MODEL_KEY_PREFIX + list.get(0).getProdType());
+            stringRedisTemplate.delete(REDIS_COMPARISON_MODEL_KEY_PREFIX + list.get(0).getProdType());
         }
 
         int i = 0;
@@ -136,6 +137,21 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
         return i;
     }
 
+    @Override
+    public int deleteAaListParamsStdModel(AaListParamsStdModelDetail aaListParamsStdModelDetail) {
+        if (aaListParamsStdModelDetail != null) {
+            try {
+                String prodType = aaListParamsStdModelDetail.getProdType();
+                stringRedisTemplate.delete(REDIS_COMPARISON_MODEL_KEY_PREFIX + prodType);
+                return aaListParamsStdModelDetailMapper.deleteAaListParamsStdModel(aaListParamsStdModelDetail);
+            } catch (Exception e) {
+                log.error("删除数据发生异常，请联系管理员！\n{}", e.getMessage());
+                throw new RuntimeException("删除数据发生异常，请联系管理员！");
+            }
+        }
+        return 0;
+    }
+
     @Transactional(rollbackFor = {Exception.class, RuntimeException.class}, propagation = Propagation.REQUIRES_NEW)
     @Override
     public int deleteAaListParamsStdModelByIds(List<Long> list) {
@@ -145,7 +161,7 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
             aaListParamsStdModelDetailParams.setId(id);
             AaListParamsStdModelDetail res = selectOneAaListParamsStdModel(aaListParamsStdModelDetailParams);
             if (res != null) {
-                redisCache.deleteObject(REDIS_COMPARISON_MODEL_KEY_PREFIX + res.getProdType());
+                stringRedisTemplate.delete(REDIS_COMPARISON_MODEL_KEY_PREFIX + res.getProdType());
             }
         });
 

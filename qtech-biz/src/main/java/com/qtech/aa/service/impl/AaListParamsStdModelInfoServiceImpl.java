@@ -2,7 +2,6 @@ package com.qtech.aa.service.impl;
 
 import com.qtech.aa.domain.AaListParamsStdModelDetail;
 import com.qtech.aa.domain.AaListParamsStdModelInfo;
-import com.qtech.aa.mapper.AaListParamsStdModelDetailMapper;
 import com.qtech.aa.mapper.AaListParamsStdModelInfoMapper;
 import com.qtech.aa.service.IAaListParamsStdModelInfoService;
 import com.qtech.aa.utils.ModelDetailConvertToModelInfo;
@@ -13,11 +12,14 @@ import com.qtech.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.qtech.aa.utils.Constants.REDIS_COMPARISON_MODEL_KEY_PREFIX;
 
 /**
  * author :  gaozhilin
@@ -34,10 +36,13 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
     private AaListParamsStdModelInfoMapper aaListParamsStdModelInfoMapper;
 
     @Autowired
-    private AaListParamsStdModelDetailMapper aaListParamsStdModelDetailMapper;
+    private AaListParamsStdModelDetailServiceImpl aaListParamsStdModelDetailService;
 
     @Autowired
     private ISysUserService sysUserService;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public List<AaListParamsStdModelInfo> selectAaListParamsStdModelInfoList(AaListParamsStdModelInfo aaListParamsStdModelInfo) {
@@ -72,13 +77,17 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
             } else if (entity.getClass().equals(AaListParamsStdModelDetail.class)) {
                 AaListParamsStdModelDetail modelDetail = (AaListParamsStdModelDetail) entity;
                 AaListParamsStdModelInfo param = ModelDetailConvertToModelInfo.doConvert(modelDetail);
-                param.setCreateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
-                param.setCreateTime(DateUtils.getNowDate());
-                try {
-                    result = aaListParamsStdModelInfoMapper.insertAaListParamsStdModelInfo(param);
-                } catch (Exception e) {
-                    log.error("insertAaListParamsStdModelInfoByUpload:", e);
-                    throw new RuntimeException("保存到数据库发生异常，请连线管理员！");
+                if (param != null) {
+                    param.setCreateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
+                    param.setCreateTime(DateUtils.getNowDate());
+                    try {
+                        result = aaListParamsStdModelInfoMapper.insertAaListParamsStdModelInfo(param);
+                    } catch (Exception e) {
+                        log.error("insertAaListParamsStdModelInfoByUpload:", e);
+                        throw new RuntimeException("保存到数据库发生异常，请联系管理员！");
+                    }
+                } else {
+                    throw new RuntimeException("保存到数据库发生异常，请联系管理员！");
                 }
             } else {
                 throw new IllegalArgumentException("Unsupported entity type: " + entity.getClass().getName());
@@ -86,7 +95,7 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
             return result;
         } catch (Exception e) {
             log.error("insertAaListParamsStdModelInfo:", e);
-            throw new RuntimeException("保存到数据库发生异常，请连线管理员！");
+            throw new RuntimeException("保存到数据库发生异常，请联系管理员！");
         }
     }
 
@@ -115,10 +124,10 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
                     String prodType = result.getProdType();
                     AaListParamsStdModelDetail paramDetail = new AaListParamsStdModelDetail();
                     paramDetail.setProdType(prodType);
-                    aaListParamsStdModelDetailMapper.deleteAaListParamsStdModel(paramDetail);
+                    aaListParamsStdModelDetailService.deleteAaListParamsStdModel(paramDetail);
+                    stringRedisTemplate.delete(REDIS_COMPARISON_MODEL_KEY_PREFIX + prodType);
                 }
             }
-
             return aaListParamsStdModelInfoMapper.deleteAaListParamsStdModelInfoByIds(list);
         } catch (Exception e) {
             log.error("deleteAaListParamsStdModelInfoByIds:", e);

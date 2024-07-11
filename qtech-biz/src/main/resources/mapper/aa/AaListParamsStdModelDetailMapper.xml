@@ -136,12 +136,12 @@
     <sql id="AaListParamsStdModelSql">
         SELECT id,
                prod_type,
+               clamp_on_off,
                destroy_start,
                init,
                grab,
                re_init,
                senser_reset,
-               clamp_on_off,
                sid,
                vcm_hall,
                vcm_init,
@@ -267,12 +267,12 @@
         insert into qtech_im_chk.aa_list_params_std_model
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="prodType != null">prod_type,</if>
+            <if test="clampOnOff != null">clamp_on_off,</if>
             <if test="destroyStart != null">destroy_start,</if>
             <if test="init != null">init,</if>
             <if test="grab != null">grab,</if>
             <if test="reInit != null">re_init,</if>
             <if test="senserReset != null">senser_reset,</if>
-            <if test="clampOnOff != null">clamp_on_off,</if>
             <if test="sid != null">sid,</if>
             <if test="vcmHall != null">vcm_hall,</if>
             <if test="vcmInit != null">vcm_init,</if>
@@ -394,12 +394,12 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="prodType != null">#{prodType,jdbcType=VARCHAR},</if>
+            <if test="clampOnOff != null">#{clampOnOff,jdbcType=VARCHAR},</if>
             <if test="destroyStart != null">#{destroyStart,jdbcType=VARCHAR},</if>
             <if test="init != null">#{init,jdbcType=VARCHAR},</if>
             <if test="grab != null">#{grab,jdbcType=VARCHAR},</if>
             <if test="reInit != null">#{reInit,jdbcType=VARCHAR},</if>
             <if test="senserReset != null">#{senserReset,jdbcType=VARCHAR},</if>
-            <if test="clampOnOff != null">#{clampOnOff,jdbcType=VARCHAR},</if>
             <if test="sid != null">#{sid,jdbcType=VARCHAR},</if>
             <if test="vcmHall != null">#{vcmHall,jdbcType=VARCHAR},</if>
             <if test="vcmInit != null">#{vcmInit,jdbcType=VARCHAR},</if>

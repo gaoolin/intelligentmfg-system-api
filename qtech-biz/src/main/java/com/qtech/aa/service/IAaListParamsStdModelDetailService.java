@@ -25,6 +25,8 @@ public interface IAaListParamsStdModelDetailService {
 
     public int updateAaListParamsStdModel(AaListParamsStdModelDetail aaListParamsStdModelDetail);
 
+    public int deleteAaListParamsStdModel(AaListParamsStdModelDetail aaListParamsStdModelDetail);
+
     public int deleteAaListParamsStdModelByIds(List<Long> list);
 
     public Map<String, Object> uploadManual(List<AaListParamsStdModelDetail> paramsModelList);
