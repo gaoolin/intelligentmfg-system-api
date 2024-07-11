@@ -5,7 +5,9 @@ import com.qtech.aa.mapper.AaListParamsStdModelDetailMapper;
 import com.qtech.aa.service.IAaListParamsStdModelDetailService;
 import com.qtech.aa.service.IAaListParamsStdModelInfoService;
 import com.qtech.aa.utils.ReflectionUtils;
+import com.qtech.common.annotation.DataSource;
 import com.qtech.common.core.redis.RedisCache;
+import com.qtech.common.enums.DataSourceType;
 import com.qtech.common.exception.biz.TooManyResultsException;
 import com.qtech.common.utils.DateUtils;
 import com.qtech.common.utils.SecurityUtils;
@@ -32,6 +34,7 @@ import static com.qtech.aa.utils.Constants.REDIS_COMPARISON_MODEL_KEY_PREFIX;
  * date   :  2024/06/04 14:39:15
  * desc   :
  */
+@DataSource(DataSourceType.FIFTH)
 @Slf4j
 @Service
 public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdModelDetailService {
