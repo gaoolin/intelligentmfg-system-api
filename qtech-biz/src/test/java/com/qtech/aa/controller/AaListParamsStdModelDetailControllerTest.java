@@ -1,6 +1,7 @@
 package com.qtech.aa.controller;
 
 import com.qtech.aa.domain.AaListParamsStdModelDetail;
+import com.qtech.common.utils.StringUtils;
 import com.qtech.common.utils.poi.ExcelUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -176,5 +177,13 @@ class AaListParamsStdModelDetailControllerTest {
         headers.add("prodType");
 
         return headers;
+    }
+
+    private void init() {
+        String str = "abc";
+        String str2 = new String("def");
+        String concat = str.concat(str2);
+        str.replace("a", "b");
+        str.split("a");
     }
 }

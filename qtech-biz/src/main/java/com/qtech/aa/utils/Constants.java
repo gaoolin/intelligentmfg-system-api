@@ -14,6 +14,7 @@ import java.util.List;
 public class Constants {
 
     public static final String REDIS_COMPARISON_MODEL_KEY_PREFIX = "qtech:aa:list:params:";
+    public static final String REDIS_COMPARISON_MODEL_INFO_KEY_SUFFIX = "qtech:aa:list:params:info:";
 
     // 需和比对程序同步
     public static final List<String> PROPERTIES_TO_COMPARE = Arrays.asList(

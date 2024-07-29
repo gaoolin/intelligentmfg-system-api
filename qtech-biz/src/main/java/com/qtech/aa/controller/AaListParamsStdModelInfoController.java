@@ -45,6 +45,7 @@ public class AaListParamsStdModelInfoController extends BaseController {
 
     @RequestMapping(value = "/edit", produces = "application/json", method = RequestMethod.POST)
     public AjaxResult edit(@RequestBody AaListParamsStdModelInfo aaListParamsStdModelInfo) {
+        System.out.println(aaListParamsStdModelInfo);
         return toAjax(aaListParamsStdModelInfoService.updateAaListParamsStdModelInfo(aaListParamsStdModelInfo));
     }
 

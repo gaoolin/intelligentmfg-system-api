@@ -5,8 +5,6 @@ import com.qtech.aa.domain.AaListParamsStdModelInfo;
 import com.qtech.aa.mapper.AaListParamsStdModelInfoMapper;
 import com.qtech.aa.service.IAaListParamsStdModelInfoService;
 import com.qtech.aa.utils.ModelDetailConvertToModelInfo;
-import com.qtech.common.annotation.DataSource;
-import com.qtech.common.enums.DataSourceType;
 import com.qtech.common.exception.biz.TooManyResultsException;
 import com.qtech.common.utils.DateUtils;
 import com.qtech.common.utils.SecurityUtils;
@@ -21,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.qtech.aa.utils.Constants.REDIS_COMPARISON_MODEL_INFO_KEY_SUFFIX;
 import static com.qtech.aa.utils.Constants.REDIS_COMPARISON_MODEL_KEY_PREFIX;
 
 /**
@@ -107,6 +106,8 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
         aaListParamsStdModelInfo.setUpdateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
         aaListParamsStdModelInfo.setUpdateTime(DateUtils.getNowDate());
         try {
+            String prodType = aaListParamsStdModelInfo.getProdType();
+            stringRedisTemplate.delete(REDIS_COMPARISON_MODEL_INFO_KEY_SUFFIX + prodType);
             return aaListParamsStdModelInfoMapper.updateAaListParamsStdModelInfo(aaListParamsStdModelInfo);
         } catch (Exception e) {
             log.error("updateAaListParamsStdModelInfo:", e);
@@ -128,6 +129,7 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
                     paramDetail.setProdType(prodType);
                     aaListParamsStdModelDetailService.deleteAaListParamsStdModel(paramDetail);
                     stringRedisTemplate.delete(REDIS_COMPARISON_MODEL_KEY_PREFIX + prodType);
+                    stringRedisTemplate.delete(REDIS_COMPARISON_MODEL_INFO_KEY_SUFFIX + prodType);
                 }
             }
             return aaListParamsStdModelInfoMapper.deleteAaListParamsStdModelInfoByIds(list);
