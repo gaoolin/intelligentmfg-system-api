@@ -72,12 +72,11 @@
         <where>
             <if test="prodType != null and prodType != ''">and prod_type like concat('%', #{prodType}, '%')</if>
             <if test="materialId != null and materialId != ''">and material_id = #{materialId}</if>
-            <if test="deptId != null and deptId != ''">and dept_id = #{deptId}</if>
-            <if test="userId != null and userId != ''">and user_id = #{userId}</if>
+            <if test="deptId != null">and dept_id = #{deptId}</if>
+            <if test="userId != null">and user_id = #{userId}</if>
             <if test="params.beginCreateDate != null and params.beginCreateDate != '' and params.endCreateDate != null and params.endCreateDate != ''">
                 and ops_time between #{params.beginCreateDate} and #{params.endCreateDate}
             </if>
-            <if test="deptId = null or deptId = ''">${params.dataScope}</if>
         </where>
         order by ops_time desc
     </select>

@@ -51,23 +51,23 @@
             <if test="fixtureName != null and fixtureName != ''">and fixture_name = #{fixtureName}</if>
             <if test="deptId != null and deptId != ''">and dept_id = #{deptId}</if>
             <if test="userId != null and userId != ''">and user_id = #{userId}</if>
-            ${params.dataScope}
+--             ${params.dataScope}
         </where>
     </delete>
 
     <select id="selectFixtureMaterialInfoList" resultMap="FixtureMaterialResult">
-        <include refid="fixtureMaterialInfoVo" />
+        <include refid="fixtureMaterialInfoVo"/>
         <where>
             <if test="mId != null and mId != ''">and m_id = #{mId}</if>
             <if test="materialId != null and materialId != ''">and material_id = #{materialId}</if>
             <if test="fixtureName != null and fixtureName != ''">and fixture_name = #{fixtureName}</if>
             <if test="fixtureSpec != null and fixtureSpec != ''">and fixture_spec = #{fixtureSpec}</if>
             <if test="fixtureVersion != null and fixtureVersion != ''">and fixture_version = #{fixtureVersion}</if>
-            <if test="userId != null and userId != ''">and user_id = #{userId}</if>
             <if test="createBy != null and createBy != ''">and create_by = #{createBy}</if>
             <if test="updateBy != null and updateBy != ''">and update_by = #{updateBy}</if>
             <if test="buckle != null and buckle != '' or buckle == 0">and buckle = #{buckle}</if>
-            <if test="deptId == null or deptId == ''">${params.dataScope}</if>
+            <if test="deptId == null ">and dept_id = #{deptId}</if>
+            <if test="userId != null">and user_id = #{userId}</if>
         </where>
     </select>
 

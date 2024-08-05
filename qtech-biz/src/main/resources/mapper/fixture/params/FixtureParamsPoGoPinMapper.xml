@@ -227,7 +227,7 @@
             <if test="id != null">and id = #{id}</if>
             <if test="materialId != null and materialId != ''">and material_id = #{materialId}</if>
             <if test="deptId != null">and dept_id = #{deptId}</if>
-            ${params.dataScope}
+--             ${params.dataScope}
         </where>
     </delete>
 

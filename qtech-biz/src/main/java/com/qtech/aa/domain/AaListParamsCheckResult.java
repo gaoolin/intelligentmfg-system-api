@@ -1,6 +1,7 @@
 package com.qtech.aa.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qtech.common.annotation.Excel;
 import com.qtech.common.core.domain.BaseEntity;
 

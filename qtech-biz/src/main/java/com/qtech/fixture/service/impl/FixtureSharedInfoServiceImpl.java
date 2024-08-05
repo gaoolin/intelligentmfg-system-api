@@ -335,7 +335,7 @@ public class FixtureSharedInfoServiceImpl implements IFixtureSharedInfoService {
             fixtureMaterialCategoryProdType.setmId(fixtureMaterialInfo.getmId());
 
             // 判断原机型是否可以删除
-            Boolean b = fixtureUtils.fixtureProdTypeMultipleReferenceCheck(fixtureProdTypeInfo.getpId(), deptId);
+            Boolean b = fixtureUtils.fixtureProdTypeMultipleReferenceCheck(sharedInfoHistory.getpId(), deptId);
             if (!b) {
                 FixtureProdTypeInfo deleteProdType = new FixtureProdTypeInfo();
                 deleteProdType.setpId(fixtureProdTypeInfo.getpId());
@@ -395,10 +395,14 @@ public class FixtureSharedInfoServiceImpl implements IFixtureSharedInfoService {
                     fixtureMaterialInfoQuery.setDeptId(fixtureSharedInfo.getDeptId());
                     fixtureMaterialInfoQuery.setMaterialId(fixtureMaterialInfo.getMaterialId());
                     FixtureMaterialInfo fixtureMaterialInfoOneDb = fixtureMaterialInfoService.selectOneFixtureMaterialInfo(fixtureMaterialInfoQuery);
-                    if (fixtureMaterialInfoOneDb.getmId() != null) {
-                        fixtureMaterialCategoryProdType.setmId(fixtureMaterialInfoOneDb.getmId());
+                    if (fixtureMaterialInfoOneDb != null) {
+                        if (fixtureMaterialInfoOneDb.getmId() != null) {
+                            fixtureMaterialCategoryProdType.setmId(fixtureMaterialInfoOneDb.getmId());
+                        } else {
+                            throw new DeleteFixtureSharedInfoException("查询到相关料号mId，请检查！");
+                        }
                     } else {
-                        throw new DeleteFixtureSharedInfoException("查询到相关料号mId，请检查！");
+                        throw new DeleteFixtureSharedInfoException("无料号信息（materialId或mId），请检查！");
                     }
                 } else {
                     throw new DeleteFixtureSharedInfoException("无料号信息（materialId或mId），请检查！");
@@ -426,7 +430,11 @@ public class FixtureSharedInfoServiceImpl implements IFixtureSharedInfoService {
         } else {
             // 传过来的参数有机型
             // 删除映射表内容（必删）
-            i = fixtureMaterialCategoryProdTypeService.removeFixtureMaterialCategoryProdType(fixtureMaterialCategoryProdType);
+            if (fixtureMaterialCategoryProdType.getId() != null) {
+                i = fixtureMaterialCategoryProdTypeService.removeFixtureMaterialCategoryProdType(fixtureMaterialCategoryProdType);
+            } else {
+                throw new DeleteFixtureSharedInfoException("无id信息，请检查！");
+            }
 
             // 机型是否可以删除（可删）
             Boolean prodTypeDeleteOk = fixtureUtils.fixtureProdTypeMultipleReferenceCheck(fixtureSharedInfo.getpId(), fixtureSharedInfo.getDeptId());

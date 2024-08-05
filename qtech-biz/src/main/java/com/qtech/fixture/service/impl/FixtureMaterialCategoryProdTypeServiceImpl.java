@@ -73,9 +73,4 @@ public class FixtureMaterialCategoryProdTypeServiceImpl implements IFixtureMater
     public Integer removeFixtureMaterialCategoryProdType(FixtureMaterialCategoryProdType fixtureMaterialCategoryProdType) {
         return fixtureMaterialCategoryProdTypeMapper.removeFixtureMaterialCategoryProdType(fixtureMaterialCategoryProdType);
     }
-
-    @Override
-    public Integer removeFixtureMaterialCategoryProdTypeById(Long id) {
-        return fixtureMaterialCategoryProdTypeMapper.removeFixtureMaterialCategoryProdTypeById(id);
-    }
 }

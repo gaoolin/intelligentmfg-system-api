@@ -269,7 +269,7 @@
                 <if test="prodLevel != null">and prod_level = #{prodLevel}</if>
                 <if test="remark != null and remark != ''">and remark = #{remark}</if>
                 <if test="deptId != null">and dept_id = #{deptId}</if>
-                ${params.dataScope}
+--                 ${params.dataScope}
             </trim>
         </where>
     </select>
@@ -320,7 +320,7 @@
                 <if test="prodLevel != null">and prod_level = #{prodLevel}</if>
                 <if test="remark != null and remark != ''">and remark = #{remark}</if>
                 <if test="deptId != null">and dept_id = #{deptId}</if>
-                ${params.dataScope}
+--                 ${params.dataScope}
             </trim>
         </where>
     </select>

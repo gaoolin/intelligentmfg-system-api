@@ -27,6 +27,4 @@ public interface IFixtureMaterialCategoryProdTypeService {
     public Integer editFixtureMaterialCategoryProdType(FixtureMaterialCategoryProdType fixtureMaterialCategoryProdType);
 
     public Integer removeFixtureMaterialCategoryProdType(FixtureMaterialCategoryProdType fixtureMaterialCategoryProdType);
-
-    public Integer removeFixtureMaterialCategoryProdTypeById(Long id);
 }

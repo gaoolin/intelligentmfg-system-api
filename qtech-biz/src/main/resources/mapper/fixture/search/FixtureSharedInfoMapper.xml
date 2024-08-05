@@ -38,9 +38,9 @@
             <if test="prodType != null  and prodType != ''">and prod_type like concat('%', #{prodType}, '%')</if>
             <if test="fixtureCategory != null">and fixture_category = #{fixtureCategory}</if>
             <if test="materialId != null  and materialId != ''">and material_id = #{materialId}</if>
-            <if test="deptId != null and deptId != ''">and ta.dept_id = #{deptId}</if>
-            <if test="userId != null and userId != ''">and ta.user_id = #{userId}</if>
-            ${params.dataScope}
+            <if test="deptId != null">and ta.dept_id = #{deptId}</if>
+            <if test="userId != null">and ta.user_id = #{userId}</if>
+--             ${params.dataScope}
         </where>
         order by material_id asc, fixture_name, fixture_category, fixture_version, buckle, prod_type
     </select>
@@ -48,10 +48,10 @@
     <select id="selectFixtureSharedInfoOne" parameterType="FixtureSharedInfo" resultMap="FixtureSharedInfoResult">
         <include refid="selectFixtureSharedInfoVo" />
         <where>
-            <if test="id != null and id != ''">and id = #{id}</if>
-            <if test="mId != null and mId != ''">and m_id = #{mId}</if>
-            <if test="cId != null and cId != ''">and c_id = #{cId}</if>
-            <if test="pId != null and pId != ''">and p_id = #{pId}</if>
+            <if test="id != null">and id = #{id}</if>
+            <if test="mId != null">and m_id = #{mId}</if>
+            <if test="cId != null">and c_id = #{cId}</if>
+            <if test="pId != null">and p_id = #{pId}</if>
             <if test="prodType != null and prodType != ''">and prod_type = #{prodType}</if>
             <if test="fixtureCategory != null and fixtureCategory != ''">and fixture_category = #{fixtureCategory}</if>
             <if test="buckle != null">and buckle = #{buckle}</if>
@@ -60,25 +60,25 @@
             <if test="materialId != null and materialId != ''">and material_id = #{materialId}</if>
             <if test="createBy != null and createBy != ''">and create_by = #{createBy}</if>
             <if test="updateBy != null and updateBy != ''">and update_by = #{updateBy}</if>
-            <if test="deptId != null and deptId != ''">and ta.dept_id = #{deptId}</if>
-            <if test="userId != null and userId != ''">and ta.user_id = #{userId}</if>
-            ${params.dataScope}
+            <if test="deptId != null">and ta.dept_id = #{deptId}</if>
+            <if test="userId != null">and ta.user_id = #{userId}</if>
+--             ${params.dataScope}
         </where>
     </select>
     <select id="selectFixtureSharedInfoById" resultMap="FixtureSharedInfoResult">
         <include refid="selectFixtureSharedInfoVo" />
         <where>
-            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="id != null">and id = #{id}</if>
         </where>
     </select>
 
     <delete id="deleteFixtureSharedInfoById" parameterType="Long">
         delete from qtech_biz_2.fixture_shared_info ta
         <where>
-            <if test="id != null and id != ''">and id = #{id}</if>
-            <if test="deptId != null and deptId != ''">and ta.dept_id = #{deptId}</if>
-            <if test="userId != null and userId != ''">and ta.user_id = #{userId}</if>
-            ${params.dataScope}
+            <if test="id != null">and id = #{id}</if>
+            <if test="deptId != null">and ta.dept_id = #{deptId}</if>
+            <if test="userId != null">and ta.user_id = #{userId}</if>
+--             ${params.dataScope}
         </where>
     </delete>
 
@@ -92,8 +92,8 @@
     <select id="selectFixtureSharedInfoDeptIds" resultMap="FixtureSharedInfoResult">
         SELECT dept_id FROM sys_dept ta
         <where>
-            <if test="deptId != null and deptId != ''">and dept_id = #{deptId}</if>
-            <if test="deptId != null and deptId != ''">or find_in_set( #{deptId} , ancestors )</if>
+            <if test="deptId != null">and dept_id = #{deptId}</if>
+            <if test="deptId != null">or find_in_set( #{deptId} , ancestors )</if>
         </where>
     </select>
 </mapper>

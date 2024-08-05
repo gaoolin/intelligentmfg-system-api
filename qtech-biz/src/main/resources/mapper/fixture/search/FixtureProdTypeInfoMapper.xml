@@ -61,7 +61,7 @@
             <if test="pId != null and pId != ''">and p_id = #{pId}</if>
             <if test="deptId != null and deptId != ''">and dept_id = #{deptId}</if>
             <if test="userId != null and userId != ''">and user_id = #{userId}</if>
-            ${params.dataScope}
+--             ${params.dataScope}
         </where>
     </update>
 
@@ -74,7 +74,7 @@
             <if test="updateBy != null and updateBy != ''">and update_by = #{updateBy}</if>
             <if test="deptId != null and deptId != ''">and dept_id = #{deptId}</if>
             <if test="userId != null and userId != ''">and user_id = #{userId}</if>
-            ${params.dataScope}
+--             ${params.dataScope}
         </where>
     </delete>
 
@@ -86,7 +86,7 @@
             <if test="updateBy != null and updateBy != ''">and update_by = #{updateBy}</if>
             <if test="deptId != null and deptId != ''">and dept_id = #{deptId}</if>
             <if test="userId != null and userId != ''">and user_id = #{userId}</if>
-            ${params.dataScope}
+--             ${params.dataScope}
         </where>
     </select>
 

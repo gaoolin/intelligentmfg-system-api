@@ -426,7 +426,7 @@ public class FixtureUtils {
     /**
      * @param pId
      * @return java.lang.Boolean
-     * @description 方法传入机型ID，判断此机型是否在共享信息中被多次（>1)使用，多次引用返回True，否则返回False。
+     * @description 返回是否有被引用。方法传入机型ID，判断此机型是否在共享信息中被多次（>1)使用，多次引用返回True，否则返回False。
      */
     public Boolean fixtureProdTypeMultipleReferenceCheck(Long pId, Long deptId) {
         FixtureMaterialCategoryProdType fixtureMaterialCategoryProdTypeQuery = new FixtureMaterialCategoryProdType();
