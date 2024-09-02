@@ -16,9 +16,9 @@ import java.util.List;
  * @project : qtech
  * @email : gaoolin@gmail.com
  * @date : 2023/03/27 16:08:42
- * @description : TODO
+ * @description :
  */
-@DataSource(value= DataSourceType.FIFTH)
+@DataSource(value= DataSourceType.SLAVE)
 @Service
 public class WorkshopNameServiceImpl implements IWorkshopNameService {
 

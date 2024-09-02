@@ -1,6 +1,6 @@
 package com.qtech.wb.utils;
 
-import com.qtech.wb.mapper.WbComparisonStdModDetailMapper;
+import com.qtech.wb.mapper.WbOlpStdModDetailMapper;
 import com.qtech.common.annotation.DataSource;
 import com.qtech.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,10 @@ import org.springframework.stereotype.Component;
 public class CheckMcIdIsExistFromDb {
 
     @Autowired
-    private static WbComparisonStdModDetailMapper wbComparisonStdModDetailMapper;
+    private static WbOlpStdModDetailMapper wbOlpStdModDetailMapper;
 
     public static Boolean isExist(String mcId) {
-        int count = wbComparisonStdModDetailMapper.countWbComparisonStdModDetailByMcId(mcId);
+        int count = wbOlpStdModDetailMapper.countWbOlpStdModDetailByMcId(mcId);
         return count != 0;
     }
 }

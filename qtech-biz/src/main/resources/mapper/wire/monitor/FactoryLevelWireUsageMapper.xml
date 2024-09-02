@@ -23,51 +23,61 @@
 
     <select id="selectFactoryLevelWireUsageList" parameterType="FactoryLevelWireUsage"
             resultMap="FactoryLevelWireUsageResult">
-        select factory_name,
-        prod_type,
-        actual_wire_usage,
-        standard_wire_usage,
-        wire_width,
-        tf.qty as bom_wire_usage,
-        percents,
-        if(percents is null, 2, if(percents > 0, 1, 0)) as status,
-        yield
-        from (select factory_name,
-        prod_type,
-        actual_wire_usage,
-        standard_wire_usage,
-        wire_width,
-        percents,
-        if(percents is null, 2, if(percents > 0, 1, 0)) as status,
-        yield
-        from (select factory_name,
-        prod_type,
-        actual_wire_usage,
-        standard_wire_usage,
-        wire_width,
-        round(actual_wire_usage / standard_wire_usage * 100 - 100, 2) as percents,
-        yield
-        from (select factory_name,
-        prod_type,
-        round(wire_dosage / yield / 1000000, 7) as actual_wire_usage,
-        tb.wire_width,
-        round(cast(tb.standard_wire_usage as float), 7) as standard_wire_usage,
-        yield
-        from (select factory_name,
-        prod_type,
-        sum(wire_usage) wire_dosage,
-        sum(yield) yield
-        from qtech_biz_2.dwd_wb_wire_usage_detail
-        <where>
-            <if test="params.beginCreateDate != null and params.beginCreateDate != '' and params.endCreateDate != null and params.endCreateDate != ''">
-                and create_date between #{params.beginCreateDate} and #{params.endCreateDate}
-            </if>
-            <if test="factoryName != null  and factoryName != ''">and factory_name = #{factoryName}</if>
-            <if test="prodType != null  and prodType != ''">and prod_type = #{prodType}</if>
-        </where>
-        group by factory_name, prod_type) ta
-        left join qtech_biz_2.ads_wirebond_standard_usage tb on ta.prod_type = tb.mc_id) tc) td) te
-        left join qtech_biz_2.ads_aa_bom_info tf on te.prod_type = tf.part_spec
+        SELECT
+            factory_name,
+            prod_type,
+            actual_wire_usage,
+            standard_wire_usage,
+            wire_width,
+            tf.qty AS bom_wire_usage,
+            percents,
+            IF(percents IS NULL, 2, IF(percents > 0, 1, 0)) AS status,
+            yield
+        FROM
+            (SELECT
+                    factory_name,
+                    prod_type,
+                    actual_wire_usage,
+                    standard_wire_usage,
+                    wire_width,
+                    percents,
+                    IF(percents IS NULL,2,IF(percents > 0, 1, 0)) AS status,
+                    yield
+                FROM
+                    (SELECT
+                            factory_name,
+                            prod_type,
+                            actual_wire_usage,
+                            standard_wire_usage,
+                            wire_width,
+                            round(actual_wire_usage / standard_wire_usage * 100 - 100, 2) AS percents,
+                            yield
+                        FROM
+                            (SELECT
+                                    factory_name,
+                                    prod_type,
+                                    round(wire_dosage / yield / 1000000, 7) AS actual_wire_usage,
+                                    tb.wire_width,
+                                    round(CAST(tb.standard_wire_usage AS float), 7) AS standard_wire_usage,
+                                    yield
+                                FROM
+                                    (SELECT
+                                            factory_name,
+                                            prod_type,
+                                            sum(wire_usage) wire_dosage,
+                                            sum(yield) yield
+                                        FROM
+                                            qtech_biz_2.dwd_wb_wire_usage_detail
+                                    <where>
+                                        <if test="params.beginCreateDate != null and params.beginCreateDate != '' and params.endCreateDate != null and params.endCreateDate != ''">
+                                            and create_date between #{params.beginCreateDate} and #{params.endCreateDate}
+                                        </if>
+                                        <if test="factoryName != null  and factoryName != ''">and factory_name = #{factoryName}</if>
+                                        <if test="prodType != null  and prodType != ''">and prod_type = #{prodType}</if>
+                                    </where>
+                                    group by factory_name, prod_type) ta
+                                    left join qtech_biz_2.ads_wirebond_standard_usage tb on ta.prod_type = tb.mc_id) tc) td) te
+                                    left join qtech_biz_2.ads_aa_bom_info tf on te.prod_type = tf.part_spec
         <where>
             <if test="wireWidth != null ">and wire_width = #{wireWidth}</if>
             <if test="status != null  and status != ''">and status = #{status}</if>

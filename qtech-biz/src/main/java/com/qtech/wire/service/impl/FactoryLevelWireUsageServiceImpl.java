@@ -16,7 +16,7 @@ import com.qtech.wire.service.IFactoryLevelWireUsageService;
  * @author qtech
  * @date 2023-05-17
  */
-@DataSource(DataSourceType.FIFTH)
+@DataSource(DataSourceType.SLAVE)
 @Service
 public class FactoryLevelWireUsageServiceImpl implements IFactoryLevelWireUsageService
 {

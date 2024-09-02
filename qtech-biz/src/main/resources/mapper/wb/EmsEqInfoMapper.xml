@@ -21,7 +21,7 @@
                pbox_id as sim_id
         from (select sim_id, mc_id
               from (select sim_id, mc_id, dt, row_number() over(partition by sim_id order by dt desc) "num"
-                    from qtech_eq_dwd.qtech_eq_control_info_detail
+                    from qtech_eq_dwd.im_wb_olp_chk_result_detail
                     where dt > date_sub(now(), interval 30 day)) t
               where num = 1) a,
              (
@@ -41,7 +41,6 @@
                           left join qtech_eq_ods.ems_t_collector_program d on c.collector_program_id = d.id
              ) b
         where a.sim_id = b.pbox_id
-
         group by company_name, group_name, device_m_id, machine_no, mc_id, pbox_id
     </sql>
 

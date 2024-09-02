@@ -7,7 +7,7 @@ spring:
       # 主库数据源
       master:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://10.170.6.40:32125/qtech_biz_2?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://10.170.6.40:32125/qtech_biz_1?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
         username: root
         password: root
       # 从库数据源
@@ -17,34 +17,14 @@ spring:
         url: jdbc:mysql://10.170.6.40:32333/qtech_eq_dwd?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
         username: root
         password:
-      third:
-        enabled: true
-        url: jdbc:oracle:thin:@//10.170.1.87:1521/qtbi
-        driver-class-name: oracle.jdbc.driver.OracleDriver
-        username: QTECHBI
-        password: qwer!1234
-        validationQuery: select 1 from dual
-        connectionTestQuery: select 1 from dual
-      fourth:
-        enabled: true
-        url: jdbc:oracle:thin:@//10.170.1.36:1521/qtreport
-        driver-class-name: oracle.jdbc.driver.OracleDriver
-        username: ckmes
-        password: qt123mes
-        validationQuery: select 1 from dual
-        connectionTestQuery: select 1 from dual
-      fifth:
-        enabled: true
-        url: jdbc:mysql://10.170.6.40:32333/qtech_eq_dwd?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-        username: root
-        password:
       sixth:
         enabled: true
-        url: jdbc:postgresql://10.170.6.40:32120/qtech_wb?binaryTransfer=false&forceBinary=false&reWriteBatchedInserts=true
-        driver-class-name: org.postgresql.Driver
-        username: qtech_pg_wb
-        password: Ft!*NcYe
-        validationQuery: SELECT version()
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+        url: jdbc:oracle:thin:@//10.170.6.144:1521/qtechIm
+        username: imBiz
+        password: M5F5JkfnQ
+        validationQuery: select 1 from dual
+        connectionTestQuery: select 1 from dual
       seventh:
         enabled: true
         url: jdbc:postgresql://10.170.6.40:32120/biz?currentSchema=public&binaryTransfer=false&forceBinary=false&reWriteBatchedInserts=true&TimeZone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&stringtype=unspecified

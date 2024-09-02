@@ -19,14 +19,14 @@ import java.util.List;
  */
 
 @Slf4j
-@DataSource(DataSourceType.FIFTH)
+@DataSource(DataSourceType.SLAVE)
 @Service
 public class AaListParamsCommonServiceImpl implements IAaListParamsCommonService {
 
     @Autowired
     private AaListParamsCommonMapper aaListParamsCommonMapper;
     @Override
-    public List<String> getFactoryName() {
+    public List<AaListParamsCommon> getFactoryName() {
         try {
             return aaListParamsCommonMapper.getFactoryName();
         } catch (Exception e) {
@@ -36,9 +36,9 @@ public class AaListParamsCommonServiceImpl implements IAaListParamsCommonService
     }
 
     @Override
-    public List<String> getWorkshopName(AaListParamsCommon aaListParamsCommon) {
+    public List<AaListParamsCommon> getWorkshopName(AaListParamsCommon aaListParamsCommon) {
         try {
-            return aaListParamsCommonMapper.getWorkshopName();
+            return aaListParamsCommonMapper.getWorkshopName(aaListParamsCommon);
         } catch (Exception e) {
             log.error("getWorkshopName error", e);
             throw new RuntimeException("获取车间名称出错，请联系管理员！");

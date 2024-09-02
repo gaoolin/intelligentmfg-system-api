@@ -1,5 +1,6 @@
 package com.qtech.aa.mapper;
 
+import com.qtech.aa.domain.AaListParamsCommon;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,6 +14,6 @@ import java.util.List;
 
 @Mapper
 public interface AaListParamsCommonMapper {
-    public List<String> getFactoryName();
-    public List<String> getWorkshopName();
+    public List<AaListParamsCommon> getFactoryName();
+    public List<AaListParamsCommon> getWorkshopName(AaListParamsCommon aaListParamsCommon);
 }

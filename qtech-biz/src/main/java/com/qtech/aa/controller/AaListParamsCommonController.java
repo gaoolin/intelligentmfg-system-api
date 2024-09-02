@@ -25,15 +25,18 @@ public class AaListParamsCommonController {
 
     @Autowired
     private IAaListParamsCommonService aaListParamsCommonService;
-    @GetMapping("/factoryName")
-    public R<List<String>> getFactoryName() {
-        List<String> factoryName = aaListParamsCommonService.getFactoryName();
+
+    @GetMapping("/factoryNames")
+    public R<List<AaListParamsCommon>> getFactoryName() {
+        List<AaListParamsCommon> factoryName = aaListParamsCommonService.getFactoryName();
+        System.out.println(factoryName);
         return R.ok(factoryName);
     }
 
-    @GetMapping("/workshopName")
-    public R<List<String>> getWorkshopName(AaListParamsCommon aaListParamsCommon) {
-        List<String> workshopName = aaListParamsCommonService.getWorkshopName(aaListParamsCommon);
+    @GetMapping("/workshopNames")
+    public R<List<AaListParamsCommon>> getWorkshopName(AaListParamsCommon aaListParamsCommon) {
+        List<AaListParamsCommon> workshopName = aaListParamsCommonService.getWorkshopName(aaListParamsCommon);
+        System.out.println(workshopName);
         return R.ok(workshopName);
     }
 }

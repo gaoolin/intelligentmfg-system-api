@@ -60,10 +60,11 @@
                         left join qtech_eq_ods.ems_t_collector_program d on
                             c.collector_program_id = d.id
                     ) ta,
-        ( select * from qtech_eq_ods.equipment_reverse_control_info
+        ( select * from qtech_eq_ads.im_eq_reverse_control_info
         <where>
             <if test="simId != null">and sim_id = #{simId}</if>
             <if test="statusCode != null">and code = #{code}</if>
+            <if test="true"> and source = 'aa-list'</if>
         </where>
         ) tb
         <where>
@@ -105,7 +106,8 @@
                 select
                     distinct sim_id as sim_id
                 from
-                    qtech_eq_ods.equipment_reverse_control_info) d on
+                    qtech_eq_ads.im_eq_reverse_control_info
+                where source = 'aa-list') d on
                 c.pbox_id = d.sim_id) ta
         <where>
             <if test="factoryName != null and factoryName != ''">
@@ -145,7 +147,8 @@
             select
                 distinct sim_id as sim_id
             from
-                qtech_eq_ods.equipment_reverse_control_info) d on
+                qtech_eq_ads.im_eq_reverse_control_info
+            where source = 'aa-list') d on
             c.pbox_id = d.sim_id
     </select>
 </mapper>

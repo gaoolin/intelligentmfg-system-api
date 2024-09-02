@@ -16,7 +16,7 @@ import com.qtech.wire.service.IWorkshopLevelWireUsageService;
  * @author qtech
  * @date 2023-05-16
  */
-@DataSource(value = DataSourceType.FIFTH)
+@DataSource(value = DataSourceType.SLAVE)
 @Service
 public class WorkshopLevelWireUsageServiceImpl implements IWorkshopLevelWireUsageService
 {

@@ -23,7 +23,7 @@ import java.util.List;
  * @author gaozhilin
  * @date 2023-03-29
  */
-@DataSource(value = DataSourceType.FIFTH)
+@DataSource(value = DataSourceType.SLAVE)
 @Service
 public class WireUsageStandardServiceImpl implements IWireUsageStandardService
 {

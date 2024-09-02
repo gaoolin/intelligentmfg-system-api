@@ -18,7 +18,7 @@
                pbox_id     as sim_id
         from (select sim_id, prod_type
               from (select sim_id, prod_type, chk_dt, row_number() over(partition by sim_id order by chk_dt desc) "num"
-                    from qtech_eq_ods.equipment_reverse_control_info
+                    from qtech_eq_ads.im_eq_reverse_control_info
                     where chk_dt > date_sub(now(), interval 30 day)) t
               where num = 1) a,
              (select a.device_id,
@@ -44,7 +44,7 @@
         from qtech_eq_ods.ems_t_device a
                  left join qtech_eq_ods.ems_v_code_name b on
             a.hierarchy_code = b.hierarchy_show_code
-        where devicetype in ('AA', 'DB', 'HM', 'HM')
+        where devicetype = 'AA'
     </select>
 
     <select id="getWorkshopName" resultMap="aaListParamsCommonResult">
@@ -56,7 +56,22 @@
             a.hierarchy_code = b.hierarchy_show_code
         <where>
             and b.dep_name = 'COB车间'
-            <if test="companyName != null and companyName != ''">and company_name = #{companyName}</if>
+            <if test="factoryName != null and factoryName != ''">and company_name = #{factoryName}</if>
         </where>
+        order by (case
+              when group_name like "%COB一%" then 1
+              when group_name like "%COB二%" then 2
+              when group_name like "%COB三%" then 3
+              when group_name like "%COB四%" then 4
+              when group_name like "%COB五%" then 5
+              when group_name like "%COB六%" then 6
+              when group_name like "%COB七%" then 7
+              when group_name like "%COB八%" then 8
+              when group_name like "%COB九%" then 9
+              when group_name like "%COB十%" then 10
+              when group_name like "%试产一%" then 11
+              when group_name like "%试产二%" then 12
+              when group_name like "%试产三%" then 13
+              else 14 end)
     </select>
 </mapper>

@@ -16,7 +16,7 @@ import com.qtech.wire.service.IEqLevelWireUsageService;
  * @author gaozhilin
  * @date 2023-03-29
  */
-@DataSource(value = DataSourceType.FIFTH)
+@DataSource(value = DataSourceType.SLAVE)
 @Service
 public class EqLevelWireUsageServiceImpl implements IEqLevelWireUsageService
 {

@@ -15,9 +15,9 @@ import java.util.List;
  * @project : qtech
  * @email : gaoolin@gmail.com
  * @date : 2023/03/27 14:05:53
- * @description : TODO
+ * @description :
  */
-@DataSource(value = DataSourceType.FIFTH)
+@DataSource(value = DataSourceType.SLAVE)
 @Service
 public class FactoryNameServiceImpl implements IFactoryNameService {
 

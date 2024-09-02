@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface IAaListParamsCommonService {
 
-    public List<String> getFactoryName();
+    public List<AaListParamsCommon> getFactoryName();
 
-    public List<String> getWorkshopName(AaListParamsCommon aaListParamsCommon);
+    public List<AaListParamsCommon> getWorkshopName(AaListParamsCommon aaListParamsCommon);
 }

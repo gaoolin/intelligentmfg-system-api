@@ -257,7 +257,7 @@
                epoxy_inspection_interval,
                result_check_min,
                result_check_max
-        FROM qtech_eq_dwd.aa_list_params_parsed_detail
+        FROM qtech_eq_dwd.im_aa_list_parsed_detail
     </sql>
 
     <select id="selectAaListParamsParsedDetailList" resultMap="BaseResultMap">

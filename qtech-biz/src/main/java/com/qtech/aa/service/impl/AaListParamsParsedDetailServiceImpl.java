@@ -18,7 +18,7 @@ import java.util.List;
  * desc   :
  */
 
-@DataSource(DataSourceType.FIFTH)
+@DataSource(DataSourceType.SLAVE)
 @Service
 public class AaListParamsParsedDetailServiceImpl implements IAaListParamsParsedDetailService {
 
