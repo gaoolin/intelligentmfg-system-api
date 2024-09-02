@@ -17,34 +17,14 @@ spring:
         url: jdbc:mysql://doris-follower-bak.doris-bak:9030/qtech_eq_dwd?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
         username: root
         password:
-      third:
-        enabled: true
-        url: jdbc:oracle:thin:@//10.170.1.87:1521/qtbi
-        driver-class-name: oracle.jdbc.driver.OracleDriver
-        username: QTECHBI
-        password: qwer!1234
-        validationQuery: select 1 from dual
-        connectionTestQuery: select 1 from dual
-      fourth:
-        enabled: true
-        url: jdbc:oracle:thin:@//10.170.1.36:1521/qtreport
-        driver-class-name: oracle.jdbc.driver.OracleDriver
-        username: ckmes
-        password: qt123mes
-        validationQuery: select 1 from dual
-        connectionTestQuery: select 1 from dual
-      fifth:
-        enabled: true
-        url: jdbc:mysql://doris-follower-bak.doris-bak:9030/qtech_biz_2?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-        username: root
-        password:
       sixth:
         enabled: true
-        url: jdbc:postgresql://pg-ha-pgpool.postgresql-ha:5432/qtech_wb?binaryTransfer=false&forceBinary=false&reWriteBatchedInserts=true
-        driver-class-name: org.postgresql.Driver
-        username: qtech_pg_wb
-        password: Ft!*NcYe
-        validationQuery: SELECT 1
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+        url: jdbc:oracle:thin:@//10.170.6.144:1521/qtechIm
+        username: imBiz
+        password: M5F5JkfnQ
+        validationQuery: select 1 from dual
+        connectionTestQuery: select 1 from dual
       seventh:
         enabled: true
         url: jdbc:postgresql://pg-ha-pgpool.postgresql-ha:5432/fixture?binaryTransfer=false&forceBinary=false&reWriteBatchedInserts=true
