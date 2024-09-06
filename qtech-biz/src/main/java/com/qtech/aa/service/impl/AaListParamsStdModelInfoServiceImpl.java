@@ -40,9 +40,6 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
     private AaListParamsStdModelDetailServiceImpl aaListParamsStdModelDetailService;
 
     @Autowired
-    private ISysUserService sysUserService;
-
-    @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
     @Override
@@ -79,8 +76,8 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
                 AaListParamsStdModelDetail modelDetail = (AaListParamsStdModelDetail) entity;
                 AaListParamsStdModelInfo param = ModelDetailConvertToModelInfo.doConvert(modelDetail);
                 if (param != null) {
-                    param.setCreateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
-                    param.setCreateTime(DateUtils.getNowDate());
+                    param.setCreateBy(modelDetail.getCreateBy());
+                    param.setCreateTime(modelDetail.getCreateTime());
                     try {
                         result = aaListParamsStdModelInfoMapper.insertAaListParamsStdModelInfo(param);
                     } catch (Exception e) {
@@ -103,8 +100,7 @@ public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdMode
     @Override
     public int updateAaListParamsStdModelInfo(AaListParamsStdModelInfo aaListParamsStdModelInfo) {
 
-        aaListParamsStdModelInfo.setUpdateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
-        aaListParamsStdModelInfo.setUpdateTime(DateUtils.getNowDate());
+
         try {
             String prodType = aaListParamsStdModelInfo.getProdType();
             stringRedisTemplate.delete(REDIS_COMPARISON_MODEL_INFO_KEY_SUFFIX + prodType);

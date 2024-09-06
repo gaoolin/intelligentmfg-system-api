@@ -10,29 +10,29 @@ package com.qtech.wb.domain;
 
 public class WbOlpIndexVo {
 
-    private Integer wbOlpStdModelsTtlCnt;
+    private Long wbOlpStdModelsTtlCnt;
 
-    private Integer wbOlpStdModelAvgCnt;
+    private Long wbOlpStdModelAvgCnt;
 
-    public Integer getWbOlpStdModelsTtlCnt() {
+    public Long getWbOlpStdModelsTtlCnt() {
         return wbOlpStdModelsTtlCnt;
     }
 
-    public void setWbOlpStdModelsTtlCnt(Integer wbOlpStdModelsTtlCnt) {
+    public void setWbOlpStdModelsTtlCnt(Long wbOlpStdModelsTtlCnt) {
         this.wbOlpStdModelsTtlCnt = wbOlpStdModelsTtlCnt;
     }
 
-    public Integer getWbOlpStdModelAvgCnt() {
+    public Long getWbOlpStdModelAvgCnt() {
         return wbOlpStdModelAvgCnt;
     }
 
-    public void setWbOlpStdModelAvgCnt(Integer wbOlpStdModelAvgCnt) {
+    public void setWbOlpStdModelAvgCnt(Long wbOlpStdModelAvgCnt) {
         this.wbOlpStdModelAvgCnt = wbOlpStdModelAvgCnt;
     }
 
     @Override
     public String toString() {
-        return "WbOlpOverviewVo{" +
+        return "WbOlpIndexVo{" +
                 "wbOlpStdModelsTtlCnt=" + wbOlpStdModelsTtlCnt +
                 ", wbOlpStdModelAvgCnt=" + wbOlpStdModelAvgCnt +
                 '}';

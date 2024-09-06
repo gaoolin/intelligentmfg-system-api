@@ -14,11 +14,13 @@ import java.util.List;
 
 @Mapper
 public interface AaListParamsEqMapper {
-    public int editAaListParamsEq(AaListParamsEq aaListParamsEq);
+    public int editAaListParamsIgnoreEq(AaListParamsEq aaListParamsEq);
 
     public AaListParamsEq selectAaListParamsEqById(String id);
 
     public List<AaListParamsEq> selectAaListParamsEqList(AaListParamsEq aaListParamsEq);
 
-    public int upsertAaListParamsEq(AaListParamsEq aaListParamsEq);
+    public int insertAaListParamsIgnoreEq(AaListParamsEq aaListParamsEq);
+
+    public int editAaListParamsEq(AaListParamsEq aaListParamsEq);
 }

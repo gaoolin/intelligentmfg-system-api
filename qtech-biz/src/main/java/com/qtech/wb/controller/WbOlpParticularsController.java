@@ -31,7 +31,6 @@ public class WbOlpParticularsController extends BaseController {
 
     @RequestMapping(value = "/detail")
     public TableDataInfo getDetail(WbOlpParticularsVo wbOlpParticularsVo) {
-        System.out.println(wbOlpParticularsVo);
         startPage();
         List<WbOlpParticularsVo> detail = wbOlpDetailService.getDetail(wbOlpParticularsVo);
         return getDataTable(detail);

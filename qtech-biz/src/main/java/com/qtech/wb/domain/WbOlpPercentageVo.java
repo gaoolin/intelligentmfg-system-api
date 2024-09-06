@@ -40,6 +40,9 @@ public class WbOlpPercentageVo extends BaseEntity {
     @Excel(name = "错误率")
     private float errRatio;
 
+    @Excel(name = "状态", dictType = "comparison_result_code")
+    private Integer status;
+
     private String flag;
 
     public String getCompanyName() {
@@ -118,13 +121,21 @@ public class WbOlpPercentageVo extends BaseEntity {
         return flag;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public void setFlag(String flag) {
         this.flag = flag;
     }
 
     @Override
     public String toString() {
-        return "WbOlpRatioVo{" +
+        return "WbOlpPercentageVo{" +
                 "companyName='" + companyName + '\'' +
                 ", groupName='" + groupName + '\'' +
                 ", eqId='" + eqId + '\'' +
@@ -134,6 +145,7 @@ public class WbOlpPercentageVo extends BaseEntity {
                 ", okCnt=" + okCnt +
                 ", errCnt=" + errCnt +
                 ", errRatio=" + errRatio +
+                ", status=" + status +
                 ", flag='" + flag + '\'' +
                 '}';
     }

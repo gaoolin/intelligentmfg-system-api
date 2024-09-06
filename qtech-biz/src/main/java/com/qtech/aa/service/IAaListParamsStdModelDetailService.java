@@ -1,6 +1,7 @@
 package com.qtech.aa.service;
 
 import com.qtech.aa.domain.AaListParamsStdModelDetail;
+import com.qtech.aa.domain.AaListParamsStdModelInfo;
 
 import java.util.List;
 import java.util.Map;

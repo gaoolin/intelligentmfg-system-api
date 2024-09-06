@@ -19,9 +19,9 @@ public interface WbOlpStdModUploadMapper {
     List<WbOlpStdModUpload> selectWbOlpStdModUploadList(WbOlpStdModUpload wbOlpStdModUpload);
 
     List<WbOlpStdModDetail> selectWbOlpStdModUploadMockList(@Param("simId") String simId,
-                                                                   @Param("mcId") String mcId,
-                                                                   @Param("pId") String pId,
-                                                                   @Param("beginTime") String beginTime,
-                                                                   @Param("endTime") String endTime,
-                                                                   @Param("delLineNoList") List<Integer> delLineNoList);
+                                                            @Param("mcId") String mcId,
+                                                            @Param("pId") String pId,
+                                                            @Param("beginTime") String beginTime,
+                                                            @Param("endTime") String endTime,
+                                                            @Param("delLineNoList") List<Integer> delLineNoList);
 }

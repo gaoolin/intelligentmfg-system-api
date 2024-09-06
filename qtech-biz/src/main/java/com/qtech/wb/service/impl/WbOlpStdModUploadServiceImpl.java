@@ -1,12 +1,13 @@
 package com.qtech.wb.service.impl;
 
-import com.qtech.wb.domain.WbOlpStdModDetail;
-import com.qtech.wb.domain.WbOlpStdModUpload;
-import com.qtech.wb.mapper.WbOlpStdModDetailMapper;
-import com.qtech.wb.mapper.WbOlpStdModUploadMapper;
-import com.qtech.wb.service.IWbOlpStdModUploadService;
 import com.qtech.common.annotation.DataSource;
 import com.qtech.common.enums.DataSourceType;
+import com.qtech.wb.domain.WbOlpStdModDetail;
+import com.qtech.wb.domain.WbOlpStdModInfo;
+import com.qtech.wb.domain.WbOlpStdModUpload;
+import com.qtech.wb.mapper.WbOlpStdModUploadMapper;
+import com.qtech.wb.mapper.WbOlpStdModelDetailMapper;
+import com.qtech.wb.service.IWbOlpStdModUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class WbOlpStdModUploadServiceImpl implements IWbOlpStdModUploadService {
     WbOlpStdModUploadMapper wbOlpStdModUploadMapper;
 
     @Autowired
-    WbOlpStdModDetailMapper wbOlpStdModDetailMapper;
+    private WbOlpStdModelDetailMapper wbOlpStdModelDetailMapper;
 
     @Override
     public List<WbOlpStdModUpload> selectWbOlpStdModUploadList(WbOlpStdModUpload wbOlpStdModUpload) {
@@ -72,7 +73,7 @@ public class WbOlpStdModUploadServiceImpl implements IWbOlpStdModUploadService {
         for (WbOlpStdModDetail wbOlpStdModDetail : wbOlpStdModDetails) {
             Integer i = null;
             try {
-                i = wbOlpStdModDetailMapper.insertWbOlpStdModDetail(wbOlpStdModDetail);
+                i = wbOlpStdModelDetailMapper.insertWbOlpStdModDetail(wbOlpStdModDetail);
             } catch (Exception e) {
                 log.error("插入标准模组上传数据异常", e);
                 throw new RuntimeException("插入标准模组上传数据异常，请联系系统负责人!");

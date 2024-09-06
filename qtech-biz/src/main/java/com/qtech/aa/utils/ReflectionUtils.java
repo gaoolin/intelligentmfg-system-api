@@ -46,7 +46,5 @@ public class ReflectionUtils {
                                      .filter(f -> f.getName().equals("baseField")) // 示例：查找名为"baseField"的字段
                                      .findFirst()
                                      .orElseThrow(() -> new NoSuchFieldException("Field not found"));
-
-        System.out.println("Found field: " + field.getName());
     }
 }

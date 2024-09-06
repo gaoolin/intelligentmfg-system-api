@@ -1,6 +1,7 @@
 package com.qtech.wb.service;
 
 import com.qtech.wb.domain.WbOlpStdModDetail;
+import com.qtech.wb.domain.WbOlpStdModInfo;
 import com.qtech.wb.domain.WbOlpStdModUpload;
 
 import java.util.List;

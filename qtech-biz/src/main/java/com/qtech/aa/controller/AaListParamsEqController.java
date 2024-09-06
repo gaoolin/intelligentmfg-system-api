@@ -39,14 +39,20 @@ public class AaListParamsEqController extends BaseController {
 
     @Log(title = "AA机台受控状态修改", businessType = BusinessType.UPDATE)
     @RequestMapping(value = "/ignore", method = {RequestMethod.POST, RequestMethod.PUT})
-    public AjaxResult edit(@RequestBody AaListParamsEq aaListParamsEq) {
+    public AjaxResult changeSwitch(@RequestBody AaListParamsEq aaListParamsEq) {
         int i = 0;
         Boolean b = aaListParamsEqService.isExist(aaListParamsEq);
         if (b) {
-            i = aaListParamsEqService.editAaListParamsEq(aaListParamsEq);
+            i = aaListParamsEqService.editAaListParamsIgnoreEq(aaListParamsEq);
         } else {
-            i = aaListParamsEqService.upsetAaListParamsEq(aaListParamsEq);
+            i = aaListParamsEqService.insertAaListParamsIgnoreEq(aaListParamsEq);
         }
+        return toAjax(i);
+    }
+
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
+    public AjaxResult edit(@RequestBody AaListParamsEq aaListParamsEq) {
+        int i = aaListParamsEqService.editAaListParamsEq(aaListParamsEq);
         return toAjax(i);
     }
 

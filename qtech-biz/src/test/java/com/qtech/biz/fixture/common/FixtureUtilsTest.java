@@ -33,14 +33,12 @@ public class FixtureUtilsTest {
     @Test
     public void fixtureProdTypeMultipleReferenceCheck() {
         Boolean aBoolean = fixtureUtils.fixtureProdTypeMultipleReferenceCheck(757L, 209L);
-        System.out.println(aBoolean);
     }
 
     @Test
     public void TestListSize() {
         List<FixtureMaterialCategoryProdType> fixtureMaterialCategoryProdTypes = new ArrayList<>();
         int size = fixtureMaterialCategoryProdTypes.size();
-        System.out.println(size);
     }
 
     @Test
@@ -49,8 +47,6 @@ public class FixtureUtilsTest {
         fixtureMaterialCategoryProdType.setDeptId(209L);
         fixtureMaterialCategoryProdType.setmId(2L);
         String label = "" + 191 + '-' + 757 + '-' + 0 + '-' + 209;
-        //int i = fixtureSharedInfoService.deleteFixtureSharedInfo(label);
-        //System.out.println(i);
     }
 
     @Test

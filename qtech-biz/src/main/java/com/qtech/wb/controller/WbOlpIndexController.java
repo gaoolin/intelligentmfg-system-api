@@ -7,7 +7,7 @@ import com.qtech.common.core.page.TableDataInfo;
 import com.qtech.wb.domain.WbOlpIndexVo;
 import com.qtech.wb.domain.WbOlpTrendingVo;
 import com.qtech.wb.service.IWbOlpIndexService;
-import com.qtech.wb.service.IWbOlpStdModInfoService;
+import com.qtech.wb.service.IWbOlpStdModelInfoService;
 import com.qtech.wb.vo.WbOlpChkVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +29,7 @@ import java.util.List;
 public class WbOlpIndexController extends BaseController {
 
     @Autowired
-    IWbOlpStdModInfoService wbOlpStdModInfoService;
+    IWbOlpStdModelInfoService wbOlpStdModelInfoService;
 
     @Autowired
     IWbOlpIndexService wbOlpIndexService;
@@ -40,8 +40,8 @@ public class WbOlpIndexController extends BaseController {
 
         WbOlpIndexVo wbOlpIndexVo = new WbOlpIndexVo();
 
-        Integer modelsTtlCnt = wbOlpStdModInfoService.getModelsTtlCnt();
-        Integer modelAvgCnt = wbOlpStdModInfoService.getModelAvgCnt();
+        Long modelsTtlCnt = wbOlpStdModelInfoService.getModelsTtlCnt();
+        Long modelAvgCnt = wbOlpStdModelInfoService.getModelAvgCnt();
 
         wbOlpIndexVo.setWbOlpStdModelsTtlCnt(modelsTtlCnt);
         wbOlpIndexVo.setWbOlpStdModelAvgCnt(modelAvgCnt);
@@ -51,7 +51,7 @@ public class WbOlpIndexController extends BaseController {
 
     @GetMapping(value = "/trending")
     public TableDataInfo IndexWbOlpTrending() {
-        List<WbOlpTrendingVo> wbOlpTrending = wbOlpStdModInfoService.getWbOlpTrending();
+        List<WbOlpTrendingVo> wbOlpTrending = wbOlpStdModelInfoService.getWbOlpTrending();
         return getDataTable(wbOlpTrending);
     }
 

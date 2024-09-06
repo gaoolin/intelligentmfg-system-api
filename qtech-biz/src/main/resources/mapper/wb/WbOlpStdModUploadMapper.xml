@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qtech.wb.mapper.WbOlpStdModUploadMapper">
 
-    <resultMap type="WbOlpStdModDetail" id="WbOlpStdModDetailResult">
+    <resultMap type="WbOlpStdModDetail" id="WbOlpStdModelDetailResult">
         <result property="mcId"    column="mc_id"    />
         <result property="lineNo"    column="line_no"    />
         <result property="leadX"    column="lead_x"    />
@@ -82,7 +82,7 @@
         order by mc_id asc, dt asc, line_no asc
     </select>
 
-    <select id="selectWbOlpStdModUploadMockList" resultMap="WbOlpStdModDetailResult">
+    <select id="selectWbOlpStdModUploadMockList" resultMap="WbOlpStdModelDetailResult">
         select mc_id,
                row_number() over(partition by sim_id, pieces_index order by line_no asc) as line_no,
                lead_x,

@@ -21,12 +21,14 @@ public interface IAaListParamsEqService {
 
     public AaListParamsEq selectAaListParamsEqById(String id);
 
-    public int editAaListParamsEq(AaListParamsEq aaListParamsEq);
+    public int editAaListParamsIgnoreEq(AaListParamsEq aaListParamsEq);
 
-    public int upsetAaListParamsEq(AaListParamsEq aaListParamsEq);
+    public int insertAaListParamsIgnoreEq(AaListParamsEq aaListParamsEq);
 
     public void cleanupDayShiftIgnores(); // 实现清理白班的忽略状态
 
     public void cleanupNightShiftIgnores(); // 实现清理夜班的忽略状态
     public void cleanupIgnores(); // 这里根据你存储`simId`的策略清理Redis中的忽略键
+
+    public int editAaListParamsEq(AaListParamsEq aaListParamsEq);
 }

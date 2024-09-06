@@ -1,17 +1,15 @@
 package com.qtech.wb.service.impl;
 
-import com.qtech.wb.domain.WbOlpStdModDetail;
-import com.qtech.wb.domain.WbOlpStdModInfo;
-import com.qtech.wb.mapper.WbOlpStdModDetailMapper;
-import com.qtech.wb.mapper.WbOlpStdModInfoMapper;
-import com.qtech.wb.service.IWbOlpStdModDetailService;
 import com.qtech.common.annotation.DataSource;
 import com.qtech.common.enums.DataSourceType;
 import com.qtech.common.exception.biz.WbOlpCheckUploadException;
 import com.qtech.common.utils.DateUtils;
-import com.qtech.common.utils.SecurityUtils;
 import com.qtech.common.utils.StringUtils;
-import com.qtech.system.service.ISysUserService;
+import com.qtech.wb.domain.WbOlpStdModDetail;
+import com.qtech.wb.domain.WbOlpStdModInfo;
+import com.qtech.wb.mapper.WbOlpStdModelDetailMapper;
+import com.qtech.wb.mapper.WbOlpStdModelInfoMapper;
+import com.qtech.wb.service.IWbOlpStdModelDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,129 +22,86 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 标准模版明细Service业务层处理
- *
- * @author gaozhilin
- * @date 2023-09-06
+ * author :  gaozhilin
+ * email  :  gaoolin@gmail.com
+ * date   :  2024/09/05 16:23:19
+ * desc   :
  */
 
 @Slf4j
-@DataSource(value = DataSourceType.SIXTH)
+@DataSource(DataSourceType.SIXTH)
 @Service
-public class WbOlpStdModDetailServiceImpl implements IWbOlpStdModDetailService {
-
-    private final WbOlpStdModInfo wbOlpStdModInfo = new WbOlpStdModInfo();
+public class WbOlpStdModelDetailServiceImpl implements IWbOlpStdModelDetailService {
+    @Autowired
+    private WbOlpStdModelDetailMapper wbOlpStdModelDetailMapper;
 
     @Autowired
-    private WbOlpStdModDetailMapper wbOlpStdModDetailMapper;
+    private WbOlpStdModelInfoMapper wbOlpStdModelInfoMapper;
 
-    @Autowired
-    private WbOlpStdModInfoMapper wbOlpStdModInfoMapper;
-
-    @Autowired
-    private ISysUserService sysUserService;
-
-    /**
-     * 查询标准模版明细
-     *
-     * @param id 标准模版明细主键
-     * @return 标准模版明细
-     */
     @Override
     public WbOlpStdModDetail selectWbOlpStdModDetailById(Long id) {
         try {
-            return wbOlpStdModDetailMapper.selectWbOlpStdModDetailById(id);
+            return wbOlpStdModelDetailMapper.selectWbOlpStdModDetailById(id);
         } catch (Exception e) {
-            log.error("查询标准模版明细异常", e);
             throw new RuntimeException("查询数据库失败，请联系系统负责人!");
         }
     }
 
-    /**
-     * 查询标准模版明细列表
-     *
-     * @param wbOlpStdModDetail 标准模版明细
-     * @return 标准模版明细
-     */
     @Override
     public List<WbOlpStdModDetail> selectWbOlpStdModDetailList(WbOlpStdModDetail wbOlpStdModDetail) {
         try {
-            return wbOlpStdModDetailMapper.selectWbOlpStdModDetailList(wbOlpStdModDetail);
+            return wbOlpStdModelDetailMapper.selectWbOlpStdModDetailList(wbOlpStdModDetail);
         } catch (Exception e) {
-            log.error("查询标准模版明细列表异常", e);
+            log.error("查询标准模组明细异常", e);
             throw new RuntimeException("查询数据库失败，请联系系统负责人!");
         }
     }
 
-    /**
-     * 新增标准模版明细
-     *
-     * @param wbOlpStdModDetail 标准模版明细
-     * @return 结果
-     */
     @Override
     public int insertWbOlpStdModDetail(WbOlpStdModDetail wbOlpStdModDetail) {
         wbOlpStdModDetail.setCreateTime(DateUtils.getNowDate());
         try {
-            return wbOlpStdModDetailMapper.insertWbOlpStdModDetail(wbOlpStdModDetail);
+            return wbOlpStdModelDetailMapper.insertWbOlpStdModDetail(wbOlpStdModDetail);
         } catch (Exception e) {
-            log.error("查询数据库失败，请联系系统负责人!");
-            throw new RuntimeException("查询数据库失败，请联系系统负责人!");
+            log.error("插入标准模组明细异常", e);
+            throw new RuntimeException("保存数据失败，请联系系统负责人!");
         }
     }
 
-    /**
-     * 修改标准模版明细
-     *
-     * @param wbOlpStdModDetail 标准模版明细
-     * @return 结果
-     */
     @Override
     public int updateWbOlpStdModDetail(WbOlpStdModDetail wbOlpStdModDetail) {
         wbOlpStdModDetail.setUpdateTime(DateUtils.getNowDate());
         try {
-            return wbOlpStdModDetailMapper.updateWbOlpStdModDetail(wbOlpStdModDetail);
+            return wbOlpStdModelDetailMapper.updateWbOlpStdModDetail(wbOlpStdModDetail);
         } catch (Exception e) {
             log.error("修改标准模版明细异常", e);
-            throw new RuntimeException("查询数据库失败，请联系系统负责人!");
+            throw new RuntimeException("修改数据失败，请联系系统负责人!");
         }
     }
 
-    /**
-     * 批量删除标准模版明细
-     *
-     * @param ids 需要删除的标准模版明细主键
-     * @return 结果
-     */
-    @Override
-    public int deleteWbOlpStdModDetailByIds(Long[] ids) {
-        try {
-            return wbOlpStdModDetailMapper.deleteWbOlpStdModDetailByIds(ids);
-        } catch (Exception e) {
-            log.error("批量删除标准模版明细异常", e);
-            throw new RuntimeException("查询数据库失败，请联系系统负责人!");
-        }
-    }
-
-    /**
-     * 删除标准模版明细信息
-     *
-     * @param id 标准模版明细主键
-     * @return 结果
-     */
     @Override
     public int deleteWbOlpStdModDetailById(Long id) {
         try {
-            return wbOlpStdModDetailMapper.deleteWbOlpStdModDetailById(id);
+            return wbOlpStdModelDetailMapper.deleteWbOlpStdModDetailById(id);
         } catch (Exception e) {
             log.error("删除标准模版明细信息异常", e);
-            throw new RuntimeException("查询数据库失败，请联系系统负责人!");
+            throw new RuntimeException("删除数据失败，请联系系统负责人!");
+        }
+    }
+
+    @Override
+    public int deleteWbOlpStdModDetailByIds(Long[] ids) {
+        try {
+            return wbOlpStdModelDetailMapper.deleteWbOlpStdModDetailByIds(ids);
+        } catch (Exception e) {
+            log.error("批量删除标准模版明细异常", e);
+            throw new RuntimeException("批量删除数据失败，请联系系统负责人!");
         }
     }
 
     @Transactional(rollbackFor = {Exception.class, RuntimeException.class}, propagation = Propagation.REQUIRES_NEW)
     @Override
-    public Map<String, String> uploadWbOlpStdModDetail(List<WbOlpStdModDetail> wbOlpStdModDetails) {
+    public Map<String, String> uploadWbOlpStdModDetail(List<WbOlpStdModDetail> wbOlpStdModDetails, WbOlpStdModInfo wbOlpStdModInfo) {
 
         Map<String, Integer> modStat = new HashMap<>();
         Map<String, String> resultMap = new HashMap<>();
@@ -179,19 +134,14 @@ public class WbOlpStdModDetailServiceImpl implements IWbOlpStdModDetailService {
                 exist = exist + 1;
                 break;
             } else {
-                String nickName = sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName();
-
                 wbOlpStdModInfo.setMcId(key);
                 wbOlpStdModInfo.setLineCount(modStat.get(key));
-                wbOlpStdModInfo.setStatus(1);
-                wbOlpStdModInfo.setCreateTime(DateUtils.getNowDate());
-                wbOlpStdModInfo.setCreateBy(nickName);
 
-                wbOlpStdModInfoMapper.insertWbOlpStdModInfo(wbOlpStdModInfo);
+                wbOlpStdModelInfoMapper.insertWbOlpStdModInfo(wbOlpStdModInfo);
 
                 for (WbOlpStdModDetail oneMcId : oneMcIdList) {
                     try {
-                        wbOlpStdModDetailMapper.insertWbOlpStdModDetail(oneMcId);
+                        wbOlpStdModelDetailMapper.insertWbOlpStdModDetail(oneMcId);
                     } catch (Exception e) {
                         log.error("插入标准模版明细异常", e);
                         throw new RuntimeException("插入标准模版明细异常，请联系系统负责人!");
@@ -199,22 +149,12 @@ public class WbOlpStdModDetailServiceImpl implements IWbOlpStdModDetailService {
                 }
 
                 oneMcIdList.clear();
-
-                wbOlpStdModInfo.setSid(null);
-                wbOlpStdModInfo.setMcId(null);
-                wbOlpStdModInfo.setLineCount(null);
-                wbOlpStdModInfo.setStatus(null);
-                wbOlpStdModInfo.setProvider(null);
-                wbOlpStdModInfo.setFactory(null);
-                wbOlpStdModInfo.setRemark(null);
-                wbOlpStdModInfo.setCreateBy(null);
-                wbOlpStdModInfo.setCreateTime(null);
             }
             insert = insert + 1;
         }
 
         if (existMcIdList.isEmpty()) {
-            resultMap.put("flag","1");
+            resultMap.put("flag", "1");
             resultMap.put("result", "共 " + (insert + exist) + " 个机型，已导入 " + insert + " 个机型。");
         } else {
             resultMap.put("flag", "0");
@@ -222,14 +162,14 @@ public class WbOlpStdModDetailServiceImpl implements IWbOlpStdModDetailService {
                     " 个机型。以下机型模板已存在，请检查！\n" + existMcIdList.toString());
         }
 
-        return  resultMap;
+        return resultMap;
     }
 
     @Override
     public Boolean isExistMcId(String mcId) {
         int count = 0;
         try {
-            count = wbOlpStdModDetailMapper.countWbOlpStdModDetailByMcId(mcId);
+            count = wbOlpStdModelDetailMapper.countWbOlpStdModDetailByMcId(mcId);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

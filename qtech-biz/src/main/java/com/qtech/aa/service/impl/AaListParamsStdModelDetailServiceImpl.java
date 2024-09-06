@@ -1,6 +1,7 @@
 package com.qtech.aa.service.impl;
 
 import com.qtech.aa.domain.AaListParamsStdModelDetail;
+import com.qtech.aa.domain.AaListParamsStdModelInfo;
 import com.qtech.aa.mapper.AaListParamsStdModelDetailMapper;
 import com.qtech.aa.service.IAaListParamsStdModelDetailService;
 import com.qtech.aa.service.IAaListParamsStdModelInfoService;
@@ -43,9 +44,6 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
     private AaListParamsStdModelDetailMapper aaListParamsStdModelDetailMapper;
 
     @Autowired
-    private ISysUserService sysUserService;
-
-    @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
@@ -85,9 +83,6 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
         int rowsAffected = 0;
         if (existingModelDetail == null) {
             // 数据不存在，执行插入操作
-            String nickName = sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName();
-            aaListParamsStdModelDetail.setCreateBy(nickName);
-            aaListParamsStdModelDetail.setCreateTime(DateUtils.getNowDate());
             try {
                 rowsAffected = aaListParamsStdModelDetailMapper.insertAaListParamsStdModel(aaListParamsStdModelDetail);
                 aaListParamsStdModelInfoService.insertAaListParamsStdModelInfo(aaListParamsStdModelDetail);
@@ -99,8 +94,10 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
             // 数据存在，执行更新操作
             // 更新前先设置更新人和更新时间
             aaListParamsStdModelDetail.setId(existingModelDetail.getId()); // 确保ID正确
-            aaListParamsStdModelDetail.setUpdateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
-            aaListParamsStdModelDetail.setUpdateTime(DateUtils.getNowDate());
+            aaListParamsStdModelDetail.setUpdateBy(aaListParamsStdModelDetail.getCreateBy());
+            aaListParamsStdModelDetail.setUpdateTime(aaListParamsStdModelDetail.getCreateTime());
+            aaListParamsStdModelDetail.setCreateBy(null);
+            aaListParamsStdModelDetail.setCreateTime(null);
 
             try {
                 rowsAffected = updateAaListParamsStdModel(aaListParamsStdModelDetail);
@@ -120,11 +117,6 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
     @Transactional(rollbackFor = {Exception.class, RuntimeException.class}, propagation = Propagation.REQUIRES_NEW)
     @Override
     public int updateAaListParamsStdModel(AaListParamsStdModelDetail aaListParamsStdModelDetail) {
-
-        String nickName = sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName();
-        aaListParamsStdModelDetail.setUpdateBy(nickName);
-        aaListParamsStdModelDetail.setUpdateTime(DateUtils.getNowDate());
-
         List<AaListParamsStdModelDetail> list = aaListParamsStdModelDetailMapper.selectAaListParamsStdModelList(aaListParamsStdModelDetail);
         if (CollectionUtils.isNotEmpty(list)) {
             stringRedisTemplate.delete(REDIS_COMPARISON_MODEL_KEY_PREFIX + list.get(0).getProdType());
@@ -193,10 +185,7 @@ public class AaListParamsStdModelDetailServiceImpl implements IAaListParamsStdMo
         int failureCount = 0;
         int duplicateCount = 0;
 
-        String nickName = sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName();
         for (AaListParamsStdModelDetail detail : paramsModelList) {
-            detail.setCreateBy(nickName);
-            detail.setCreateTime(DateUtils.getNowDate());
             try {
                 int exists = aaListParamsStdModelDetailMapper.checkIfExists(detail);
                 if (exists > 0) {

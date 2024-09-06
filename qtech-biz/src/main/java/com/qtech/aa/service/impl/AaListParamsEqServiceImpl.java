@@ -4,6 +4,7 @@ import com.qtech.aa.domain.AaListParamsEq;
 import com.qtech.aa.mapper.AaListParamsEqMapper;
 import com.qtech.aa.service.IAaListParamsEqService;
 import com.qtech.common.annotation.DataSource;
+import com.qtech.common.core.redis.RedisCache;
 import com.qtech.common.enums.DataSourceType;
 import com.qtech.common.exception.biz.TooManyResultsException;
 import lombok.extern.slf4j.Slf4j;
@@ -30,13 +31,12 @@ import static com.qtech.common.utils.SecurityUtils.getLoginUser;
 @DataSource(DataSourceType.SLAVE)
 @Service
 public class AaListParamsEqServiceImpl implements IAaListParamsEqService {
-
     private final AaListParamsEqMapper aaListParamsEqMapper;
-    private final RedisTemplate<String, String> stringRedisTemplate;
+    private final RedisCache redisCache;
 
-    public AaListParamsEqServiceImpl(AaListParamsEqMapper aaListParamsEqMapper, RedisTemplate<String, String> stringRedisTemplate) {
+    public AaListParamsEqServiceImpl(AaListParamsEqMapper aaListParamsEqMapper, RedisCache redisCache) {
         this.aaListParamsEqMapper = aaListParamsEqMapper;
-        this.stringRedisTemplate = stringRedisTemplate;
+        this.redisCache = redisCache;
     }
 
     @Override
@@ -83,22 +83,24 @@ public class AaListParamsEqServiceImpl implements IAaListParamsEqService {
     }
 
     @Override
-    public int editAaListParamsEq(AaListParamsEq aaListParamsEq) {
+    public int editAaListParamsIgnoreEq(AaListParamsEq aaListParamsEq) {
         try {
             Integer status = aaListParamsEq.getStatus();
             if (status == null) {
-                throw new RuntimeException("status can not be updated");
+                throw new RuntimeException("status is null, can not be updated");
             } else if (status == 1) {
-                stringRedisTemplate.opsForValue().set(EQ_REVERSE_IGNORE_SIM_PREFIX + aaListParamsEq.getSimId(), "true");
+                redisCache.setCacheObject(EQ_REVERSE_IGNORE_SIM_PREFIX + aaListParamsEq.getSimId(), "true");
             } else if (status == 0) {
-                stringRedisTemplate.delete(EQ_REVERSE_IGNORE_SIM_PREFIX + aaListParamsEq.getSimId());
+                redisCache.deleteObject(EQ_REVERSE_IGNORE_SIM_PREFIX + aaListParamsEq.getSimId());
             } else {
                 throw new RuntimeException("unknown status");
             }
-            return aaListParamsEqMapper.editAaListParamsEq(aaListParamsEq);
+            aaListParamsEq.setUpdateTime(Date.from(Instant.now()));
+            aaListParamsEq.setUpdateBy(getLoginUser().getUser().getNickName());
+            return aaListParamsEqMapper.editAaListParamsIgnoreEq(aaListParamsEq);
         } catch (Exception e) {
             log.error("editAaListParamsEq error", e);
-            throw new RuntimeException("查询后台数据库发生异常，请联系管理员！");
+            throw new RuntimeException("修改数据发生异常，请联系管理员！");
         }
     }
 
@@ -108,18 +110,17 @@ public class AaListParamsEqServiceImpl implements IAaListParamsEqService {
      * @description 主要用于插入数据和更新除了状态以外的数据
      */
     @Override
-    public int upsetAaListParamsEq(AaListParamsEq aaListParamsEq) {
+    public int insertAaListParamsIgnoreEq(AaListParamsEq aaListParamsEq) {
         if (aaListParamsEq != null) {
             aaListParamsEq.setUpdateTime(Date.from(Instant.now()));
-            aaListParamsEq.setOpCnt((aaListParamsEq.getOpCnt() == null ? 0 : aaListParamsEq.getOpCnt()) + 1);
-            String nickName = getLoginUser().getUser().getNickName();
-            aaListParamsEq.setUpdateBy(nickName);
-            stringRedisTemplate.opsForValue().set(EQ_REVERSE_IGNORE_SIM_PREFIX + aaListParamsEq.getSimId(), "true");
+            aaListParamsEq.setUpdateBy(getLoginUser().getUser().getNickName());
+            aaListParamsEq.setOpCnt(1);
+            redisCache.setCacheObject(EQ_REVERSE_IGNORE_SIM_PREFIX + aaListParamsEq.getSimId(), "true");
             try {
-                return aaListParamsEqMapper.upsertAaListParamsEq(aaListParamsEq);
+                return aaListParamsEqMapper.insertAaListParamsIgnoreEq(aaListParamsEq);
             } catch (Exception e) {
                 log.error("upsetAaListParamsEq error", e);
-                throw new RuntimeException("查询后台数据库发生异常，请联系管理员！");
+                throw new RuntimeException("添加数据发生异常，请联系管理员！");
             }
         }
         return 0;
@@ -128,18 +129,23 @@ public class AaListParamsEqServiceImpl implements IAaListParamsEqService {
     @Override
     @Scheduled(cron = "0 0 21 * * ?") // 每天晚上21:00执行
     public void cleanupDayShiftIgnores() {
-        stringRedisTemplate.delete(EQ_REVERSE_IGNORE_SIM_PREFIX + "*");
+        redisCache.deleteObject(EQ_REVERSE_IGNORE_SIM_PREFIX + "*");
     }
 
     @Override
     @Scheduled(cron = "0 0 9 * * ?") // 每天早上09:00执行
     public void cleanupNightShiftIgnores() {
-        stringRedisTemplate.delete(EQ_REVERSE_IGNORE_SIM_PREFIX + "*");
+        redisCache.deleteObject(EQ_REVERSE_IGNORE_SIM_PREFIX + "*");
     }
 
     @Override
     public void cleanupIgnores() {
 
+    }
+
+    @Override
+    public int editAaListParamsEq(AaListParamsEq aaListParamsEq) {
+        return aaListParamsEqMapper.editAaListParamsEq(aaListParamsEq);
     }
 
     @Override

@@ -63,8 +63,6 @@ public class FixtureParamsLockServiceImpl implements IFixtureParamsLockService {
 
     @Override
     public int editFixtureParamsLock(FixtureParamsLock fixtureParamsLock) {
-        System.out.println(fixtureParamsLock);
-
         return fixtureEditOps.fixtureParamsEditOps(fixtureParamsLock, "lock");
     }
 

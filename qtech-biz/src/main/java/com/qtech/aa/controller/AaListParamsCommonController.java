@@ -29,14 +29,12 @@ public class AaListParamsCommonController {
     @GetMapping("/factoryNames")
     public R<List<AaListParamsCommon>> getFactoryName() {
         List<AaListParamsCommon> factoryName = aaListParamsCommonService.getFactoryName();
-        System.out.println(factoryName);
         return R.ok(factoryName);
     }
 
     @GetMapping("/workshopNames")
     public R<List<AaListParamsCommon>> getWorkshopName(AaListParamsCommon aaListParamsCommon) {
         List<AaListParamsCommon> workshopName = aaListParamsCommonService.getWorkshopName(aaListParamsCommon);
-        System.out.println(workshopName);
         return R.ok(workshopName);
     }
 }

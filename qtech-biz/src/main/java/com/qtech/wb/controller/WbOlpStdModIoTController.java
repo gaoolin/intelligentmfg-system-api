@@ -1,15 +1,19 @@
 package com.qtech.wb.controller;
 
-import com.qtech.wb.domain.WbOlpStdModDetail;
-import com.qtech.wb.domain.WbOlpStdModUpload;
-import com.qtech.wb.service.IWbOlpStdModDetailService;
-import com.qtech.wb.service.IWbOlpStdModUploadService;
 import com.qtech.common.annotation.Log;
 import com.qtech.common.core.controller.BaseController;
 import com.qtech.common.core.domain.AjaxResult;
 import com.qtech.common.core.page.TableDataInfo;
 import com.qtech.common.enums.BusinessType;
+import com.qtech.common.utils.DateUtils;
+import com.qtech.common.utils.SecurityUtils;
 import com.qtech.common.utils.poi.ExcelUtil;
+import com.qtech.system.service.ISysUserService;
+import com.qtech.wb.domain.WbOlpStdModDetail;
+import com.qtech.wb.domain.WbOlpStdModInfo;
+import com.qtech.wb.domain.WbOlpStdModUpload;
+import com.qtech.wb.service.IWbOlpStdModUploadService;
+import com.qtech.wb.service.IWbOlpStdModelDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -29,13 +33,16 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/wb/olp/upload")
-public class WbOlpStdModUploadController extends BaseController {
+public class WbOlpStdModIoTController extends BaseController {
 
     @Autowired
-    IWbOlpStdModDetailService wbOlpStdModDetailService;
+    private IWbOlpStdModelDetailService wbOlpStdModelDetailService;
 
     @Autowired
-    IWbOlpStdModUploadService wbOlpStdModUploadService;
+    private IWbOlpStdModUploadService wbOlpStdModUploadService;
+
+    @Autowired
+    private ISysUserService sysUserService;
 
     @PreAuthorize("@ss.hasPermi('wbOlp:model:upload')")
     @Log(title = "CAD模版导入", businessType = BusinessType.IMPORT)
@@ -43,7 +50,14 @@ public class WbOlpStdModUploadController extends BaseController {
     public AjaxResult uploadStStdModManual(MultipartFile file) throws Exception {
         ExcelUtil<WbOlpStdModDetail> util = new ExcelUtil<>(WbOlpStdModDetail.class);
         List<WbOlpStdModDetail> wbOlpStdModDetails = util.importExcel(file.getInputStream());
-        Map<String, String> resultMap = wbOlpStdModDetailService.uploadWbOlpStdModDetail(wbOlpStdModDetails);
+
+        WbOlpStdModInfo wbOlpStdModInfo = new WbOlpStdModInfo();
+        String nickName = sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName();
+        wbOlpStdModInfo.setStatus(1);
+        wbOlpStdModInfo.setCreateTime(DateUtils.getNowDate());
+        wbOlpStdModInfo.setCreateBy(nickName);
+
+        Map<String, String> resultMap = wbOlpStdModelDetailService.uploadWbOlpStdModDetail(wbOlpStdModDetails, wbOlpStdModInfo);
 
         return "1".equals(resultMap.get("flag")) ? AjaxResult.success(resultMap.get("result")) : AjaxResult.warn(resultMap.get("result"));
     }
@@ -89,9 +103,16 @@ public class WbOlpStdModUploadController extends BaseController {
                                          @RequestParam(name = "padThreshold", defaultValue = "10") String padThreshold,
                                          @RequestParam(name = "delLineNoStr", defaultValue = "") String delLineNo
     ) {
+        WbOlpStdModInfo wbOlpStdModInfo = new WbOlpStdModInfo();
+
+        String nickName = sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName();
+        wbOlpStdModInfo.setStatus(1);
+        wbOlpStdModInfo.setCreateTime(DateUtils.getNowDate());
+        wbOlpStdModInfo.setCreateBy(nickName);
+
         List<WbOlpStdModDetail> wbOlpStdModDetails = wbOlpStdModUploadService.selectWbOlpStdModUploadMockList(simId, mcId, pId, beginTime, endTime, delLineNo);
 
-        if (wbOlpStdModDetails.size() == 0) {
+        if (wbOlpStdModDetails.isEmpty()) {
             return AjaxResult.warn("没有符合条件的数据，请检查输入参数！");
         } else {
             String mcIdSplit = wbOlpStdModDetails.get(0).getMcId().split("#")[0];
@@ -102,7 +123,8 @@ public class WbOlpStdModUploadController extends BaseController {
                 wbOlpStdModDetail.setLeadThreshold(Float.parseFloat(leadThreshold));
                 wbOlpStdModDetail.setPadThreshold(Float.parseFloat(padThreshold));
             }
-            Map<String, String> resultMap = wbOlpStdModDetailService.uploadWbOlpStdModDetail(wbOlpStdModDetails);
+
+            Map<String, String> resultMap = wbOlpStdModelDetailService.uploadWbOlpStdModDetail(wbOlpStdModDetails, wbOlpStdModInfo);
 
             return AjaxResult.success(resultMap);
         }
@@ -110,8 +132,7 @@ public class WbOlpStdModUploadController extends BaseController {
 
     @Log(title = "采集模版导出", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, WbOlpStdModUpload wbOlpStdModUpload)
-    {
+    public void export(HttpServletResponse response, WbOlpStdModUpload wbOlpStdModUpload) {
         List<WbOlpStdModUpload> list = wbOlpStdModUploadService.selectWbOlpStdModUploadList(wbOlpStdModUpload);
         ExcelUtil<WbOlpStdModUpload> util = new ExcelUtil<WbOlpStdModUpload>(WbOlpStdModUpload.class);
         util.exportExcel(response, list, "标准模版");

@@ -58,7 +58,6 @@ public class FixtureMaterialInfoServiceImpl implements IFixtureMaterialInfoServi
 
     @Override
     public Integer editFixtureMaterialInfo(FixtureMaterialInfo fixtureMaterialInfo) {
-        System.out.println(fixtureMaterialInfo);
         return fixtureMaterialInfoMapper.editFixtureMaterialInfo(fixtureMaterialInfo);
     }
 

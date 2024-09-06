@@ -1,13 +1,13 @@
 package com.qtech.wb.controller;
 
 import com.qtech.wb.domain.WbOlpStdModDetail;
-import com.qtech.wb.service.IWbOlpStdModDetailService;
 import com.qtech.common.annotation.Log;
 import com.qtech.common.core.controller.BaseController;
 import com.qtech.common.core.domain.AjaxResult;
 import com.qtech.common.core.page.TableDataInfo;
 import com.qtech.common.enums.BusinessType;
 import com.qtech.common.utils.poi.ExcelUtil;
+import com.qtech.wb.service.IWbOlpStdModelDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ import java.util.List;
 public class WbOlpStdModDetailController extends BaseController
 {
     @Autowired
-    private IWbOlpStdModDetailService wbOlpStdModDetailService;
+    private IWbOlpStdModelDetailService wbOlpStdModelDetailService;
 
     /**
      * 查询标准模版明细列表
@@ -36,7 +36,7 @@ public class WbOlpStdModDetailController extends BaseController
     public TableDataInfo list(WbOlpStdModDetail wbOlpStdModDetail)
     {
         startPage();
-        List<WbOlpStdModDetail> list = wbOlpStdModDetailService.selectWbOlpStdModDetailList(wbOlpStdModDetail);
+        List<WbOlpStdModDetail> list = wbOlpStdModelDetailService.selectWbOlpStdModDetailList(wbOlpStdModDetail);
         return getDataTable(list);
     }
 
@@ -48,7 +48,7 @@ public class WbOlpStdModDetailController extends BaseController
     @PostMapping("/export")
     public void export(HttpServletResponse response, WbOlpStdModDetail wbOlpStdModDetail)
     {
-        List<WbOlpStdModDetail> list = wbOlpStdModDetailService.selectWbOlpStdModDetailList(wbOlpStdModDetail);
+        List<WbOlpStdModDetail> list = wbOlpStdModelDetailService.selectWbOlpStdModDetailList(wbOlpStdModDetail);
         ExcelUtil<WbOlpStdModDetail> util = new ExcelUtil<WbOlpStdModDetail>(WbOlpStdModDetail.class);
         util.exportExcel(response, list, "标准模版明细数据");
     }
@@ -60,7 +60,7 @@ public class WbOlpStdModDetailController extends BaseController
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(wbOlpStdModDetailService.selectWbOlpStdModDetailById(id));
+        return success(wbOlpStdModelDetailService.selectWbOlpStdModDetailById(id));
     }
 
     /**
@@ -71,7 +71,7 @@ public class WbOlpStdModDetailController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody WbOlpStdModDetail wbOlpStdModDetail)
     {
-        return toAjax(wbOlpStdModDetailService.insertWbOlpStdModDetail(wbOlpStdModDetail));
+        return toAjax(wbOlpStdModelDetailService.insertWbOlpStdModDetail(wbOlpStdModDetail));
     }
 
     /**
@@ -82,7 +82,7 @@ public class WbOlpStdModDetailController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody WbOlpStdModDetail wbOlpStdModDetail)
     {
-        return toAjax(wbOlpStdModDetailService.updateWbOlpStdModDetail(wbOlpStdModDetail));
+        return toAjax(wbOlpStdModelDetailService.updateWbOlpStdModDetail(wbOlpStdModDetail));
     }
 
     /**
@@ -93,6 +93,6 @@ public class WbOlpStdModDetailController extends BaseController
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(wbOlpStdModDetailService.deleteWbOlpStdModDetailByIds(ids));
+        return toAjax(wbOlpStdModelDetailService.deleteWbOlpStdModDetailByIds(ids));
     }
 }

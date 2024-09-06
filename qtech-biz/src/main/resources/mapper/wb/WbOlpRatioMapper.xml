@@ -84,11 +84,15 @@
                         <if test="params.beginDate != null and params.beginDate != '' and params.endDate != null and params.endDate != ''">
                             and dt between #{params.beginDate} and #{params.endDate}
                         </if>
+                        <if test="status != null and status != ''">
+                            and code = #{status}
+                        </if>
                     </where>) tb
                 where
                     ta.pbox_id = tb.sim_id
                 <choose>
-                    <when test="(companyName == null or companyName == '') and (groupName == null or groupName == '') and (prodType == null or prodType == '')">
+                    <when test="(companyName == null or companyName == '') and (groupName == null or groupName == '') and (prodType == null or prodType == '')
+                    and (eqId == null or eqId == '') and (mcId == null or mcId == '')">
                         group by company_name, group_name, machine_no, device_m_id, mc_id
                     </when>
                     <otherwise>
@@ -96,7 +100,9 @@
                         <trim prefix="having" prefixOverrides="and">
                             <if test="companyName !=null and companyName != ''"> and company_name = #{companyName} </if>
                             <if test="groupName !=null and groupName != ''"> and group_name = #{groupName} </if>
-                            <if test="prodType !=null and prodType != ''"> and mc_id like concat('%', #{prodType}, '%') </if>
+                            <if test="prodType != null and prodType != ''"> and lower(mc_id) like concat('%', lower(#{prodType}), '%') </if>
+                            <if test="eqId != null and eqId != ''"> and lower(device_m_id) like concat('%', lower(#{eqId}), '%') </if>
+                            <if test="mcId != null and mcId != ''"> and lower(machine_no) like concat('%', lower(#{mcId}), '%') </if>
                         </trim>
                     </otherwise>
                 </choose>) tc
@@ -145,6 +151,6 @@
                 when group_name like '小计' then 19
                 else 18
             end asc,
-            eq_id asc
+            mc_id asc
     </select>
 </mapper>

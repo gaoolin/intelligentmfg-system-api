@@ -22,46 +22,77 @@
     </resultMap>
 
     <sql id="selectAaListParamsEqListVo">
-        select company_name,
-               group_name,
-               device_m_id as eq_id,
-               machine_no  as mc_id,
-               prod_type,
-               pbox_id     as sim_id,
-               status,
-               op_cnt,
-               update_time,
-               update_by,
-               remark
-        from (select sim_id, prod_type
-              from (select sim_id, prod_type, chk_dt, row_number() over(partition by sim_id order by chk_dt desc) "num"
-                    from qtech_eq_ads.im_eq_reverse_control_info
-                    where chk_dt > date_sub(now(), interval 3 day)) t
-              where num = 1) a,
-             (select a.device_id,
-                     b.company_name,
-                     b.dep_name,
-                     b.group_name,
-                     a.device_m_id,
-                     devicetype,
-                     a.devicename,
-                     devicenetip,
-                     c.pbox_id,
-                     machine_no,
-                     e.status,
-                     e.op_cnt,
-                     e.update_time,
-                     e.update_by,
-                     e.remark
-              from (select * from qtech_eq_ods.ems_t_device where devicetype = 'AA') a
-                       inner join qtech_eq_ods.ems_t_pbox_info c on c.dev_id = cast(a.device_id as double)
-                       left join qtech_eq_ods.ems_v_code_name b on a.hierarchy_code = b.hierarchy_show_code
-                       left join qtech_eq_ods.ems_t_collector_program d on c.collector_program_id = d.id
-                       left join qtech_eq_ads.im_eq_reverse_ignore_info e on c.pbox_id = e.sim_id) b
-        where a.sim_id = b.pbox_id
+        SELECT
+            b.company_name,
+            b.group_name,
+            a.device_m_id AS eq_id,
+            e.prod_type,
+            e.sim_id,
+            machine_no AS mc_id,
+            e.status,
+            e.op_cnt,
+            e.update_time,
+            e.update_by,
+            e.remark
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    qtech_eq_ods.ems_t_device
+                WHERE
+                    devicetype = 'AA'
+            ) a
+        LEFT JOIN qtech_eq_ods.ems_t_pbox_info c ON
+            c.dev_id = CAST(a.device_id AS DOUBLE)
+        LEFT JOIN qtech_eq_ods.ems_v_code_name b ON
+            a.hierarchy_code = b.hierarchy_show_code
+        LEFT JOIN qtech_eq_ods.ems_t_collector_program d ON
+            c.collector_program_id = d.id
+        RIGHT JOIN (
+                SELECT
+                    COALESCE(a.sim_id, b.sim_id) as sim_id,
+                    prod_type,
+                    chk_dt,
+                    source,
+                    status,
+                    op_cnt,
+                    update_by,
+                    update_time,
+                    remark
+                FROM
+                    (
+                        select
+                            sim_id,
+                            prod_type,
+                            chk_dt
+                        from
+                            (
+                                SELECT
+                                    sim_id,
+                                    prod_type,
+                                    chk_dt,
+                                    ROW_NUMBER() OVER (
+                                        PARTITION BY sim_id
+                                    ORDER BY
+                                        chk_dt DESC
+                                    ) AS num
+                                FROM
+                                    qtech_eq_ads.im_eq_reverse_control_info
+                                WHERE
+                                    source = 'aa-list'
+                                    and chk_dt > DATE_SUB(NOW(), INTERVAL 7 DAY)
+                            ) t
+                        WHERE
+                            num = 1
+                    ) a
+                FULL OUTER JOIN qtech_eq_ads.im_eq_reverse_ignore_info b on
+                    a.sim_id = b.sim_id
+            ) e ON
+            c.pbox_id = e.sim_id
     </sql>
 
-    <insert id="upsertAaListParamsEq" parameterType="AaListParamsEq">
+    <insert id="insertAaListParamsIgnoreEq" parameterType="AaListParamsEq">
         insert into qtech_eq_ads.im_eq_reverse_ignore_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="simId != null">sim_id,</if>
@@ -83,15 +114,19 @@
         </trim>
     </insert>
 
-    <update id="editAaListParamsEq">
+    <update id="editAaListParamsIgnoreEq">
         update qtech_eq_ads.im_eq_reverse_ignore_info
         <trim prefix="set" prefixOverrides=",">
             <if test="status != null">status = #{status},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
             op_cnt = COALESCE(op_cnt, 0) + 1
         </trim>
         where sim_id = #{simId} and source = 'aa-list'
+    </update>
+    <update id="editAaListParamsEq">
+
     </update>
 
     <select id="selectAaListParamsEqById" resultMap="aaListParamsEqResult">

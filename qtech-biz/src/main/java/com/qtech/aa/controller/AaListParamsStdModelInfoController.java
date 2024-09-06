@@ -1,6 +1,5 @@
 package com.qtech.aa.controller;
 
-import com.qtech.aa.domain.AaListParamsStdModelDetail;
 import com.qtech.aa.domain.AaListParamsStdModelInfo;
 import com.qtech.aa.service.IAaListParamsStdModelInfoService;
 import com.qtech.common.annotation.Log;
@@ -8,12 +7,14 @@ import com.qtech.common.core.controller.BaseController;
 import com.qtech.common.core.domain.AjaxResult;
 import com.qtech.common.core.page.TableDataInfo;
 import com.qtech.common.enums.BusinessType;
+import com.qtech.common.utils.DateUtils;
+import com.qtech.common.utils.SecurityUtils;
 import com.qtech.common.utils.poi.ExcelUtil;
+import com.qtech.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class AaListParamsStdModelInfoController extends BaseController {
     @Autowired
     private IAaListParamsStdModelInfoService aaListParamsStdModelInfoService;
 
+    @Autowired
+    private ISysUserService sysUserService;
+
     @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
     public TableDataInfo list(AaListParamsStdModelInfo aaListParamsStdModelInfo) {
         startPage();
@@ -45,7 +49,8 @@ public class AaListParamsStdModelInfoController extends BaseController {
 
     @RequestMapping(value = "/edit", produces = "application/json", method = RequestMethod.POST)
     public AjaxResult edit(@RequestBody AaListParamsStdModelInfo aaListParamsStdModelInfo) {
-        System.out.println(aaListParamsStdModelInfo);
+        aaListParamsStdModelInfo.setUpdateBy(sysUserService.selectUserByUserName(SecurityUtils.getUsername()).getNickName());
+        aaListParamsStdModelInfo.setUpdateTime(DateUtils.getNowDate());
         return toAjax(aaListParamsStdModelInfoService.updateAaListParamsStdModelInfo(aaListParamsStdModelInfo));
     }
 

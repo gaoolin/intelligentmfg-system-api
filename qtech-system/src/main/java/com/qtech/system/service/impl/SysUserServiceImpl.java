@@ -40,7 +40,6 @@ import com.qtech.system.service.ISysUserService;
  * @author qtech
  */
 /** 在处理业务逻辑的多数据源调用中，需指定System模块的数据，否则会代入业务逻辑的数据源而报错 */
-@Transactional(propagation = Propagation.REQUIRES_NEW)
 @DataSource(DataSourceType.MASTER)
 @Service
 public class SysUserServiceImpl implements ISysUserService

@@ -108,8 +108,6 @@ xss:
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
 
-
-
 hdfs:
   hdfsPath: hdfs://cluster
   hadoopUser: qtech
