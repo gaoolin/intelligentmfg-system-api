@@ -23,10 +23,12 @@ import java.util.List;
 public class AaListParamsParsed extends AaListParams {
     @Excel(name = "盒子号")
     private String simId;
+
     @Excel(name = "机型")
     private String prodType;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     @Excel(name = "接收时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date receivedTime;
 
     private List<Field> getAllFields(Class<?> clazz) {

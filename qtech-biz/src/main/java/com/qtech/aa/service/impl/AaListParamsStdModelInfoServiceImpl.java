@@ -5,10 +5,9 @@ import com.qtech.aa.domain.AaListParamsStdModelInfo;
 import com.qtech.aa.mapper.AaListParamsStdModelInfoMapper;
 import com.qtech.aa.service.IAaListParamsStdModelInfoService;
 import com.qtech.aa.utils.ModelDetailConvertToModelInfo;
+import com.qtech.common.annotation.DataSource;
+import com.qtech.common.enums.DataSourceType;
 import com.qtech.common.exception.biz.TooManyResultsException;
-import com.qtech.common.utils.DateUtils;
-import com.qtech.common.utils.SecurityUtils;
-import com.qtech.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,7 @@ import static com.qtech.aa.utils.Constants.REDIS_COMPARISON_MODEL_KEY_PREFIX;
  */
 
 @Slf4j
+@DataSource(DataSourceType.SIXTH)
 @Service
 public class AaListParamsStdModelInfoServiceImpl implements IAaListParamsStdModelInfoService {
 

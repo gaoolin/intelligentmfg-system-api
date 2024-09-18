@@ -27,8 +27,8 @@ import java.util.Map;
 @Slf4j
 @Service
 public class AaStdS3ServiceImpl implements IAaS3Service {
-    // private static final String S3_BASE_URL = "http://10.170.6.40:31555/s3/files"; // 替换为实际S3服务的地址
-    private static final String     S3_BASE_URL = "http://localhost:8081/s3/files"; // 替换为实际S3服务的地址
+    private static final String S3_BASE_URL = "http://10.170.6.40:31555/s3/files"; // 替换为实际S3服务的地址
+    // private static final String S3_BASE_URL = "http://localhost:8081/s3/files"; // 替换为实际S3服务的地址
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 

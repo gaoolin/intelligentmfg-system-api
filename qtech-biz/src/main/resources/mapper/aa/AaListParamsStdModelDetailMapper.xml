@@ -4,681 +4,771 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qtech.aa.mapper.AaListParamsStdModelDetailMapper">
     <resultMap id="aaListParamsStdModelResult" type="AaListParamsStdModelDetail">
-        <result property="id" column="id" jdbcType="BIGINT"/>
-        <result property="prodType" column="prod_type" jdbcType="VARCHAR"/>
-        <result property="destroyStart" column="destroy_start" jdbcType="VARCHAR"/>
-        <result property="init" column="init" jdbcType="VARCHAR"/>
-        <result property="grab" column="grab" jdbcType="VARCHAR"/>
-        <result property="reInit" column="re_init" jdbcType="VARCHAR"/>
-        <result property="senserReset" column="senser_reset" jdbcType="VARCHAR"/>
-        <result property="clampOnOff" column="clamp_on_off" jdbcType="VARCHAR"/>
-        <result property="sid" column="sid" jdbcType="VARCHAR"/>
-        <result property="vcmHall" column="vcm_hall" jdbcType="VARCHAR"/>
-        <result property="vcmInit" column="vcm_init" jdbcType="VARCHAR"/>
-        <result property="vcmHall2" column="vcm_hall2" jdbcType="VARCHAR"/>
-        <result property="vcmPowerOff" column="vcm_power_off" jdbcType="VARCHAR"/>
-        <result property="vcmPowerOn" column="vcm_power_on" jdbcType="VARCHAR"/>
-        <result property="vcmTop" column="vcm_top" jdbcType="VARCHAR"/>
-        <result property="vcmTopHall" column="vcm_top_hall" jdbcType="VARCHAR"/>
-        <result property="vcmZ" column="vcm_z" jdbcType="VARCHAR"/>
-        <result property="vcmZHall" column="vcm_z_hall" jdbcType="VARCHAR"/>
-        <result property="vcmOisInit" column="vcm_ois_init" jdbcType="VARCHAR"/>
-        <result property="chartAlignment1" column="chart_alignment1" jdbcType="VARCHAR"/>
-        <result property="AA1" column="aa1" jdbcType="VARCHAR"/>
-        <result property="AA2" column="aa2" jdbcType="VARCHAR"/>
-        <result property="mtfCheck" column="mtf_check" jdbcType="VARCHAR"/>
-        <result property="AA3" column="aa3" jdbcType="VARCHAR"/>
-        <result property="mtfCheck2" column="mtf_check2" jdbcType="VARCHAR"/>
-        <result property="lpOn" column="lp_on" jdbcType="VARCHAR"/>
-        <result property="lpOcCheck" column="lp_oc_check" jdbcType="VARCHAR"/>
-        <result property="lpOc" column="lp_oc" jdbcType="VARCHAR"/>
-        <result property="lpOnBlemish" column="lp_on_blemish" jdbcType="VARCHAR"/>
-        <result property="blemish" column="blemish" jdbcType="VARCHAR"/>
-        <result property="lpOff" column="lp_off" jdbcType="VARCHAR"/>
-        <result property="chartAlignment" column="chart_alignment" jdbcType="VARCHAR"/>
-        <result property="vcmMoveToZ" column="vcm_move_to_z" jdbcType="VARCHAR"/>
-        <result property="delay" column="delay" jdbcType="VARCHAR"/>
-        <result property="vcmPowerOffCheck" column="vcm_power_off_check" jdbcType="VARCHAR"/>
-        <result property="recordPosition" column="record_position" jdbcType="VARCHAR"/>
-        <result property="dispense" column="dispense" jdbcType="VARCHAR"/>
-        <result property="epoxyInspectionAuto" column="epoxy_inspection_auto" jdbcType="VARCHAR"/>
-        <result property="epoxyInspection" column="epoxy_inspection" jdbcType="VARCHAR"/>
-        <result property="backToPosition" column="back_to_position" jdbcType="VARCHAR"/>
-        <result property="uvon" column="uvon" jdbcType="VARCHAR"/>
-        <result property="yLevel" column="y_level" jdbcType="VARCHAR"/>
-        <result property="uvoff" column="uvoff" jdbcType="VARCHAR"/>
-        <result property="gripperOpen" column="gripper_open" jdbcType="VARCHAR"/>
-        <result property="saveOc" column="save_oc" jdbcType="VARCHAR"/>
-        <result property="saveMtf" column="save_mtf" jdbcType="VARCHAR"/>
-        <result property="destroy" column="destroy" jdbcType="VARCHAR"/>
-        <result property="moveToBlemishPos" column="move_to_blemish_pos" jdbcType="VARCHAR"/>
-        <result property="mtfCheck3" column="mtf_check3" jdbcType="VARCHAR"/>
-        <result property="mtfOffAxisCheck1" column="mtf_off_axis_check1" jdbcType="VARCHAR"/>
-        <result property="mtfOffAxisCheck2" column="mtf_off_axis_check2" jdbcType="VARCHAR"/>
-        <result property="mtfOffAxisCheck3" column="mtf_off_axis_check3" jdbcType="VARCHAR"/>
-        <result property="lpBlemish" column="lp_blemish" jdbcType="VARCHAR"/>
-        <result property="chartAlignment2" column="chart_alignment2" jdbcType="VARCHAR"/>
-        <result property="vcmMoveToZPos" column="vcm_move_to_z_pos" jdbcType="VARCHAR"/>
-        <result property="zOffset" column="z_offset" jdbcType="VARCHAR"/>
-        <result property="openCheck" column="open_check" jdbcType="VARCHAR"/>
-        <result property="roiCc" column="roi_cc" jdbcType="VARCHAR"/>
-        <result property="roiUl" column="roi_ul" jdbcType="VARCHAR"/>
-        <result property="roiUr" column="roi_ur" jdbcType="VARCHAR"/>
-        <result property="roiLl" column="roi_ll" jdbcType="VARCHAR"/>
-        <result property="roiLr" column="roi_lr" jdbcType="VARCHAR"/>
-        <result property="result1" column="result1" jdbcType="VARCHAR"/>
-        <result property="result2" column="result2" jdbcType="VARCHAR"/>
-        <result property="result3" column="result3" jdbcType="VARCHAR"/>
-        <result property="result4" column="result4" jdbcType="VARCHAR"/>
-        <result property="result5" column="result5" jdbcType="VARCHAR"/>
-        <result property="result6" column="result6" jdbcType="VARCHAR"/>
-        <result property="result7" column="result7" jdbcType="VARCHAR"/>
-        <result property="result8" column="result8" jdbcType="VARCHAR"/>
-        <result property="result9" column="result9" jdbcType="VARCHAR"/>
-        <result property="result10" column="result10" jdbcType="VARCHAR"/>
-        <result property="result11" column="result11" jdbcType="VARCHAR"/>
-        <result property="result12" column="result12" jdbcType="VARCHAR"/>
-        <result property="result13" column="result13" jdbcType="VARCHAR"/>
-        <result property="result14" column="result14" jdbcType="VARCHAR"/>
-        <result property="result15" column="result15" jdbcType="VARCHAR"/>
-        <result property="result16" column="result16" jdbcType="VARCHAR"/>
-        <result property="result17" column="result17" jdbcType="VARCHAR"/>
-        <result property="result18" column="result18" jdbcType="VARCHAR"/>
-        <result property="result19" column="result19" jdbcType="VARCHAR"/>
-        <result property="result20" column="result20" jdbcType="VARCHAR"/>
-        <result property="result21" column="result21" jdbcType="VARCHAR"/>
-        <result property="result22" column="result22" jdbcType="VARCHAR"/>
-        <result property="result23" column="result23" jdbcType="VARCHAR"/>
-        <result property="result24" column="result24" jdbcType="VARCHAR"/>
-        <result property="result25" column="result25" jdbcType="VARCHAR"/>
-        <result property="result26" column="result26" jdbcType="VARCHAR"/>
-        <result property="result27" column="result27" jdbcType="VARCHAR"/>
-        <result property="result28" column="result28" jdbcType="VARCHAR"/>
-        <result property="result29" column="result29" jdbcType="VARCHAR"/>
-        <result property="result30" column="result30" jdbcType="VARCHAR"/>
-        <result property="result31" column="result31" jdbcType="VARCHAR"/>
-        <result property="result32" column="result32" jdbcType="VARCHAR"/>
-        <result property="result33" column="result33" jdbcType="VARCHAR"/>
-        <result property="result34" column="result34" jdbcType="VARCHAR"/>
-        <result property="result35" column="result35" jdbcType="VARCHAR"/>
-        <result property="result36" column="result36" jdbcType="VARCHAR"/>
-        <result property="result37" column="result37" jdbcType="VARCHAR"/>
-        <result property="result38" column="result38" jdbcType="VARCHAR"/>
-        <result property="result39" column="result39" javaType="VARCHAR"/>
-        <result property="result40" column="result40" jdbcType="VARCHAR"/>
-        <result property="result41" column="result41" jdbcType="VARCHAR"/>
-        <result property="result42" column="result42" jdbcType="VARCHAR"/>
-        <result property="result43" column="result43" jdbcType="VARCHAR"/>
-        <result property="result44" column="result44" jdbcType="VARCHAR"/>
-        <result property="result45" column="result45" jdbcType="VARCHAR"/>
-        <result property="result46" column="result46" jdbcType="VARCHAR"/>
-        <result property="result47" column="result47" jdbcType="VARCHAR"/>
-        <result property="result48" column="result48" jdbcType="VARCHAR"/>
-        <result property="result49" column="result49" jdbcType="VARCHAR"/>
-        <result property="result50" column="result50" jdbcType="VARCHAR"/>
-        <result property="result51" column="result51" jdbcType="VARCHAR"/>
-        <result property="result52" column="result52" jdbcType="VARCHAR"/>
-        <result property="xResMin" column="x_res_min" jdbcType="VARCHAR"/>
-        <result property="xResMax" column="x_res_max" jdbcType="VARCHAR"/>
-        <result property="yResMin" column="y_res_min" jdbcType="VARCHAR"/>
-        <result property="yResMax" column="y_res_max" jdbcType="VARCHAR"/>
-        <result property="epoxyInspectionInterval" column="epoxy_inspection_interval" jdbcType="VARCHAR"/>
-        <result property="resultCheckMin" column="result_check_min" jdbcType="VARCHAR"/>
-        <result property="resultCheckMax" column="result_check_max" jdbcType="VARCHAR"/>
+        <result property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="prodType" column="PROD_TYPE" jdbcType="VARCHAR"/>
+        <result property="AA1" column="AA1" jdbcType="VARCHAR"/>
+        <result property="AA2" column="AA2" jdbcType="VARCHAR"/>
+        <result property="AA3" column="AA3" jdbcType="VARCHAR"/>
+        <result property="backToPosition" column="BACK_TO_POSITION" jdbcType="VARCHAR"/>
+        <result property="blemish" column="BLEMISH" jdbcType="VARCHAR"/>
+        <result property="clampOnOff" column="CLAMP_ON_OFF" jdbcType="VARCHAR"/>
+        <result property="chartAlignment" column="CHART_ALIGNMENT" jdbcType="VARCHAR"/>
+        <result property="chartAlignment1" column="CHART_ALIGNMENT1" jdbcType="VARCHAR"/>
+        <result property="chartAlignment2" column="CHART_ALIGNMENT2" jdbcType="VARCHAR"/>
+        <result property="delay" column="DELAY" jdbcType="VARCHAR"/>
+        <result property="destroy" column="DESTROY" jdbcType="VARCHAR"/>
+        <result property="destroyStart" column="DESTROY_START" jdbcType="VARCHAR"/>
+        <result property="dispense" column="DISPENSE" jdbcType="VARCHAR"/>
+        <result property="epoxyInspection" column="EPOXY_INSPECTION" jdbcType="VARCHAR"/>
+        <result property="epoxyInspectionAuto" column="EPOXY_INSPECTION_AUTO" jdbcType="VARCHAR"/>
+        <result property="grab" column="GRAB" jdbcType="VARCHAR"/>
+        <result property="gripperOpen" column="GRIPPER_OPEN" jdbcType="VARCHAR"/>
+        <result property="init" column="INIT" jdbcType="VARCHAR"/>
+        <result property="lpBlemish" column="LP_BLEMISH" jdbcType="VARCHAR"/>
+        <result property="lpOc" column="LP_OC" jdbcType="VARCHAR"/>
+        <result property="lpOcCheck" column="LP_OC_CHECK" jdbcType="VARCHAR"/>
+        <result property="lpOn" column="LP_ON" jdbcType="VARCHAR"/>
+        <result property="lpOnBlemish" column="LP_ON_BLEMISH" jdbcType="VARCHAR"/>
+        <result property="lpOff" column="LP_OFF" jdbcType="VARCHAR"/>
+        <result property="moveToBlemishPos" column="MOVE_TO_BLEMISH_POS" jdbcType="VARCHAR"/>
+        <result property="mtfCheck" column="MTF_CHECK" jdbcType="VARCHAR"/>
+        <result property="mtfCheck1" column="MTF_CHECK1" jdbcType="VARCHAR"/>
+        <result property="mtfCheck2" column="MTF_CHECK2" jdbcType="VARCHAR"/>
+        <result property="mtfCheck3" column="MTF_CHECK3" jdbcType="VARCHAR"/>
+        <result property="openCheck" column="OPEN_CHECK" jdbcType="VARCHAR"/>
+        <result property="recordPosition" column="RECORD_POSITION" jdbcType="VARCHAR"/>
+        <result property="reInit" column="RE_INIT" jdbcType="VARCHAR"/>
+        <result property="saveOc" column="SAVE_OC" jdbcType="VARCHAR"/>
+        <result property="saveMtf" column="SAVE_MTF" jdbcType="VARCHAR"/>
+        <result property="senserReset" column="SENSER_RESET" jdbcType="VARCHAR"/>
+        <result property="sid" column="SID" jdbcType="VARCHAR"/>
+        <result property="uvon" column="UVON" jdbcType="VARCHAR"/>
+        <result property="uvoff" column="UVOFF" jdbcType="VARCHAR"/>
+        <result property="vcmHall" column="VCM_HALL" jdbcType="VARCHAR"/>
+        <result property="vcmHall2" column="VCM_HALL2" jdbcType="VARCHAR"/>
+        <result property="vcmMoveToZ" column="VCM_MOVE_TO_Z" jdbcType="VARCHAR"/>
+        <result property="vcmMoveToZPos" column="VCM_MOVE_TO_Z_POS" jdbcType="VARCHAR"/>
+        <result property="vcmPowerOffCheck" column="VCM_POWER_OFF_CHECK" jdbcType="VARCHAR"/>
+        <result property="vcmInit" column="VCM_INIT" jdbcType="VARCHAR"/>
+        <result property="vcmOisInit" column="VCM_OIS_INIT" jdbcType="VARCHAR"/>
+        <result property="vcmPowerOff" column="VCM_POWER_OFF" jdbcType="VARCHAR"/>
+        <result property="vcmPowerOn" column="VCM_POWER_ON" jdbcType="VARCHAR"/>
+        <result property="vcmTop" column="VCM_TOP" jdbcType="VARCHAR"/>
+        <result property="vcmTopHall" column="VCM_TOP_HALL" jdbcType="VARCHAR"/>
+        <result property="vcmZ" column="VCM_Z" jdbcType="VARCHAR"/>
+        <result property="vcmZHall" column="VCM_Z_HALL" jdbcType="VARCHAR"/>
+        <result property="yLevel" column="Y_LEVEL" jdbcType="VARCHAR"/>
 
-        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
-        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="aa1RoiCc" column="AA1_ROI_CC" jdbcType="VARCHAR"/>
+        <result property="aa1RoiUl" column="AA1_ROI_UL" jdbcType="VARCHAR"/>
+        <result property="aa1RoiUr" column="AA1_ROI_UR" jdbcType="VARCHAR"/>
+        <result property="aa1RoiLl" column="AA1_ROI_LL" jdbcType="VARCHAR"/>
+        <result property="aa1RoiLr" column="AA1_ROI_LR" jdbcType="VARCHAR"/>
+        <result property="aa1FC" column="AA1_FC" jdbcType="VARCHAR"/>
+        <result property="aa1F1" column="AA1_F1" jdbcType="VARCHAR"/>
+        <result property="aa1F2" column="AA1_F2" jdbcType="VARCHAR"/>
+        <result property="aa1F3" column="AA1_F3" jdbcType="VARCHAR"/>
+        <result property="aa1F4" column="AA1_F4" jdbcType="VARCHAR"/>
+        <result property="aa1MtfOffAxisCheck1" column="AA1_MTF_OFF_AXIS_CHECK1" jdbcType="VARCHAR"/>
+        <result property="aa1MtfOffAxisCheck2" column="AA1_MTF_OFF_AXIS_CHECK2" jdbcType="VARCHAR"/>
+        <result property="aa1MtfOffAxisCheck3" column="AA1_MTF_OFF_AXIS_CHECK3" jdbcType="VARCHAR"/>
+        <result property="aa2RoiCc" column="AA2_ROI_CC" jdbcType="VARCHAR"/>
+        <result property="aa2RoiUl" column="AA2_ROI_UL" jdbcType="VARCHAR"/>
+        <result property="aa2RoiUr" column="AA2_ROI_UR" jdbcType="VARCHAR"/>
+        <result property="aa2RoiLl" column="AA2_ROI_LL" jdbcType="VARCHAR"/>
+        <result property="aa2RoiLr" column="AA2_ROI_LR" jdbcType="VARCHAR"/>
+        <result property="aa2FC" column="AA2_FC" jdbcType="VARCHAR"/>
+        <result property="aa2F1" column="AA2_F1" jdbcType="VARCHAR"/>
+        <result property="aa2F2" column="AA2_F2" jdbcType="VARCHAR"/>
+        <result property="aa2F3" column="AA2_F3" jdbcType="VARCHAR"/>
+        <result property="aa2F4" column="AA2_F4" jdbcType="VARCHAR"/>
+        <result property="aa2MtfOffAxisCheck1" column="AA2_MTF_OFF_AXIS_CHECK1" jdbcType="VARCHAR"/>
+        <result property="aa2MtfOffAxisCheck2" column="AA2_MTF_OFF_AXIS_CHECK2" jdbcType="VARCHAR"/>
+        <result property="aa2MtfOffAxisCheck3" column="AA2_MTF_OFF_AXIS_CHECK3" jdbcType="VARCHAR"/>
+        <result property="aa3RoiCc" column="AA3_ROI_CC" jdbcType="VARCHAR"/>
+        <result property="aa3RoiUl" column="AA3_ROI_UL" jdbcType="VARCHAR"/>
+        <result property="aa3RoiUr" column="AA3_ROI_UR" jdbcType="VARCHAR"/>
+        <result property="aa3RoiLl" column="AA3_ROI_LL" jdbcType="VARCHAR"/>
+        <result property="aa3RoiLr" column="AA3_ROI_LR" jdbcType="VARCHAR"/>
+        <result property="aa3FC" column="AA3_FC" jdbcType="VARCHAR"/>
+        <result property="aa3F1" column="AA3_F1" jdbcType="VARCHAR"/>
+        <result property="aa3F2" column="AA3_F2" jdbcType="VARCHAR"/>
+        <result property="aa3F3" column="AA3_F3" jdbcType="VARCHAR"/>
+        <result property="aa3F4" column="AA3_F4" jdbcType="VARCHAR"/>
+        <result property="aa3MtfOffAxisCheck1" column="AA3_MTF_OFF_AXIS_CHECK1" jdbcType="VARCHAR"/>
+        <result property="aa3MtfOffAxisCheck2" column="AA3_MTF_OFF_AXIS_CHECK2" jdbcType="VARCHAR"/>
+        <result property="aa3MtfOffAxisCheck3" column="AA3_MTF_OFF_AXIS_CHECK3" jdbcType="VARCHAR"/>
+        <result property="mtfCheckFC" column="MTF_CHECK_FC" jdbcType="VARCHAR"/>
+        <result property="mtfCheckF1" column="MTF_CHECK_F1" jdbcType="VARCHAR"/>
+        <result property="mtfCheckF2" column="MTF_CHECK_F2" jdbcType="VARCHAR"/>
+        <result property="mtfCheckF3" column="MTF_CHECK_F3" jdbcType="VARCHAR"/>
+        <result property="mtfCheckF4" column="MTF_CHECK_F4" jdbcType="VARCHAR"/>
+        <result property="mtfCheck1FC" column="MTF_CHECK1_FC" jdbcType="VARCHAR"/>
+        <result property="mtfCheck1F1" column="MTF_CHECK1_F1" jdbcType="VARCHAR"/>
+        <result property="mtfCheck1F2" column="MTF_CHECK1_F2" jdbcType="VARCHAR"/>
+        <result property="mtfCheck1F3" column="MTF_CHECK1_F3" jdbcType="VARCHAR"/>
+        <result property="mtfCheck1F4" column="MTF_CHECK1_F4" jdbcType="VARCHAR"/>
+        <result property="mtfCheck2FC" column="MTF_CHECK2_FC" jdbcType="VARCHAR"/>
+        <result property="mtfCheck2F1" column="MTF_CHECK2_F1" jdbcType="VARCHAR"/>
+        <result property="mtfCheck2F2" column="MTF_CHECK2_F2" jdbcType="VARCHAR"/>
+        <result property="mtfCheck2F3" column="MTF_CHECK2_F3" jdbcType="VARCHAR"/>
+        <result property="mtfCheck2F4" column="MTF_CHECK2_F4" jdbcType="VARCHAR"/>
+        <result property="mtfCheck3FC" column="MTF_CHECK3_FC" jdbcType="VARCHAR"/>
+        <result property="mtfCheck3F1" column="MTF_CHECK3_F1" jdbcType="VARCHAR"/>
+        <result property="mtfCheck3F2" column="MTF_CHECK3_F2" jdbcType="VARCHAR"/>
+        <result property="mtfCheck3F3" column="MTF_CHECK3_F3" jdbcType="VARCHAR"/>
+        <result property="mtfCheck3F4" column="MTF_CHECK3_F4" jdbcType="VARCHAR"/>
+        <result property="chartAlignmentXResMin" column="CHART_ALIGNMENT_X_RES_MIN" jdbcType="VARCHAR"/>
+        <result property="chartAlignmentXResMax" column="CHART_ALIGNMENT_X_RES_MAX" jdbcType="VARCHAR"/>
+        <result property="chartAlignmentYResMin" column="CHART_ALIGNMENT_Y_RES_MIN" jdbcType="VARCHAR"/>
+        <result property="chartAlignmentYResMax" column="CHART_ALIGNMENT_Y_RES_MAX" jdbcType="VARCHAR"/>
+        <result property="chartAlignment1XResMin" column="CHART_ALIGNMENT1_X_RES_MIN" jdbcType="VARCHAR"/>
+        <result property="chartAlignment1XResMax" column="CHART_ALIGNMENT1_X_RES_MAX" jdbcType="VARCHAR"/>
+        <result property="chartAlignment1YResMin" column="CHART_ALIGNMENT1_Y_RES_MIN" jdbcType="VARCHAR"/>
+        <result property="chartAlignment1YResMax" column="CHART_ALIGNMENT1_Y_RES_MAX" jdbcType="VARCHAR"/>
+        <result property="chartAlignment2XResMin" column="CHART_ALIGNMENT2_X_RES_MIN" jdbcType="VARCHAR"/>
+        <result property="chartAlignment2XResMax" column="CHART_ALIGNMENT2_X_RES_MAX" jdbcType="VARCHAR"/>
+        <result property="chartAlignment2YResMin" column="CHART_ALIGNMENT2_Y_RES_MIN" jdbcType="VARCHAR"/>
+        <result property="chartAlignment2YResMax" column="CHART_ALIGNMENT2_Y_RES_MAX" jdbcType="VARCHAR"/>
+        <result property="epoxyInspectionInterval" column="EPOXY_INSPECTION_INTERVAL" jdbcType="VARCHAR"/>
+        <result property="vcmCheckResultCheckMin" column="VCM_CHECK_RESULT_CHECK_MIN" jdbcType="VARCHAR"/>
+        <result property="vcmCheckResultCheckMax" column="VCM_CHECK_RESULT_CHECK_MAX" jdbcType="VARCHAR"/>
+        <result property="recordPositionUtXyzMove" column="RECORD_POSITION_UT_XYZ_MOVE" jdbcType="VARCHAR"/>
+        <result property="ocCheckXOffsetMin" column="OC_CHECK_X_OFFSET_MIN" jdbcType="VARCHAR"/>
+        <result property="ocCheckXOffsetMax" column="OC_CHECK_X_OFFSET_MAX" jdbcType="VARCHAR"/>
+        <result property="ocCheckYOffsetMin" column="OC_CHECK_Y_OFFSET_MIN" jdbcType="VARCHAR"/>
+        <result property="ocCheckYOffsetMax" column="OC_CHECK_Y_OFFSET_MAX" jdbcType="VARCHAR"/>
+        <result property="saveOcXOffsetMin" column="SAVE_OC_X_OFFSET_MIN" jdbcType="VARCHAR"/>
+        <result property="saveOcXOffsetMax" column="SAVE_OC_X_OFFSET_MAX" jdbcType="VARCHAR"/>
+        <result property="saveOcYOffsetMin" column="SAVE_OC_Y_OFFSET_MIN" jdbcType="VARCHAR"/>
+        <result property="saveOcYOffsetMax" column="SAVE_OC_Y_OFFSET_MAX" jdbcType="VARCHAR"/>
+        <result property="saveMtfCcMin" column="SAVE_MTF_CC_MIN" jdbcType="VARCHAR"/>
+        <result property="saveMtfCcMax" column="SAVE_MTF_CC_MAX" jdbcType="VARCHAR"/>
+
+        <result property="createBy" column="CREATE_BY" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="UPDATE_BY" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="REMARK" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="AaListParamsStdModelSql">
-        SELECT id,
-               prod_type,
-               clamp_on_off,
-               destroy_start,
-               init,
-               grab,
-               re_init,
-               senser_reset,
-               sid,
-               vcm_hall,
-               vcm_init,
-               vcm_hall2,
-               vcm_power_off,
-               vcm_power_on,
-               vcm_top,
-               vcm_top_hall,
-               vcm_z,
-               vcm_z_hall,
-               vcm_ois_init,
-               chart_alignment1,
-               aa1,
-               aa2,
-               mtf_check,
-               aa3,
-               mtf_check2,
-               lp_on,
-               lp_oc_check,
-               lp_oc,
-               lp_on_blemish,
-               blemish,
-               lp_off,
-               chart_alignment,
-               vcm_move_to_z,
-               delay,
-               vcm_power_off_check,
-               record_position,
-               dispense,
-               epoxy_inspection_auto,
-               epoxy_inspection,
-               back_to_position,
-               uvon,
-               y_level,
-               uvoff,
-               gripper_open,
-               save_oc,
-               save_mtf,
-               destroy,
-               move_to_blemish_pos,
-               mtf_check3,
-               mtf_off_axis_check1,
-               mtf_off_axis_check2,
-               mtf_off_axis_check3,
-               lp_blemish,
-               chart_alignment2,
-               vcm_move_to_z_pos,
-               z_offset,
-               open_check,
-               roi_cc,
-               roi_ul,
-               roi_ur,
-               roi_ll,
-               roi_lr,
-               result1,
-               result2,
-               result3,
-               result4,
-               result5,
-               result6,
-               result7,
-               result8,
-               result9,
-               result10,
-               result11,
-               result12,
-               result13,
-               result14,
-               result15,
-               result16,
-               result17,
-               result18,
-               result19,
-               result20,
-               result21,
-               result22,
-               result23,
-               result24,
-               result25,
-               result26,
-               result27,
-               result28,
-               result29,
-               result30,
-               result31,
-               result32,
-               result33,
-               result34,
-               result35,
-               result36,
-               result37,
-               result38,
-               result39,
-               result40,
-               result41,
-               result42,
-               result43,
-               result44,
-               result45,
-               result46,
-               result47,
-               result48,
-               result49,
-               result50,
-               result51,
-               result52,
-               x_res_min,
-               x_res_max,
-               y_res_min,
-               y_res_max,
-               epoxy_inspection_interval,
-               result_check_min,
-               result_check_max,
-               create_by,
-               create_time,
-               update_by,
-               update_time,
-               remark
-        FROM qtech_im_chk.aa_list_params_std_model
+        SELECT ID,
+               PROD_TYPE,
+               AA1,
+               AA2,
+               AA3,
+               BACK_TO_POSITION,
+               BLEMISH,
+               CLAMP_ON_OFF,
+               CHART_ALIGNMENT,
+               CHART_ALIGNMENT1,
+               CHART_ALIGNMENT2,
+               DELAY,
+               DESTROY,
+               DESTROY_START,
+               DISPENSE,
+               EPOXY_INSPECTION,
+               EPOXY_INSPECTION_AUTO,
+               GRAB,
+               GRIPPER_OPEN,
+               INIT,
+               LP_BLEMISH,
+               LP_OC,
+               LP_OC_CHECK,
+               LP_ON,
+               LP_ON_BLEMISH,
+               LP_OFF,
+               MOVE_TO_BLEMISH_POS,
+               MTF_CHECK,
+               MTF_CHECK1,
+               MTF_CHECK2,
+               MTF_CHECK3,
+               OPEN_CHECK,
+               RECORD_POSITION,
+               RE_INIT,
+               SAVE_OC,
+               SAVE_MTF,
+               SENSER_RESET,
+               SID,
+               UVON,
+               UVOFF,
+               VCM_HALL,
+               VCM_HALL2,
+               VCM_MOVE_TO_Z,
+               VCM_MOVE_TO_Z_POS,
+               VCM_POWER_OFF_CHECK,
+               VCM_INIT,
+               VCM_OIS_INIT,
+               VCM_POWER_OFF,
+               VCM_POWER_ON,
+               VCM_TOP,
+               VCM_TOP_HALL,
+               VCM_Z,
+               VCM_Z_HALL,
+               Y_LEVEL,
+               AA1_ROI_CC,
+               AA1_ROI_UL,
+               AA1_ROI_UR,
+               AA1_ROI_LL,
+               AA1_ROI_LR,
+               AA1_FC,
+               AA1_F1,
+               AA1_F2,
+               AA1_F3,
+               AA1_F4,
+               AA1_MTF_OFF_AXIS_CHECK1,
+               AA1_MTF_OFF_AXIS_CHECK2,
+               AA1_MTF_OFF_AXIS_CHECK3,
+               AA2_ROI_CC,
+               AA2_ROI_UL,
+               AA2_ROI_UR,
+               AA2_ROI_LL,
+               AA2_ROI_LR,
+               AA2_FC,
+               AA2_F1,
+               AA2_F2,
+               AA2_F3,
+               AA2_F4,
+               AA2_MTF_OFF_AXIS_CHECK1,
+               AA2_MTF_OFF_AXIS_CHECK2,
+               AA2_MTF_OFF_AXIS_CHECK3,
+               AA3_ROI_CC,
+               AA3_ROI_UL,
+               AA3_ROI_UR,
+               AA3_ROI_LL,
+               AA3_ROI_LR,
+               AA3_FC,
+               AA3_F1,
+               AA3_F2,
+               AA3_F3,
+               AA3_F4,
+               AA3_MTF_OFF_AXIS_CHECK1,
+               AA3_MTF_OFF_AXIS_CHECK2,
+               AA3_MTF_OFF_AXIS_CHECK3,
+               MTF_CHECK_FC,
+               MTF_CHECK_F1,
+               MTF_CHECK_F2,
+               MTF_CHECK_F3,
+               MTF_CHECK_F4,
+               MTF_CHECK2_FC,
+               MTF_CHECK2_F1,
+               MTF_CHECK2_F2,
+               MTF_CHECK2_F3,
+               MTF_CHECK2_F4,
+               MTF_CHECK3_FC,
+               MTF_CHECK3_F1,
+               MTF_CHECK3_F2,
+               MTF_CHECK3_F3,
+               MTF_CHECK3_F4,
+               CHART_ALIGNMENT_X_RES_MIN,
+               CHART_ALIGNMENT_X_RES_MAX,
+               CHART_ALIGNMENT_Y_RES_MIN,
+               CHART_ALIGNMENT_Y_RES_MAX,
+               CHART_ALIGNMENT1_X_RES_MIN,
+               CHART_ALIGNMENT1_X_RES_MAX,
+               CHART_ALIGNMENT1_Y_RES_MIN,
+               CHART_ALIGNMENT1_Y_RES_MAX,
+               CHART_ALIGNMENT2_X_RES_MIN,
+               CHART_ALIGNMENT2_X_RES_MAX,
+               CHART_ALIGNMENT2_Y_RES_MIN,
+               CHART_ALIGNMENT2_Y_RES_MAX,
+               EPOXY_INSPECTION_INTERVAL,
+               VCM_CHECK_RESULT_CHECK_MIN,
+               VCM_CHECK_RESULT_CHECK_MAX,
+               RECORD_POSITION_UT_XYZ_MOVE,
+               OC_CHECK_X_OFFSET_MIN,
+               OC_CHECK_X_OFFSET_MAX,
+               OC_CHECK_Y_OFFSET_MIN,
+               OC_CHECK_Y_OFFSET_MAX,
+               SAVE_OC_X_OFFSET_MIN,
+               SAVE_OC_X_OFFSET_MAX,
+               SAVE_OC_Y_OFFSET_MIN,
+               SAVE_OC_Y_OFFSET_MAX,
+               SAVE_MTF_CC_MIN,
+               SAVE_MTF_CC_MAX,
+               CREATE_BY,
+               CREATE_TIME,
+               UPDATE_BY,
+               UPDATE_TIME,
+               REMARK
+        FROM IMBIZ.IM_AA_LIST_PARAMS_STD_MODEL
     </sql>
 
     <insert id="insertAaListParamsStdModel" useGeneratedKeys="true" parameterType="AaListParamsStdModelDetail">
-        insert into qtech_im_chk.aa_list_params_std_model
+        INSERT INTO IMBIZ.IM_AA_LIST_PARAMS_STD_MODEL
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="prodType != null">prod_type,</if>
-            <if test="clampOnOff != null">clamp_on_off,</if>
-            <if test="destroyStart != null">destroy_start,</if>
-            <if test="init != null">init,</if>
-            <if test="grab != null">grab,</if>
-            <if test="reInit != null">re_init,</if>
-            <if test="senserReset != null">senser_reset,</if>
-            <if test="sid != null">sid,</if>
-            <if test="vcmHall != null">vcm_hall,</if>
-            <if test="vcmInit != null">vcm_init,</if>
-            <if test="vcmHall2 != null">vcm_hall2,</if>
-            <if test="vcmPowerOff != null">vcm_power_off,</if>
-            <if test="vcmPowerOn != null">vcm_power_on,</if>
-            <if test="vcmTop != null">vcm_top,</if>
-            <if test="vcmTopHall != null">vcm_top_hall,</if>
-            <if test="vcmZ != null">vcm_z,</if>
-            <if test="vcmZHall != null">vcm_z_hall,</if>
-            <if test="vcmOisInit != null">vcm_ois_init,</if>
-            <if test="chartAlignment1 != null">chart_alignment1,</if>
-            <if test="AA1 != null">aa1,</if>
-            <if test="AA2 != null">aa2,</if>
-            <if test="mtfCheck != null">mtf_check,</if>
-            <if test="AA3 != null">aa3,</if>
-            <if test="mtfCheck2 != null">mtf_check2,</if>
-            <if test="lpOn != null">lp_on,</if>
-            <if test="lpOcCheck != null">lp_oc_check,</if>
-            <if test="lpOc != null">lp_oc,</if>
-            <if test="lpOnBlemish != null">lp_on_blemish,</if>
-            <if test="blemish != null">blemish,</if>
-            <if test="lpOff != null">lp_off,</if>
-            <if test="chartAlignment != null">chart_alignment,</if>
-            <if test="vcmMoveToZ != null">vcm_move_to_z,</if>
-            <if test="delay != null">delay,</if>
-            <if test="vcmPowerOffCheck != null">vcm_power_off_check,</if>
-            <if test="recordPosition != null">record_position,</if>
-            <if test="dispense != null">dispense,</if>
-            <if test="epoxyInspectionAuto != null">epoxy_inspection_auto,</if>
-            <if test="epoxyInspection != null">epoxy_inspection,</if>
-            <if test="backToPosition != null">back_to_position,</if>
-            <if test="uvon != null">uvon,</if>
-            <if test="yLevel != null">y_level,</if>
-            <if test="uvoff != null">uvoff,</if>
-            <if test="gripperOpen != null">gripper_open,</if>
-            <if test="saveOc != null">save_oc,</if>
-            <if test="saveMtf != null">save_mtf,</if>
-            <if test="destroy != null">destroy,</if>
-            <if test="moveToBlemishPos != null">move_to_blemish_pos,</if>
-            <if test="mtfCheck3 != null">mtf_check3,</if>
-            <if test="mtfOffAxisCheck1 != null">mtf_off_axis_check1,</if>
-            <if test="mtfOffAxisCheck2 != null">mtf_off_axis_check2,</if>
-            <if test="mtfOffAxisCheck3 != null">mtf_off_axis_check3,</if>
-            <if test="lpBlemish != null">lp_blemish,</if>
-            <if test="chartAlignment2 != null">chart_alignment2,</if>
-            <if test="vcmMoveToZPos != null">vcm_move_to_z_pos,</if>
-            <if test="zOffset != null">z_offset,</if>
-            <if test="openCheck != null">open_check,</if>
-            <if test="roiCc != null">roi_cc,</if>
-            <if test="roiUl != null">roi_ul,</if>
-            <if test="roiUr != null">roi_ur,</if>
-            <if test="roiLl != null">roi_ll,</if>
-            <if test="roiLr != null">roi_lr,</if>
-            <if test="result1 != null">result1,</if>
-            <if test="result2 != null">result2,</if>
-            <if test="result3 != null">result3,</if>
-            <if test="result4 != null">result4,</if>
-            <if test="result5 != null">result5,</if>
-            <if test="result6 != null">result6,</if>
-            <if test="result7 != null">result7,</if>
-            <if test="result8 != null">result8,</if>
-            <if test="result9 != null">result9,</if>
-            <if test="result10 != null">result10,</if>
-            <if test="result11 != null">result11,</if>
-            <if test="result12 != null">result12,</if>
-            <if test="result13 != null">result13,</if>
-            <if test="result14 != null">result14,</if>
-            <if test="result15 != null">result15,</if>
-            <if test="result16 != null">result16,</if>
-            <if test="result17 != null">result17,</if>
-            <if test="result18 != null">result18,</if>
-            <if test="result19 != null">result19,</if>
-            <if test="result20 != null">result20,</if>
-            <if test="result21 != null">result21,</if>
-            <if test="result22 != null">result22,</if>
-            <if test="result23 != null">result23,</if>
-            <if test="result24 != null">result24,</if>
-            <if test="result25 != null">result25,</if>
-            <if test="result26 != null">result26,</if>
-            <if test="result27 != null">result27,</if>
-            <if test="result28 != null">result28,</if>
-            <if test="result29 != null">result29,</if>
-            <if test="result30 != null">result30,</if>
-            <if test="result31 != null">result31,</if>
-            <if test="result32 != null">result32,</if>
-            <if test="result33 != null">result33,</if>
-            <if test="result34 != null">result34,</if>
-            <if test="result35 != null">result35,</if>
-            <if test="result36 != null">result36,</if>
-            <if test="result37 != null">result37,</if>
-            <if test="result38 != null">result38,</if>
-            <if test="result39 != null">result39,</if>
-            <if test="result40 != null">result40,</if>
-            <if test="result41 != null">result41,</if>
-            <if test="result42 != null">result42,</if>
-            <if test="result43 != null">result43,</if>
-            <if test="result44 != null">result44,</if>
-            <if test="result45 != null">result45,</if>
-            <if test="result46 != null">result46,</if>
-            <if test="result47 != null">result47,</if>
-            <if test="result48 != null">result48,</if>
-            <if test="result49 != null">result49,</if>
-            <if test="result50 != null">result50,</if>
-            <if test="result51 != null">result51,</if>
-            <if test="result52 != null">result52,</if>
-            <if test="xResMin != null">x_res_min,</if>
-            <if test="xResMax != null">x_res_max,</if>
-            <if test="yResMin != null">y_res_min,</if>
-            <if test="yResMax != null">y_res_max,</if>
-            <if test="epoxyInspectionInterval != null">epoxy_inspection_interval,</if>
-            <if test="resultCheckMin">result_check_min,</if>
-            <if test="resultCheckMax">result_check_max,</if>
-            <if test="createBy != null">create_by,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="updateBy != null">update_by,</if>
-            <if test="updateTime != null">update_time,</if>
-            <if test="remark != null">remark,</if>
+            <if test="prodType != null">PROD_TYPE,</if>
+            <if test="AA1 != null">AA1,</if>
+            <if test="AA2 != null">AA2,</if>
+            <if test="AA3 != null">AA3,</if>
+            <if test="backToPosition != null">BACK_TO_POSITION,</if>
+            <if test="blemish != null">BLEMISH,</if>
+            <if test="clampOnOff != null">CLAMP_ON_OFF,</if>
+            <if test="chartAlignment != null">CHART_ALIGNMENT,</if>
+            <if test="chartAlignment1 != null">CHART_ALIGNMENT1,</if>
+            <if test="chartAlignment2 != null">CHART_ALIGNMENT2,</if>
+            <if test="delay != null">DELAY,</if>
+            <if test="destroy != null">DESTROY,</if>
+            <if test="destroyStart != null">DESTROY_START,</if>
+            <if test="dispense != null">DISPENSE,</if>
+            <if test="epoxyInspection != null">EPOXY_INSPECTION,</if>
+            <if test="epoxyInspectionAuto != null">EPOXY_INSPECTION_AUTO,</if>
+            <if test="grab != null">GRAB,</if>
+            <if test="gripperOpen != null">GRIPPER_OPEN,</if>
+            <if test="init != null">INIT,</if>
+            <if test="lpBlemish != null">LP_BLEMISH,</if>
+            <if test="lpOc != null">LP_OC,</if>
+            <if test="lpOcCheck != null">LP_OC_CHECK,</if>
+            <if test="lpOn != null">LP_ON,</if>
+            <if test="lpOnBlemish != null">LP_ON_BLEMISH,</if>
+            <if test="lpOff != null">LP_OFF,</if>
+            <if test="moveToBlemishPos != null">MOVE_TO_BLEMISH_POS,</if>
+            <if test="mtfCheck != null">MTF_CHECK,</if>
+            <if test="mtfCheck1 != null">MTF_CHECK1,</if>
+            <if test="mtfCheck2 != null">MTF_CHECK2,</if>
+            <if test="mtfCheck3 != null">MTF_CHECK3,</if>
+            <if test="openCheck != null">OPEN_CHECK,</if>
+            <if test="recordPosition != null">RECORD_POSITION,</if>
+            <if test="reInit != null">RE_INIT,</if>
+            <if test="saveOc != null">SAVE_OC,</if>
+            <if test="saveMtf != null">SAVE_MTF,</if>
+            <if test="senserReset != null">SENSER_RESET,</if>
+            <if test="sid != null">SID,</if>
+            <if test="uvon != null">UVON,</if>
+            <if test="uvoff != null">UVOFF,</if>
+            <if test="vcmHall != null">VCM_HALL,</if>
+            <if test="vcmHall2 != null">VCM_HALL2,</if>
+            <if test="vcmMoveToZ != null">VCM_MOVE_TO_Z,</if>
+            <if test="vcmMoveToZPos != null">VCM_MOVE_TO_Z_POS,</if>
+            <if test="vcmPowerOffCheck != null">VCM_POWER_OFF_CHECK,</if>
+            <if test="vcmInit != null">VCM_INIT,</if>
+            <if test="vcmOisInit != null">VCM_OIS_INIT,</if>
+            <if test="vcmPowerOff != null">VCM_POWER_OFF,</if>
+            <if test="vcmPowerOn != null">VCM_POWER_ON,</if>
+            <if test="vcmTop != null">VCM_TOP,</if>
+            <if test="vcmTopHall != null">VCM_TOP_HALL,</if>
+            <if test="vcmZ != null">VCM_Z,</if>
+            <if test="vcmZHall != null">VCM_Z_HALL,</if>
+            <if test="yLevel != null">Y_LEVEL,</if>
+            <if test="aa1RoiCc != null">AA1_ROI_CC,</if>
+            <if test="aa1RoiUl != null">AA1_ROI_UL,</if>
+            <if test="aa1RoiUr != null">AA1_ROI_UR,</if>
+            <if test="aa1RoiLl != null">AA1_ROI_LL,</if>
+            <if test="aa1RoiLr != null">AA1_ROI_LR,</if>
+            <if test="aa1FC != null">AA1_FC,</if>
+            <if test="aa1F1 != null">AA1_F1,</if>
+            <if test="aa1F2 != null">AA1_F2,</if>
+            <if test="aa1F3 != null">AA1_F3,</if>
+            <if test="aa1F4 != null">AA1_F4,</if>
+            <if test="aa1MtfOffAxisCheck1 != null">AA1_MTF_OFF_AXIS_CHECK1,</if>
+            <if test="aa1MtfOffAxisCheck2 != null">AA1_MTF_OFF_AXIS_CHECK2,</if>
+            <if test="aa1MtfOffAxisCheck3 != null">AA1_MTF_OFF_AXIS_CHECK3,</if>
+            <if test="aa2RoiCc != null">AA2_ROI_CC,</if>
+            <if test="aa2RoiUl != null">AA2_ROI_UL,</if>
+            <if test="aa2RoiUr != null">AA2_ROI_UR,</if>
+            <if test="aa2RoiLl != null">AA2_ROI_LL,</if>
+            <if test="aa2RoiLr != null">AA2_ROI_LR,</if>
+            <if test="aa2FC != null">AA2_FC,</if>
+            <if test="aa2F1 != null">AA2_F1,</if>
+            <if test="aa2F2 != null">AA2_F2,</if>
+            <if test="aa2F3 != null">AA2_F3,</if>
+            <if test="aa2F4 != null">AA2_F4,</if>
+            <if test="aa2MtfOffAxisCheck1 != null">AA2_MTF_OFF_AXIS_CHECK1,</if>
+            <if test="aa2MtfOffAxisCheck2 != null">AA2_MTF_OFF_AXIS_CHECK2,</if>
+            <if test="aa2MtfOffAxisCheck3 != null">AA2_MTF_OFF_AXIS_CHECK3,</if>
+            <if test="aa3RoiCc != null">AA3_ROI_CC,</if>
+            <if test="aa3RoiUl != null">AA3_ROI_UL,</if>
+            <if test="aa3RoiUr != null">AA3_ROI_UR,</if>
+            <if test="aa3RoiLl != null">AA3_ROI_LL,</if>
+            <if test="aa3RoiLr != null">AA3_ROI_LR,</if>
+            <if test="aa3FC != null">AA3_FC,</if>
+            <if test="aa3F1 != null">AA3_F1,</if>
+            <if test="aa3F2 != null">AA3_F2,</if>
+            <if test="aa3F3 != null">AA3_F3,</if>
+            <if test="aa3F4 != null">AA3_F4,</if>
+            <if test="aa3MtfOffAxisCheck1 != null">AA3_MTF_OFF_AXIS_CHECK1,</if>
+            <if test="aa3MtfOffAxisCheck2 != null">AA3_MTF_OFF_AXIS_CHECK2,</if>
+            <if test="aa3MtfOffAxisCheck3 != null">AA3_MTF_OFF_AXIS_CHECK3,</if>
+            <if test="mtfCheckFC != null">MTF_CHECK_FC,</if>
+            <if test="mtfCheckF1 != null">MTF_CHECK_F1,</if>
+            <if test="mtfCheckF2 != null">MTF_CHECK_F2,</if>
+            <if test="mtfCheckF3 != null">MTF_CHECK_F3,</if>
+            <if test="mtfCheckF4 != null">MTF_CHECK_F4,</if>
+            <if test="mtfCheck1FC != null">MTF_CHECK1_FC,</if>
+            <if test="mtfCheck1F1 != null">MTF_CHECK1_F1,</if>
+            <if test="mtfCheck1F2 != null">MTF_CHECK1_F2,</if>
+            <if test="mtfCheck1F3 != null">MTF_CHECK1_F3,</if>
+            <if test="mtfCheck1F4 != null">MTF_CHECK1_F4,</if>
+            <if test="mtfCheck1FC != null">MTF_CHECK1_FC,</if>
+            <if test="mtfCheck1F1 != null">MTF_CHECK1_F1,</if>
+            <if test="mtfCheck1F2 != null">MTF_CHECK1_F2,</if>
+            <if test="mtfCheck1F3 != null">MTF_CHECK1_F3,</if>
+            <if test="mtfCheck1F4 != null">MTF_CHECK1_F4,</if>
+            <if test="mtfCheck2FC != null">MTF_CHECK2_FC,</if>
+            <if test="mtfCheck2F1 != null">MTF_CHECK2_F1,</if>
+            <if test="mtfCheck2F2 != null">MTF_CHECK2_F2,</if>
+            <if test="mtfCheck2F3 != null">MTF_CHECK2_F3,</if>
+            <if test="mtfCheck2F4 != null">MTF_CHECK2_F4,</if>
+            <if test="mtfCheck3FC != null">MTF_CHECK3_FC,</if>
+            <if test="mtfCheck3F1 != null">MTF_CHECK3_F1,</if>
+            <if test="mtfCheck3F2 != null">MTF_CHECK3_F2,</if>
+            <if test="mtfCheck3F3 != null">MTF_CHECK3_F3,</if>
+            <if test="mtfCheck3F4 != null">MTF_CHECK3_F4,</if>
+            <if test="chartAlignmentXResMin != null">CHART_ALIGNMENT_X_RES_MIN,</if>
+            <if test="chartAlignmentXResMax != null">CHART_ALIGNMENT_X_RES_MAX,</if>
+            <if test="chartAlignmentYResMin != null">CHART_ALIGNMENT_Y_RES_MIN,</if>
+            <if test="chartAlignmentYResMax != null">CHART_ALIGNMENT_Y_RES_MAX,</if>
+            <if test="chartAlignment1XResMin != null">CHART_ALIGNMENT1_X_RES_MIN,</if>
+            <if test="chartAlignment1XResMax != null">CHART_ALIGNMENT1_X_RES_MAX,</if>
+            <if test="chartAlignment1YResMin != null">CHART_ALIGNMENT1_Y_RES_MIN,</if>
+            <if test="chartAlignment1YResMax != null">CHART_ALIGNMENT1_Y_RES_MAX,</if>
+            <if test="chartAlignment2XResMin != null">CHART_ALIGNMENT2_X_RES_MIN,</if>
+            <if test="chartAlignment2XResMax != null">CHART_ALIGNMENT2_X_RES_MAX,</if>
+            <if test="chartAlignment2YResMin != null">CHART_ALIGNMENT2_Y_RES_MIN,</if>
+            <if test="chartAlignment2YResMax != null">CHART_ALIGNMENT2_Y_RES_MAX,</if>
+            <if test="epoxyInspectionInterval != null">EPOXY_INSPECTION_INTERVAL,</if>
+            <if test="vcmCheckResultCheckMin != null">VCM_CHECK_RESULT_CHECK_MIN,</if>
+            <if test="vcmCheckResultCheckMax != null">VCM_CHECK_RESULT_CHECK_MAX,</if>
+            <if test="recordPositionUtXyzMove != null">RECORD_POSITION_UT_XYZ_MOVE,</if>
+            <if test="ocCheckXOffsetMin != null">OC_CHECK_X_OFFSET_MIN,</if>
+            <if test="ocCheckXOffsetMax != null">OC_CHECK_X_OFFSET_MAX,</if>
+            <if test="ocCheckYOffsetMin != null">OC_CHECK_Y_OFFSET_MIN,</if>
+            <if test="ocCheckYOffsetMax != null">OC_CHECK_Y_OFFSET_MAX,</if>
+            <if test="saveOcXOffsetMin != null">SAVE_OC_X_OFFSET_MIN,</if>
+            <if test="saveOcXOffsetMax != null">SAVE_OC_X_OFFSET_MAX,</if>
+            <if test="saveOcYOffsetMin != null">SAVE_OC_Y_OFFSET_MIN,</if>
+            <if test="saveOcYOffsetMax != null">SAVE_OC_Y_OFFSET_MAX,</if>
+            <if test="saveMtfCcMin != null">SAVE_MTF_CC_MIN,</if>
+            <if test="saveMtfCcMax != null">SAVE_MTF_CC_MAX,</if>
+            <if test="createBy != null">CREATE_BY,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateBy != null">UPDATE_BY,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+            <if test="remark != null">REMARK,</if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="prodType != null">#{prodType,jdbcType=VARCHAR},</if>
-            <if test="clampOnOff != null">#{clampOnOff,jdbcType=VARCHAR},</if>
-            <if test="destroyStart != null">#{destroyStart,jdbcType=VARCHAR},</if>
-            <if test="init != null">#{init,jdbcType=VARCHAR},</if>
-            <if test="grab != null">#{grab,jdbcType=VARCHAR},</if>
-            <if test="reInit != null">#{reInit,jdbcType=VARCHAR},</if>
-            <if test="senserReset != null">#{senserReset,jdbcType=VARCHAR},</if>
-            <if test="sid != null">#{sid,jdbcType=VARCHAR},</if>
-            <if test="vcmHall != null">#{vcmHall,jdbcType=VARCHAR},</if>
-            <if test="vcmInit != null">#{vcmInit,jdbcType=VARCHAR},</if>
-            <if test="vcmHall2 != null">#{vcmHall2,jdbcType=VARCHAR},</if>
-            <if test="vcmPowerOff != null">#{vcmPowerOff,jdbcType=VARCHAR},</if>
-            <if test="vcmPowerOn != null">#{vcmPowerOn,jdbcType=VARCHAR},</if>
-            <if test="vcmTop != null">#{vcmTop,jdbcType=VARCHAR},</if>
-            <if test="vcmTopHall != null">#{vcmTopHall,jdbcType=VARCHAR},</if>
-            <if test="vcmZ != null">#{vcmZ,jdbcType=VARCHAR},</if>
-            <if test="vcmZHall != null">#{vcmZHall,jdbcType=VARCHAR},</if>
-            <if test="vcmOisInit != null">#{vcmOisInit,jdbcType=VARCHAR},</if>
-            <if test="chartAlignment1 != null">#{chartAlignment1,jdbcType=VARCHAR},</if>
-            <if test="AA1 != null">#{AA1,jdbcType=VARCHAR},</if>
-            <if test="AA2 != null">#{AA2,jdbcType=VARCHAR},</if>
-            <if test="mtfCheck != null">#{mtfCheck,jdbcType=VARCHAR},</if>
-            <if test="AA3 != null">#{AA3,jdbcType=VARCHAR},</if>
-            <if test="mtfCheck2 != null">#{mtfCheck2,jdbcType=VARCHAR},</if>
-            <if test="lpOn != null">#{lpOn,jdbcType=VARCHAR},</if>
-            <if test="lpOcCheck != null">#{lpOcCheck,jdbcType=VARCHAR},</if>
-            <if test="lpOc != null">#{lpOc,jdbcType=VARCHAR},</if>
-            <if test="lpOnBlemish != null">#{lpOnBlemish,jdbcType=VARCHAR},</if>
-            <if test="blemish != null">#{blemish,jdbcType=VARCHAR},</if>
-            <if test="lpOff != null">#{lpOff,jdbcType=VARCHAR},</if>
-            <if test="chartAlignment != null">#{chartAlignment,jdbcType=VARCHAR},</if>
-            <if test="vcmMoveToZ != null">#{vcmMoveToZ,jdbcType=VARCHAR},</if>
-            <if test="delay != null">#{delay,jdbcType=VARCHAR},</if>
-            <if test="vcmPowerOffCheck != null">#{vcmPowerOffCheck,jdbcType=VARCHAR},</if>
-            <if test="recordPosition != null">#{recordPosition,jdbcType=VARCHAR},</if>
-            <if test="dispense != null">#{dispense,jdbcType=VARCHAR},</if>
-            <if test="epoxyInspectionAuto != null">#{epoxyInspectionAuto,jdbcType=VARCHAR},</if>
-            <if test="epoxyInspection != null">#{epoxyInspection,jdbcType=VARCHAR},</if>
-            <if test="backToPosition != null">#{backToPosition,jdbcType=VARCHAR},</if>
-            <if test="uvon != null">#{uvon,jdbcType=VARCHAR},</if>
-            <if test="yLevel != null">#{yLevel,jdbcType=VARCHAR},</if>
-            <if test="uvoff != null">#{uvoff,jdbcType=VARCHAR},</if>
-            <if test="gripperOpen != null">#{gripperOpen,jdbcType=VARCHAR},</if>
-            <if test="saveOc != null">#{saveOc,jdbcType=VARCHAR},</if>
-            <if test="saveMtf != null">#{saveMtf,jdbcType=VARCHAR},</if>
-            <if test="destroy != null">#{destroy,jdbcType=VARCHAR},</if>
-            <if test="moveToBlemishPos != null">#{moveToBlemishPos,jdbcType=VARCHAR},</if>
-            <if test="mtfCheck3 != null">#{mtfCheck3,jdbcType=VARCHAR},</if>
-            <if test="mtfOffAxisCheck1 != null">#{mtfOffAxisCheck1,jdbcType=VARCHAR},</if>
-            <if test="mtfOffAxisCheck2 != null">#{mtfOffAxisCheck2,jdbcType=VARCHAR},</if>
-            <if test="mtfOffAxisCheck3 != null">#{mtfOffAxisCheck3,jdbcType=VARCHAR},</if>
-            <if test="lpBlemish != null">#{lpBlemish,jdbcType=VARCHAR},</if>
-            <if test="chartAlignment2 != null">#{chartAlignment2,jdbcType=VARCHAR},</if>
-            <if test="vcmMoveToZPos != null">#{vcmMoveToZPos,jdbcType=VARCHAR},</if>
-            <if test="zOffset != null">#{zOffset,jdbcType=VARCHAR},</if>
-            <if test="openCheck != null">#{openCheck,jdbcType=VARCHAR},</if>
-            <if test="roiCc != null">#{roiCc,jdbcType=VARCHAR},</if>
-            <if test="roiUl != null">#{roiUl,jdbcType=VARCHAR},</if>
-            <if test="roiUr != null">#{roiUr,jdbcType=VARCHAR},</if>
-            <if test="roiLl != null">#{roiLl,jdbcType=VARCHAR},</if>
-            <if test="roiLr != null">#{roiLr,jdbcType=VARCHAR},</if>
-            <if test="result1 != null">#{result1,jdbcType=VARCHAR},</if>
-            <if test="result2 != null">#{result2,jdbcType=VARCHAR},</if>
-            <if test="result3 != null">#{result3,jdbcType=VARCHAR},</if>
-            <if test="result4 != null">#{result4,jdbcType=VARCHAR},</if>
-            <if test="result5 != null">#{result5,jdbcType=VARCHAR},</if>
-            <if test="result6 != null">#{result6,jdbcType=VARCHAR},</if>
-            <if test="result7 != null">#{result7,jdbcType=VARCHAR},</if>
-            <if test="result8 != null">#{result8,jdbcType=VARCHAR},</if>
-            <if test="result9 != null">#{result9,jdbcType=VARCHAR},</if>
-            <if test="result10 != null">#{result10,jdbcType=VARCHAR},</if>
-            <if test="result11 != null">#{result11,jdbcType=VARCHAR},</if>
-            <if test="result12 != null">#{result12,jdbcType=VARCHAR},</if>
-            <if test="result13 != null">#{result13,jdbcType=VARCHAR},</if>
-            <if test="result14 != null">#{result14,jdbcType=VARCHAR},</if>
-            <if test="result15 != null">#{result15,jdbcType=VARCHAR},</if>
-            <if test="result16 != null">#{result16,jdbcType=VARCHAR},</if>
-            <if test="result17 != null">#{result17,jdbcType=VARCHAR},</if>
-            <if test="result18 != null">#{result18,jdbcType=VARCHAR},</if>
-            <if test="result19 != null">#{result19,jdbcType=VARCHAR},</if>
-            <if test="result20 != null">#{result20,jdbcType=VARCHAR},</if>
-            <if test="result21 != null">#{result21,jdbcType=VARCHAR},</if>
-            <if test="result22 != null">#{result22,jdbcType=VARCHAR},</if>
-            <if test="result23 != null">#{result23,jdbcType=VARCHAR},</if>
-            <if test="result24 != null">#{result24,jdbcType=VARCHAR},</if>
-            <if test="result25 != null">#{result25,jdbcType=VARCHAR},</if>
-            <if test="result26 != null">#{result26,jdbcType=VARCHAR},</if>
-            <if test="result27 != null">#{result27,jdbcType=VARCHAR},</if>
-            <if test="result28 != null">#{result28,jdbcType=VARCHAR},</if>
-            <if test="result29 != null">#{result29,jdbcType=VARCHAR},</if>
-            <if test="result30 != null">#{result30,jdbcType=VARCHAR},</if>
-            <if test="result31 != null">#{result31,jdbcType=VARCHAR},</if>
-            <if test="result32 != null">#{result32,jdbcType=VARCHAR},</if>
-            <if test="result33 != null">#{result33,jdbcType=VARCHAR},</if>
-            <if test="result34 != null">#{result34,jdbcType=VARCHAR},</if>
-            <if test="result35 != null">#{result35,jdbcType=VARCHAR},</if>
-            <if test="result36 != null">#{result36,jdbcType=VARCHAR},</if>
-            <if test="result37 != null">#{result37,jdbcType=VARCHAR},</if>
-            <if test="result38 != null">#{result38,jdbcType=VARCHAR},</if>
-            <if test="result39 != null">#{result39,jdbcType=VARCHAR},</if>
-            <if test="result40 != null">#{result40,jdbcType=VARCHAR},</if>
-            <if test="result41 != null">#{result41,jdbcType=VARCHAR},</if>
-            <if test="result42 != null">#{result42,jdbcType=VARCHAR},</if>
-            <if test="result43 != null">#{result43,jdbcType=VARCHAR},</if>
-            <if test="result44 != null">#{result44,jdbcType=VARCHAR},</if>
-            <if test="result45 != null">#{result45,jdbcType=VARCHAR},</if>
-            <if test="result46 != null">#{result46,jdbcType=VARCHAR},</if>
-            <if test="result47 != null">#{result47,jdbcType=VARCHAR},</if>
-            <if test="result48 != null">#{result48,jdbcType=VARCHAR},</if>
-            <if test="result49 != null">#{result49,jdbcType=VARCHAR},</if>
-            <if test="result50 != null">#{result50,jdbcType=VARCHAR},</if>
-            <if test="result51 != null">#{result51,jdbcType=VARCHAR},</if>
-            <if test="result52 != null">#{result52,jdbcType=VARCHAR},</if>
-            <if test="xResMin != null">#{xResMin,jdbcType=VARCHAR},</if>
-            <if test="xResMax != null">#{xResMax,jdbcType=VARCHAR},</if>
-            <if test="yResMin != null">#{yResMin,jdbcType=VARCHAR},</if>
-            <if test="yResMax != null">#{yResMax,jdbcType=VARCHAR},</if>
-            <if test="epoxyInspectionInterval != null">#{epoxyInspectionInterval,jdbcType=VARCHAR},</if>
-            <if test="resultCheckMin != null">#{resultCheckMin,jdbcType=VARCHAR},</if>
-            <if test="resultCheckMax != null">#{resultCheckMax,jdbcType=VARCHAR},</if>
-            <if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
-            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
-            <if test="updateBy != null">#{updateBy,jdbcType=VARCHAR},</if>
-            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
-            <if test="remark != null">#{remark,jdbcType=TIMESTAMP},</if>
-        </trim>
-    </insert>
-
-    <insert id="batchInsert">
-        INSERT INTO equipment_reverse_control_info (sim_id, prod_type, chk_dt, code, description)
         VALUES
-        <foreach collection="list" item="item" separator=",">
-            (#{item.simId}, #{item.prodType}, #{item.checkDt}, #{item.statusCode}, #{item.description})
-        </foreach>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="prodType != null">#{prodType},</if>
+            <if test="AA1 != null">#{AA1},</if>
+            <if test="AA2 != null">#{AA2},</if>
+            <if test="AA3 != null">#{AA3},</if>
+            <if test="backToPosition != null">#{backToPosition},</if>
+            <if test="blemish != null">#{blemish},</if>
+            <if test="clampOnOff != null">#{clampOnOff},</if>
+            <if test="chartAlignment != null">#{chartAlignment},</if>
+            <if test="chartAlignment1 != null">#{chartAlignment1},</if>
+            <if test="chartAlignment2 != null">#{chartAlignment2},</if>
+            <if test="delay != null">#{delay},</if>
+            <if test="destroy != null">#{destroy},</if>
+            <if test="destroyStart != null">#{destroyStart},</if>
+            <if test="dispense != null">#{dispense},</if>
+            <if test="epoxyInspection != null">#{epoxyInspection},</if>
+            <if test="epoxyInspectionAuto != null">#{epoxyInspectionAuto},</if>
+            <if test="grab != null">#{grab},</if>
+            <if test="gripperOpen != null">#{gripperOpen},</if>
+            <if test="init != null">#{init},</if>
+            <if test="lpBlemish != null">#{lpBlemish},</if>
+            <if test="lpOc != null">#{lpOc},</if>
+            <if test="lpOcCheck != null">#{lpOcCheck},</if>
+            <if test="lpOn != null">#{lpOn},</if>
+            <if test="lpOnBlemish != null">#{lpOnBlemish},</if>
+            <if test="lpOff != null">#{lpOff},</if>
+            <if test="moveToBlemishPos != null">#{moveToBlemishPos},</if>
+            <if test="mtfCheck != null">#{mtfCheck},</if>
+            <if test="mtfCheck1 != null">#{mtfCheck1},</if>
+            <if test="mtfCheck2 != null">#{mtfCheck2},</if>
+            <if test="mtfCheck3 != null">#{mtfCheck3},</if>
+            <if test="openCheck != null">#{openCheck},</if>
+            <if test="recordPosition != null">#{recordPosition},</if>
+            <if test="reInit != null">#{reInit},</if>
+            <if test="saveOc != null">#{saveOc},</if>
+            <if test="saveMtf != null">#{saveMtf},</if>
+            <if test="senserReset != null">#{senserReset},</if>
+            <if test="sid != null">#{sid},</if>
+            <if test="uvon != null">#{uvon},</if>
+            <if test="uvoff != null">#{uvoff},</if>
+            <if test="vcmHall != null">#{vcmHall},</if>
+            <if test="vcmHall2 != null">#{vcmHall2},</if>
+            <if test="vcmMoveToZ != null">#{vcmMoveToZ},</if>
+            <if test="vcmMoveToZPos != null">#{vcmMoveToZPos},</if>
+            <if test="vcmPowerOffCheck != null">#{vcmPowerOffCheck},</if>
+            <if test="vcmInit != null">#{vcmInit},</if>
+            <if test="vcmOisInit != null">#{vcmOisInit},</if>
+            <if test="vcmPowerOff != null">#{vcmPowerOff},</if>
+            <if test="vcmPowerOn != null">#{vcmPowerOn},</if>
+            <if test="vcmTop != null">#{vcmTop},</if>
+            <if test="vcmTopHall != null">#{vcmTopHall},</if>
+            <if test="vcmZ != null">#{vcmZ},</if>
+            <if test="vcmZHall != null">#{vcmZHall},</if>
+            <if test="yLevel != null">#{yLevel},</if>
+            <if test="aa1RoiCc != null">#{aa1RoiCc},</if>
+            <if test="aa1RoiUl != null">#{aa1RoiUl},</if>
+            <if test="aa1RoiUr != null">#{aa1RoiUr},</if>
+            <if test="aa1RoiLl != null">#{aa1RoiLl},</if>
+            <if test="aa1RoiLr != null">#{aa1RoiLr},</if>
+            <if test="aa1FC != null">#{aa1FC},</if>
+            <if test="aa1F1 != null">#{aa1F1},</if>
+            <if test="aa1F2 != null">#{aa1F2},</if>
+            <if test="aa1F3 != null">#{aa1F3},</if>
+            <if test="aa1F4 != null">#{aa1F4},</if>
+            <if test="aa1MtfOffAxisCheck1 != null">#{aa1MtfOffAxisCheck1},</if>
+            <if test="aa1MtfOffAxisCheck2 != null">#{aa1MtfOffAxisCheck2},</if>
+            <if test="aa1MtfOffAxisCheck3 != null">#{aa1MtfOffAxisCheck3},</if>
+            <if test="aa2RoiCc != null">#{aa2RoiCc},</if>
+            <if test="aa2RoiUl != null">#{aa2RoiUl},</if>
+            <if test="aa2RoiUr != null">#{aa2RoiUr},</if>
+            <if test="aa2RoiLl != null">#{aa2RoiLl},</if>
+            <if test="aa2RoiLr != null">#{aa2RoiLr},</if>
+            <if test="aa2FC != null">#{aa2FC},</if>
+            <if test="aa2F1 != null">#{aa2F1},</if>
+            <if test="aa2F2 != null">#{aa2F2},</if>
+            <if test="aa2F3 != null">#{aa2F3},</if>
+            <if test="aa2F4 != null">#{aa2F4},</if>
+            <if test="aa2MtfOffAxisCheck1 != null">#{aa2MtfOffAxisCheck1},</if>
+            <if test="aa2MtfOffAxisCheck2 != null">#{aa2MtfOffAxisCheck2},</if>
+            <if test="aa2MtfOffAxisCheck3 != null">#{aa2MtfOffAxisCheck3},</if>
+            <if test="aa3RoiCc != null">#{aa3RoiCc},</if>
+            <if test="aa3RoiUl != null">#{aa3RoiUl},</if>
+            <if test="aa3RoiUr != null">#{aa3RoiUr},</if>
+            <if test="aa3RoiLl != null">#{aa3RoiLl},</if>
+            <if test="aa3RoiLr != null">#{aa3RoiLr},</if>
+            <if test="aa3FC != null">#{aa3FC},</if>
+            <if test="aa3F1 != null">#{aa3F1},</if>
+            <if test="aa3F2 != null">#{aa3F2},</if>
+            <if test="aa3F3 != null">#{aa3F3},</if>
+            <if test="aa3F4 != null">#{aa3F4},</if>
+            <if test="aa3MtfOffAxisCheck1 != null">#{aa3MtfOffAxisCheck1},</if>
+            <if test="aa3MtfOffAxisCheck2 != null">#{aa3MtfOffAxisCheck2},</if>
+            <if test="aa3MtfOffAxisCheck3 != null">#{aa3MtfOffAxisCheck3},</if>
+            <if test="mtfCheckFC != null">#{mtfCheckFC},</if>
+            <if test="mtfCheckF1 != null">#{mtfCheckF1},</if>
+            <if test="mtfCheckF2 != null">#{mtfCheckF2},</if>
+            <if test="mtfCheckF3 != null">#{mtfCheckF3},</if>
+            <if test="mtfCheckF4 != null">#{mtfCheckF4},</if>
+            <if test="mtfCheck1FC != null">#{mtfCheck1FC},</if>
+            <if test="mtfCheck1F1 != null">#{mtfCheck1F1},</if>
+            <if test="mtfCheck1F2 != null">#{mtfCheck1F2},</if>
+            <if test="mtfCheck1F3 != null">#{mtfCheck1F3},</if>
+            <if test="mtfCheck1F4 != null">#{mtfCheck1F4},</if>
+            <if test="mtfCheck2FC != null">#{mtfCheck2FC},</if>
+            <if test="mtfCheck2F1 != null">#{mtfCheck2F1},</if>
+            <if test="mtfCheck2F2 != null">#{mtfCheck2F2},</if>
+            <if test="mtfCheck2F3 != null">#{mtfCheck2F3},</if>
+            <if test="mtfCheck2F4 != null">#{mtfCheck2F4},</if>
+            <if test="mtfCheck3FC != null">#{mtfCheck3FC},</if>
+            <if test="mtfCheck3F1 != null">#{mtfCheck3F1},</if>
+            <if test="mtfCheck3F2 != null">#{mtfCheck3F2},</if>
+            <if test="mtfCheck3F3 != null">#{mtfCheck3F3},</if>
+            <if test="mtfCheck3F4 != null">#{mtfCheck3F4},</if>
+            <if test="chartAlignmentXResMin != null">#{chartAlignmentXResMin},</if>
+            <if test="chartAlignmentXResMax != null">#{chartAlignmentXResMax},</if>
+            <if test="chartAlignmentYResMin != null">#{chartAlignmentYResMin},</if>
+            <if test="chartAlignmentYResMax != null">#{chartAlignmentYResMax},</if>
+            <if test="chartAlignment1XResMin != null">#{chartAlignment1XResMin},</if>
+            <if test="chartAlignment1XResMax != null">#{chartAlignment1XResMax},</if>
+            <if test="chartAlignment1YResMin != null">#{chartAlignment1YResMin},</if>
+            <if test="chartAlignment1YResMax != null">#{chartAlignment1YResMax},</if>
+            <if test="chartAlignment2XResMin != null">#{chartAlignment2XResMin},</if>
+            <if test="chartAlignment2XResMax != null">#{chartAlignment2XResMax},</if>
+            <if test="chartAlignment2YResMin != null">#{chartAlignment2YResMin},</if>
+            <if test="chartAlignment2YResMax != null">#{chartAlignment2YResMax},</if>
+            <if test="epoxyInspectionInterval != null">#{epoxyInspectionInterval},</if>
+            <if test="vcmCheckResultCheckMin != null">#{vcmCheckResultCheckMin},</if>
+            <if test="vcmCheckResultCheckMax != null">#{vcmCheckResultCheckMax},</if>
+            <if test="recordPositionUtXyzMove != null">#{recordPositionUtXyzMove},</if>
+            <if test="ocCheckXOffsetMin != null">#{ocCheckXOffsetMin},</if>
+            <if test="ocCheckXOffsetMax != null">#{ocCheckXOffsetMax},</if>
+            <if test="ocCheckYOffsetMin != null">#{ocCheckYOffsetMin},</if>
+            <if test="ocCheckYOffsetMax != null">#{ocCheckYOffsetMax},</if>
+            <if test="saveOcXOffsetMin != null">#{saveOcXOffsetMin},</if>
+            <if test="saveOcXOffsetMax != null">#{saveOcXOffsetMax},</if>
+            <if test="saveOcYOffsetMin != null">#{saveOcYOffsetMin},</if>
+            <if test="saveOcYOffsetMax != null">#{saveOcYOffsetMax},</if>
+            <if test="saveMtfCcMin != null">#{saveMtfCcMin},</if>
+            <if test="saveMtfCcMax != null">#{saveMtfCcMax},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark}</if>
+        </trim>
     </insert>
 
     <update id="updateAaListParamsStdModel">
-        update qtech_im_chk.aa_list_params_std_model
-            set destroy_start = #{destroyStart},
-                init = #{init},
-                grab = #{grab},
-                re_init = #{reInit},
-                senser_reset = #{senserReset},
-                clamp_on_off = #{clampOnOff},
-                sid = #{sid},
-                vcm_hall = #{vcmHall},
-                vcm_init = #{vcmInit},
-                vcm_hall2 = #{vcmHall2},
-                vcm_power_off = #{vcmPowerOff},
-                vcm_power_on = #{vcmPowerOn},
-                vcm_top = #{vcmTop},
-                vcm_top_hall = #{vcmTopHall},
-                vcm_z = #{vcmZ},
-                vcm_z_hall = #{vcmZHall},
-                vcm_ois_init = #{vcmOisInit},
-                chart_alignment1 = #{chartAlignment1},
-                aa1 = #{AA1},
-                aa2 = #{AA2},
-                mtf_check = #{mtfCheck},
-                aa3 = #{AA3},
-                mtf_check2 = #{mtfCheck2},
-                lp_on = #{lpOn},
-                lp_oc_check = #{lpOcCheck},
-                lp_oc = #{lpOc},
-                lp_on_blemish = #{lpOnBlemish},
-                blemish = #{blemish},
-                lp_off = #{lpOff},
-                chart_alignment = #{chartAlignment},
-                vcm_move_to_z = #{vcmMoveToZ},
-                delay = #{delay},
-                vcm_power_off_check = #{vcmPowerOffCheck},
-                record_position = #{recordPosition},
-                dispense = #{dispense},
-                epoxy_inspection_auto = #{epoxyInspectionAuto},
-                epoxy_inspection = #{epoxyInspection},
-                back_to_position = #{backToPosition},
-                uvon = #{uvon},
-                y_level = #{yLevel},
-                uvoff = #{uvoff},
-                gripper_open = #{gripperOpen},
-                save_oc = #{saveOc},
-                save_mtf = #{saveMtf},
-                destroy = #{destroy},
-                move_to_blemish_pos = #{moveToBlemishPos},
-                mtf_check3 = #{mtfCheck3},
-                mtf_off_axis_check1 = #{mtfOffAxisCheck1},
-                mtf_off_axis_check2 = #{mtfOffAxisCheck2},
-                mtf_off_axis_check3 = #{mtfOffAxisCheck3},
-                lp_blemish = #{lpBlemish},
-                chart_alignment2 = #{chartAlignment2},
-                vcm_move_to_z_pos = #{vcmMoveToZPos},
-                z_offset = #{zOffset},
-                open_check = #{openCheck},
-                roi_cc = #{roiCc},
-                roi_ul = #{roiUl},
-                roi_ur = #{roiUr},
-                roi_ll = #{roiLl},
-                roi_lr = #{roiLr},
-                result1 = #{result1},
-                result2 = #{result2},
-                result3 = #{result3},
-                result4 = #{result4},
-                result5 = #{result5},
-                result6 = #{result6},
-                result7 = #{result7},
-                result8 = #{result8},
-                result9 = #{result9},
-                result10 = #{result10},
-                result11 = #{result11},
-                result12 = #{result12},
-                result13 = #{result13},
-                result14 = #{result14},
-                result15 = #{result15},
-                result16 = #{result16},
-                result17 = #{result17},
-                result18 = #{result18},
-                result19 = #{result19},
-                result20 = #{result20},
-                result21 = #{result21},
-                result22 = #{result22},
-                result23 = #{result23},
-                result24 = #{result24},
-                result25 = #{result25},
-                result26 = #{result26},
-                result27 = #{result27},
-                result28 = #{result28},
-                result29 = #{result29},
-                result30 = #{result30},
-                result31 = #{result31},
-                result32 = #{result32},
-                result33 = #{result33},
-                result34 = #{result34},
-                result35 = #{result35},
-                result36 = #{result36},
-                result37 = #{result37},
-                result38 = #{result38},
-                result39 = #{result39},
-                result40 = #{result40},
-                result41 = #{result41},
-                result42 = #{result42},
-                result43 = #{result43},
-                result44 = #{result44},
-                result45 = #{result45},
-                result46 = #{result46},
-                result47 = #{result47},
-                result48 = #{result48},
-                result49 = #{result49},
-                result50 = #{result50},
-                result51 = #{result51},
-                result52 = #{result52},
-                x_res_min = #{xResMin},
-                x_res_max = #{xResMax},
-                y_res_min = #{yResMin},
-                y_res_max = #{yResMax},
-                epoxy_inspection_interval = #{epoxyInspectionInterval},
-                result_check_min = #{resultCheckMin},
-                result_check_max = #{resultCheckMax},
-                create_by = #{createBy},
-                create_time = #{createTime},
-                update_by = #{updateBy},
-                update_time = #{updateTime},
-                remark = #{remark}
+        UPDATE IMBIZ.IM_AA_LIST_PARAMS_STD_MODEL
+        SET AA1 = #{AA1,jdbcType=VARCHAR},
+        AA2 = #{AA2,jdbcType=VARCHAR},
+        AA3 = #{AA3,jdbcType=VARCHAR},
+        BACK_TO_POSITION = #{backToPosition,jdbcType=VARCHAR},
+        BLEMISH = #{blemish,jdbcType=VARCHAR},
+        CLAMP_ON_OFF = #{clampOnOff,jdbcType=VARCHAR},
+        CHART_ALIGNMENT = #{chartAlignment,jdbcType=VARCHAR},
+        CHART_ALIGNMENT1 = #{chartAlignment1,jdbcType=VARCHAR},
+        CHART_ALIGNMENT2 = #{chartAlignment2,jdbcType=VARCHAR},
+        DELAY = #{delay,jdbcType=VARCHAR},
+        DESTROY = #{destroy,jdbcType=VARCHAR},
+        DESTROY_START = #{destroyStart,jdbcType=VARCHAR},
+        DISPENSE = #{dispense,jdbcType=VARCHAR},
+        EPOXY_INSPECTION = #{epoxyInspection,jdbcType=VARCHAR},
+        EPOXY_INSPECTION_AUTO = #{epoxyInspectionAuto,jdbcType=VARCHAR},
+        GRAB = #{grab,jdbcType=VARCHAR},
+        GRIPPER_OPEN = #{gripperOpen,jdbcType=VARCHAR},
+        INIT = #{init,jdbcType=VARCHAR},
+        LP_BLEMISH = #{lpBlemish,jdbcType=VARCHAR},
+        LP_OC = #{lpOc,jdbcType=VARCHAR},
+        LP_OC_CHECK = #{lpOcCheck,jdbcType=VARCHAR},
+        LP_ON = #{lpOn,jdbcType=VARCHAR},
+        LP_ON_BLEMISH = #{lpOnBlemish,jdbcType=VARCHAR},
+        LP_OFF = #{lpOff,jdbcType=VARCHAR},
+        MOVE_TO_BLEMISH_POS = #{moveToBlemishPos,jdbcType=VARCHAR},
+        MTF_CHECK = #{mtfCheck,jdbcType=VARCHAR},
+        MTF_CHECK1 = #{mtfCheck1,jdbcType=VARCHAR},
+        MTF_CHECK2 = #{mtfCheck2,jdbcType=VARCHAR},
+        MTF_CHECK3 = #{mtfCheck3,jdbcType=VARCHAR},
+        OPEN_CHECK = #{openCheck,jdbcType=VARCHAR},
+        RECORD_POSITION = #{recordPosition,jdbcType=VARCHAR},
+        RE_INIT = #{reInit,jdbcType=VARCHAR},
+        SAVE_OC = #{saveOc,jdbcType=VARCHAR},
+        SAVE_MTF = #{saveMtf,jdbcType=VARCHAR},
+        SENSER_RESET = #{senserReset,jdbcType=VARCHAR},
+        SID = #{sid,jdbcType=VARCHAR},
+        UVON = #{uvon,jdbcType=VARCHAR},
+        UVOFF = #{uvoff,jdbcType=VARCHAR},
+        VCM_HALL = #{vcmHall,jdbcType=VARCHAR},
+        VCM_HALL2 = #{vcmHall2,jdbcType=VARCHAR},
+        VCM_MOVE_TO_Z = #{vcmMoveToZ,jdbcType=VARCHAR},
+        VCM_MOVE_TO_Z_POS = #{vcmMoveToZPos,jdbcType=VARCHAR},
+        VCM_POWER_OFF_CHECK = #{vcmPowerOffCheck,jdbcType=VARCHAR},
+        VCM_INIT = #{vcmInit,jdbcType=VARCHAR},
+        VCM_OIS_INIT = #{vcmOisInit,jdbcType=VARCHAR},
+        VCM_POWER_OFF = #{vcmPowerOff,jdbcType=VARCHAR},
+        VCM_POWER_ON = #{vcmPowerOn,jdbcType=VARCHAR},
+        VCM_TOP = #{vcmTop,jdbcType=VARCHAR},
+        VCM_TOP_HALL = #{vcmTopHall,jdbcType=VARCHAR},
+        VCM_Z = #{vcmZ,jdbcType=VARCHAR},
+        VCM_Z_HALL = #{vcmZHall,jdbcType=VARCHAR},
+        Y_LEVEL = #{yLevel,jdbcType=VARCHAR},
+
+        AA1_ROI_CC = #{aa1RoiCc,jdbcType=VARCHAR},
+        AA1_ROI_UL = #{aa1RoiUl,jdbcType=VARCHAR},
+        AA1_ROI_UR = #{aa1RoiUr,jdbcType=VARCHAR},
+        AA1_ROI_LL = #{aa1RoiLl,jdbcType=VARCHAR},
+        AA1_ROI_LR = #{aa1RoiLr,jdbcType=VARCHAR},
+        AA1_FC = #{aa1FC,jdbcType=VARCHAR},
+        AA1_F1 = #{aa1F1,jdbcType=VARCHAR},
+        AA1_F2 = #{aa1F2,jdbcType=VARCHAR},
+        AA1_F3 = #{aa1F3,jdbcType=VARCHAR},
+        AA1_F4 = #{aa1F4,jdbcType=VARCHAR},
+        AA1_MTF_OFF_AXIS_CHECK1 = #{aa1MtfOffAxisCheck1,jdbcType=VARCHAR},
+        AA1_MTF_OFF_AXIS_CHECK2 = #{aa1MtfOffAxisCheck2,jdbcType=VARCHAR},
+        AA1_MTF_OFF_AXIS_CHECK3 = #{aa1MtfOffAxisCheck3,jdbcType=VARCHAR},
+
+        AA2_ROI_CC = #{aa2RoiCc,jdbcType=VARCHAR},
+        AA2_ROI_UL = #{aa2RoiUl,jdbcType=VARCHAR},
+        AA2_ROI_UR = #{aa2RoiUr,jdbcType=VARCHAR},
+        AA2_ROI_LL = #{aa2RoiLl,jdbcType=VARCHAR},
+        AA2_ROI_LR = #{aa2RoiLr,jdbcType=VARCHAR},
+        AA2_FC = #{aa2FC,jdbcType=VARCHAR},
+        AA2_F1 = #{aa2F1,jdbcType=VARCHAR},
+        AA2_F2 = #{aa2F2,jdbcType=VARCHAR},
+        AA2_F3 = #{aa2F3,jdbcType=VARCHAR},
+        AA2_F4 = #{aa2F4,jdbcType=VARCHAR},
+        AA2_MTF_OFF_AXIS_CHECK1 = #{aa2MtfOffAxisCheck1,jdbcType=VARCHAR},
+        AA2_MTF_OFF_AXIS_CHECK2 = #{aa2MtfOffAxisCheck2,jdbcType=VARCHAR},
+        AA2_MTF_OFF_AXIS_CHECK3 = #{aa2MtfOffAxisCheck3,jdbcType=VARCHAR},
+
+        AA3_ROI_CC = #{aa3RoiCc,jdbcType=VARCHAR},
+        AA3_ROI_UL = #{aa3RoiUl,jdbcType=VARCHAR},
+        AA3_ROI_UR = #{aa3RoiUr,jdbcType=VARCHAR},
+        AA3_ROI_LL = #{aa3RoiLl,jdbcType=VARCHAR},
+        AA3_ROI_LR = #{aa3RoiLr,jdbcType=VARCHAR},
+        AA3_FC = #{aa3FC,jdbcType=VARCHAR},
+        AA3_F1 = #{aa3F1,jdbcType=VARCHAR},
+        AA3_F2 = #{aa3F2,jdbcType=VARCHAR},
+        AA3_F3 = #{aa3F3,jdbcType=VARCHAR},
+        AA3_F4 = #{aa3F4,jdbcType=VARCHAR},
+        AA3_MTF_OFF_AXIS_CHECK1 = #{aa3MtfOffAxisCheck1,jdbcType=VARCHAR},
+        AA3_MTF_OFF_AXIS_CHECK2 = #{aa3MtfOffAxisCheck2,jdbcType=VARCHAR},
+        AA3_MTF_OFF_AXIS_CHECK3 = #{aa3MtfOffAxisCheck3,jdbcType=VARCHAR},
+
+        MTF_CHECK_FC = #{mtfCheckFC,jdbcType=VARCHAR},
+        MTF_CHECK_F1 = #{mtfCheckF1,jdbcType=VARCHAR},
+        MTF_CHECK_F2 = #{mtfCheckF2,jdbcType=VARCHAR},
+        MTF_CHECK_F3 = #{mtfCheckF3,jdbcType=VARCHAR},
+        MTF_CHECK_F4 = #{mtfCheckF4,jdbcType=VARCHAR},
+
+        MTF_CHECK1_FC = #{mtfCheck1FC,jdbcType=VARCHAR},
+        MTF_CHECK1_F1 = #{mtfCheck1F1,jdbcType=VARCHAR},
+        MTF_CHECK1_F2 = #{mtfCheck1F2,jdbcType=VARCHAR},
+        MTF_CHECK1_F3 = #{mtfCheck1F3,jdbcType=VARCHAR},
+        MTF_CHECK1_F4 = #{mtfCheck1F4,jdbcType=VARCHAR},
+
+        MTF_CHECK2_FC = #{mtfCheck2FC,jdbcType=VARCHAR},
+        MTF_CHECK2_F1 = #{mtfCheck2F1,jdbcType=VARCHAR},
+        MTF_CHECK2_F2 = #{mtfCheck2F2,jdbcType=VARCHAR},
+        MTF_CHECK2_F3 = #{mtfCheck2F3,jdbcType=VARCHAR},
+        MTF_CHECK2_F4 = #{mtfCheck2F4,jdbcType=VARCHAR},
+
+        MTF_CHECK3_FC = #{mtfCheck3FC,jdbcType=VARCHAR},
+        MTF_CHECK3_F1 = #{mtfCheck3F1,jdbcType=VARCHAR},
+        MTF_CHECK3_F2 = #{mtfCheck3F2,jdbcType=VARCHAR},
+        MTF_CHECK3_F3 = #{mtfCheck3F3,jdbcType=VARCHAR},
+        MTF_CHECK3_F4 = #{mtfCheck3F4,jdbcType=VARCHAR},
+        CHART_ALIGNMENT_X_RES_MIN = #{chartAlignmentXResMin,jdbcType=VARCHAR},
+        CHART_ALIGNMENT_X_RES_MAX = #{chartAlignmentXResMax,jdbcType=VARCHAR},
+        CHART_ALIGNMENT_Y_RES_MIN = #{chartAlignmentYResMin,jdbcType=VARCHAR},
+        CHART_ALIGNMENT_Y_RES_MAX = #{chartAlignmentYResMax,jdbcType=VARCHAR},
+        CHART_ALIGNMENT1_X_RES_MIN = #{chartAlignment1XResMin,jdbcType=VARCHAR},
+        CHART_ALIGNMENT1_X_RES_MAX = #{chartAlignment1XResMax,jdbcType=VARCHAR},
+        CHART_ALIGNMENT1_Y_RES_MIN = #{chartAlignment1YResMin,jdbcType=VARCHAR},
+        CHART_ALIGNMENT1_Y_RES_MAX = #{chartAlignment1YResMax,jdbcType=VARCHAR},
+        CHART_ALIGNMENT2_X_RES_MIN = #{chartAlignment2XResMin,jdbcType=VARCHAR},
+        CHART_ALIGNMENT2_X_RES_MAX = #{chartAlignment2XResMax,jdbcType=VARCHAR},
+        CHART_ALIGNMENT2_Y_RES_MIN = #{chartAlignment2YResMin,jdbcType=VARCHAR},
+        CHART_ALIGNMENT2_Y_RES_MAX = #{chartAlignment2YResMax,jdbcType=VARCHAR},
+        EPOXY_INSPECTION_INTERVAL = #{epoxyInspectionInterval,jdbcType=VARCHAR},
+        VCM_CHECK_RESULT_CHECK_MIN = #{vcmCheckResultCheckMin,jdbcType=VARCHAR},
+        VCM_CHECK_RESULT_CHECK_MAX = #{vcmCheckResultCheckMax,jdbcType=VARCHAR},
+        RECORD_POSITION_UT_XYZ_MOVE = #{recordPositionUtXyzMove,jdbcType=VARCHAR},
+        OC_CHECK_X_OFFSET_MIN = #{ocCheckXOffsetMin,jdbcType=VARCHAR},
+        OC_CHECK_X_OFFSET_MAX = #{ocCheckXOffsetMax,jdbcType=VARCHAR},
+        OC_CHECK_Y_OFFSET_MIN = #{ocCheckYOffsetMin,jdbcType=VARCHAR},
+        OC_CHECK_Y_OFFSET_MAX = #{ocCheckYOffsetMax,jdbcType=VARCHAR},
+        SAVE_OC_X_OFFSET_MIN = #{saveOcXOffsetMin,jdbcType=VARCHAR},
+        SAVE_OC_X_OFFSET_MAX = #{saveOcXOffsetMax,jdbcType=VARCHAR},
+        SAVE_OC_Y_OFFSET_MIN = #{saveOcYOffsetMin,jdbcType=VARCHAR},
+        SAVE_OC_Y_OFFSET_MAX = #{saveOcYOffsetMax,jdbcType=VARCHAR},
+        SAVE_MTF_CC_MIN = #{saveMtfCcMin,jdbcType=VARCHAR},
+        SAVE_MTF_CC_MAX = #{saveMtfCcMax,jdbcType=VARCHAR},
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+        REMARK = #{remark,jdbcType=VARCHAR}
         <where>
             <if test="id != null">
-                and id = #{id}
+                AND ID = #{id}
             </if>
             <if test="prodType != null">
-                and prod_type = #{prodType}
+                AND PROD_TYPE = #{prodType}
             </if>
         </where>
     </update>
 
     <delete id="deleteAaListParamsStdModelByIds">
-        delete from qtech_im_chk.aa_list_params_std_model where id in
+        DELETE FROM IMBIZ.IM_AA_LIST_PARAMS_STD_MODEL WHERE ID IN
         <foreach collection="array" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+
     <delete id="deleteAaListParamsStdModel">
-        delete from qtech_im_chk.aa_list_params_std_model
+        DELETE FROM IMBIZ.IM_AA_LIST_PARAMS_STD_MODEL
         <where>
             <if test="id != null">
-                and id = #{id}
+                AND ID = #{id}
             </if>
             <if test="prodType != null">
-                and prod_type = #{prodType}
+                AND PROD_TYPE = #{prodType}
             </if>
         </where>
     </delete>
@@ -687,17 +777,17 @@
         <include refid="AaListParamsStdModelSql"/>
         <where>
             <if test="id != null">
-                and id = #{id}
+                AND ID = #{id}
             </if>
             <if test="prodType != null">
-                and prod_type = #{prodType}
+                AND PROD_TYPE = #{prodType}
             </if>
         </where>
     </select>
 
     <select id="checkIfExists" resultType="int">
-        select COUNT(1)
-        from qtech_im_chk.aa_list_params_std_model
-        where prod_type = #{prodType}
+        SELECT COUNT(1)
+        FROM IMBIZ.IM_AA_LIST_PARAMS_STD_MODEL
+        WHERE PROD_TYPE = #{prodType}
     </select>
 </mapper>

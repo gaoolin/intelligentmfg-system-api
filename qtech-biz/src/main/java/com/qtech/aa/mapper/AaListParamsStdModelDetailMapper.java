@@ -2,7 +2,6 @@ package com.qtech.aa.mapper;
 
 import com.qtech.aa.domain.AaListParamsStdModelDetail;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,8 +23,6 @@ public interface AaListParamsStdModelDetailMapper {
     public int deleteAaListParamsStdModelByIds(List<Long> list);
 
     public int deleteAaListParamsStdModel(AaListParamsStdModelDetail aaListParamsStdModelDetail);
-
-    public int batchInsert(@Param("list") List<AaListParamsStdModelDetail> list);
 
     public int checkIfExists(AaListParamsStdModelDetail detail);
 }
