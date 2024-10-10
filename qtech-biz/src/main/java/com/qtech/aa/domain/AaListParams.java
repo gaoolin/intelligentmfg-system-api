@@ -298,7 +298,7 @@ public class AaListParams extends BaseEntity {
     // OcCheck 指标 Save Oc
     @Excel(name = "ocCheckXOffsetMin", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String ocCheckXOffsetMin;
-    @Excel(name = "cellType", cellType = Excel.ColumnType.STRING, prompt = "item")
+    @Excel(name = "ocCheckXOffsetMax", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String ocCheckXOffsetMax;
     @Excel(name = "ocCheckYOffsetMin", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String ocCheckYOffsetMin;
