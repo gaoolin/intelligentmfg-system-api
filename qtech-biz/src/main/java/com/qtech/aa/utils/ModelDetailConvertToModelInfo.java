@@ -59,7 +59,9 @@ public class ModelDetailConvertToModelInfo {
 
     private static void listItemParamsCnt(AaListParamsStdModelDetail aaListParamsStdModelDetail, AtomicInteger paramsCnt, String fieldName) throws NoSuchFieldException, IllegalAccessException {
 
-        Field baseField = ReflectionUtils.getAllDeclaredFields(AaListParamsStdModelDetail.class).stream().filter(f -> f.getName().equals(fieldName)).findFirst().orElseThrow(() -> new NoSuchFieldException("Field 'baseField' not found"));
+        Field baseField = ReflectionUtils.getAllDeclaredFields(AaListParamsStdModelDetail.class).stream()
+                .filter(f -> f.getName().equals(fieldName))
+                .findFirst().orElseThrow(() -> new NoSuchFieldException(String.format("注意AaListParamsStdModelDetail类的属性是否缺失，或者PROPERTIES_TO_COMPARE集合中的元素有冗余。Field ‘%s’ not found", fieldName)));
 
         if (baseField.getType().equals(String.class)) {
             baseField.setAccessible(true);

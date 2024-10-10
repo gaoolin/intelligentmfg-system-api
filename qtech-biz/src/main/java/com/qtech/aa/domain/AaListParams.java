@@ -18,11 +18,11 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class AaListParams extends BaseEntity {
     @Excel(name = "AA1", cellType = Excel.ColumnType.STRING, prompt = "list")
-    private String AA1;
+    private String aa1;
     @Excel(name = "AA2", cellType = Excel.ColumnType.STRING, prompt = "list")
-    private String AA2;
+    private String aa2;
     @Excel(name = "AA3", cellType = Excel.ColumnType.STRING, prompt = "list")
-    private String AA3;
+    private String aa3;
     @Excel(name = "backToPosition", cellType = Excel.ColumnType.STRING, prompt = "list")
     private String backToPosition;
     @Excel(name = "blemish", cellType = Excel.ColumnType.STRING, prompt = "list")
@@ -137,15 +137,15 @@ public class AaListParams extends BaseEntity {
     private String aa1RoiLl;
     @Excel(name = "aa1RoiLr", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa1RoiLr;
-    @Excel(name = "aa1FC", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa1FC", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa1FC;
-    @Excel(name = "aa1F1", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa1F1", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa1F1;
-    @Excel(name = "aa1F2", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa1F2", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa1F2;
-    @Excel(name = "aa1F3", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa1F3", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa1F3;
-    @Excel(name = "aa1F4", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa1F4", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa1F4;
     @Excel(name = "aa1MtfOffAxisCheck1", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa1MtfOffAxisCheck1;
@@ -164,15 +164,15 @@ public class AaListParams extends BaseEntity {
     private String aa2RoiLl;
     @Excel(name = "aa2RoiLr", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa2RoiLr;
-    @Excel(name = "aa2FC", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa2FC", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa2FC;
-    @Excel(name = "aa2F1", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa2F1", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa2F1;
-    @Excel(name = "aa2F2", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa2F2", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa2F2;
-    @Excel(name = "aa2F3", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa2F3", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa2F3;
-    @Excel(name = "aa2F4", cellType = Excel.ColumnType.STRING, prompt = "item")
+    // @Excel(name = "aa2F4", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa2F4;
     @Excel(name = "aa2MtfOffAxisCheck1", cellType = Excel.ColumnType.STRING, prompt = "item")
     private String aa2MtfOffAxisCheck1;

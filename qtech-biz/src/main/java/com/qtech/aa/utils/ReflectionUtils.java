@@ -1,7 +1,10 @@
 package com.qtech.aa.utils;
 
+import com.qtech.aa.domain.AaListParamsStdModelDetail;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,9 +26,7 @@ public class ReflectionUtils {
     public static List<Field> getAllDeclaredFields(Class<?> clazz) {
         List<Field> fields = new ArrayList<>();
         while (clazz != null) { // 遍历直到到达Object类
-            for (Field field : clazz.getDeclaredFields()) {
-                fields.add(field);
-            }
+            fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
             clazz = clazz.getSuperclass(); // 获取父类并继续循环
         }
         return fields;
@@ -41,7 +42,7 @@ public class ReflectionUtils {
         }
 
         // 使用示例
-        Field field = ReflectionUtils.getAllDeclaredFields(ChildClass.class)
+        Field field = ReflectionUtils.getAllDeclaredFields(AaListParamsStdModelDetail.class)
                                      .stream()
                                      .filter(f -> f.getName().equals("baseField")) // 示例：查找名为"baseField"的字段
                                      .findFirst()

@@ -7,9 +7,9 @@
         <result property="simId" column="sim_id" jdbcType="VARCHAR"/>
         <result property="prodType" column="prod_type" jdbcType="VARCHAR"/>
         <result property="receivedTime" column="received_time" jdbcType="TIMESTAMP"/>
-        <result property="AA1" column="aa1" jdbcType="VARCHAR"/>
-        <result property="AA2" column="aa2" jdbcType="VARCHAR"/>
-        <result property="AA3" column="aa3" jdbcType="VARCHAR"/>
+        <result property="aa1" column="aa1" jdbcType="VARCHAR"/>
+        <result property="aa2" column="aa2" jdbcType="VARCHAR"/>
+        <result property="aa3" column="aa3" jdbcType="VARCHAR"/>
         <result property="backToPosition" column="back_to_position" jdbcType="VARCHAR"/>
         <result property="blemish" column="blemish" jdbcType="VARCHAR"/>
         <result property="clampOnOff" column="clamp_on_off" jdbcType="VARCHAR"/>
